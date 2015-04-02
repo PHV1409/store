@@ -15,7 +15,6 @@ class MainController extends Controller{
      * Dashboard on Backend
      */
     public function indexAction(){
-
         return $this->render('StoreBackendBundle:Main:index.html.twig');
     }
 
