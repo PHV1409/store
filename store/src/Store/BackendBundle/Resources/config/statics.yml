@@ -13,6 +13,7 @@ store_backend_statics_terms: # ou mentions_legales
   path: /terms # chemin vers l'URI # ou mentions-legales
   defaults: { _controller: StoreBackendBundle:Statics:terms }
   # NomduBundle:NomduController:Nomdel'Action
+
 store_backend_statics_concept:
   path: /concept # chemin vers l'URI
   defaults: { _controller: StoreBackendBundle:Statics:concept }

@@ -32,4 +32,4 @@ store_backend_cms:
 # Pages cms
 store_backend_supplier:
     resource: "@StoreBackendBundle/Resources/config/modules/supplier.yml"
-    prefix:   /supplier
+    prefix:   /suppliers
