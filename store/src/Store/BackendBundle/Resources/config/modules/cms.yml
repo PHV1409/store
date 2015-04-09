@@ -6,9 +6,8 @@ store_backend_cms_list:
 
 # Page CMS view
 store_backend_cms_view:
-  path: /view/{id}/{name} # chemin vers l'URI
+  path: /view/{id}/{title} # chemin vers l'URI
   defaults: { _controller: StoreBackendBundle:CMS:view }
   requirements:
     id: \d+
-    name: "[a-zA-Z0-9-]{3,30}"
     _method: GET

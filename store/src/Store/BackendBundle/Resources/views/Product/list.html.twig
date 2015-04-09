@@ -5,5 +5,55 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Page liste des produits</h1>
+    {# Boucle sur les produits #}
+    {% for product in products %} {# for nomdelaclef in nomdutableau #}
+        {# ref, title, price sont les attributs et non pas les champs de la table #}
+
+        <p> <h3><a href="{{ path('store_backend_product_view', {'slug' : product.slug, 'id' : product.id } ) }}" >{{ product.title }}</a> - <i>{{ product.dateCreated|date('d/m/Y') }}</i>
+
+            {% if product.active == 0 %}
+                <i class="fa fa-times"></i>
+            {% else %}
+                <i class="fa fa-check"></i>
+            {% endif %}
+
+        </h3> <sub>{{ product.ref }} </sub>{# Affiche la reference du produit #}
+        </p>
+        <hr />
+        <h3>Catégories</h3>
+            {% for category in product.category %}
+                <span class="badge"> {{ category.title }}</span>
+            {% endfor %}
+
+        <h5> Nom de la boutique de mon produit : {{ product.jeweler.title }}</h5>
+        <a href="{{ path('store_backend_product_remove', { 'id':product.id } ) }}">Supprimer</a>
+        <p> Produit : <strong>  {{ product.price }} € ~ </strong> Taxe : {{ product.taxe }} </p>
+        <p class="jumbotron"> Description : <i>{{ product.description }}</i></p>
+        <p> Quantité : {{ product.quantity }} quantités </p>
+        <p><b> Composition </b> <i> {{ product.composition }} </i></p>
+
+        <p> Description de la boutique de mon produit :  {{ product.jeweler.description }}</p>
+        <img src="{{ product.jeweler.image }}" alt="">
+
+        <div class="alert alert-dark">
+            <h3>Promotions</h3>
+            <ul>
+                {% for business in product.business %}
+                    <li> {{ business.amount }}
+                         {{ business.message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <h3>CMS</h3>
+
+            {% for cms in product.cms %}
+                <span class="badge"> {{ cms.title }}
+                </span>
+            {% endfor %}
+
+    {% else %} {# si aucun produit #}
+        <div class="alert alert-dark">Aucun produit</div>
+    {% endfor %}
 {% endblock %}

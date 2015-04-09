@@ -5,5 +5,68 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Page liste des catégories</h1>
+    <div class="panel">
+        <div class="table-info">
+            <div class="table-header">
+                <div class="table-caption">
+                    Catégories
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Produits</th>
+                    <th>Etat</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# Boucle sur les catégories #}
+                {% for category in categories %} {# for nomdelaclef in nomdutableau #}
+                    {# title, active sont les attributs et non pas les champs de la table #}
+                    <tr>
+                        <td>{{ category.id }}</td>
+                        <td><a href="{{ path('store_backend_category_view', {'title' : category.title, 'id' : category.id } ) }}">{{ category.title }}</a>
+                        </td>
+                        <td>{{ category.description }}</td>
+                        <td>
+                            <span class="badge">{{ category.product|length }}</span> Produits <br/><br/>
+                            {% for product in category.product %}
+                                <span class="badge"> {{ product.title }} </span>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if category.active == 0 %}
+                                <i class="fa fa-times"></i>
+                            {% else %}
+                                <i class="fa fa-check success"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="btn-group dropup">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Actions <i class="fa fa-caret-down"></i> </button>
+                                <ul class="dropdown-menu">
+                                    <li> <a href="{{ path('store_backend_category_view', {'title' : category.title, 'id' : category.id } ) }}"><i class="fa fa-eye"></i> Voir </a></li>
+                                    <li> <a href="#"><i class="fa fa-pencil"></i> Editer </a></li>
+                                    <li class="divider"></li>
+                                    <li> <a href="{{ path('store_backend_category_remove', { 'id':category.id } ) }}"><i class="fa fa-times"></i> Supprimer </a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %} {# si aucune catégorie #}
+                    <div class="alert alert-dark">Aucune catégorie</div>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        <div class="table-footer">
+            Footer
+        </div>
+    </div>
+    </div>
 {% endblock %}
+

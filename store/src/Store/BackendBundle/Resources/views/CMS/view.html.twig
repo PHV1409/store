@@ -1,9 +1,9 @@
 {% extends "StoreBackendBundle::layout.html.twig" %}
 
 {% block titlepage %}
-    Page d'une cms : {{ id }}
+    Page d'une cms : {{ cms.id }}
 {% endblock %}
 
 {% block content %}
-    <p>Nom de la cms : {{ name }}</p>
+    <p>Nom de la cms : {{ cms.title }}</p>
 {% endblock %}

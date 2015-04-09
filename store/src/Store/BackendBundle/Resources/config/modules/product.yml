@@ -6,9 +6,13 @@ store_backend_product_list:
 
 # Page View a Product
 store_backend_product_view:
-  path: /view/{id}/{name} # chemin vers l'URI
+  path: /view/{id}/{slug} # chemin vers l'URI
   defaults: { _controller: StoreBackendBundle:Product:view }
   requirements:
     id : \d+
-    name: "[a-zA-Z0-9-]{5,30}"
     _method: GET
+
+# remove a Product
+store_backend_product_remove:
+  path: /remove/{id}
+  defaults: { _controller: StoreBackendBundle:Product:remove }

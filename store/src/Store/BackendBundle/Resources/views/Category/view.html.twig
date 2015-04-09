@@ -1,9 +1,17 @@
 {% extends "StoreBackendBundle::layout.html.twig" %}
 
 {% block titlepage %}
-    Page d'une catégorie : {{ id }}
+    Page d'une catégorie : {{ category.id }}
 {% endblock %}
 
 {% block content %}
-    <p>Nom de la catégorie : {{ name }}</p>
+    <p>Nom de la catégorie : {{ category.title }}</p>
+    <p>Description : {{ category.description }}</p>
+
+    <span class="badge">{{ category.product|length }}</span> Produits <br/><br/>
+    {% for product in category.product %}
+        <span class="badge"> {{ product.title }} </span>
+    {% endfor %}
+
+
 {% endblock %}

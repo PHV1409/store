@@ -16,22 +16,53 @@ class ProductController extends Controller{
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction(){
-        return $this->render('StoreBackendBundle:Product:list.html.twig');
+
+        // recupere le manager de doctrine : le conteneur d'objet
+        $em = $this->getDoctrine()->getManager();
+
+        // Je récupère tous les produits de ma base de données
+        $products = $em->getRepository('StoreBackendBundle:Product')->findAll(); // Nom du Bundle: Nom de l'entité
+
+        // Requête: SELECT * FROM product
+        // Je retourne la vue List contenue dans le dossier Product de mon Bundle StoreBackendBundle
+        return $this->render('StoreBackendBundle:Product:list.html.twig',array(
+            'products' => $products
+        ));
+
     }
 
     /**
-     * Page view d'un produit
      * @param $id
-     * @param $name
+     * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction($id, $name){
+    public function viewAction($id, $slug){
+
+        // recupere le manager de doctrine : le conteneur d'objet
+        $em = $this->getDoctrine()->getManager();
+
+        // Je récupère le produit de ma base de données
+        $product = $em->getRepository('StoreBackendBundle:Product')->find($id); // Nom du Bundle: Nom de l'entité
+
         return $this->render('StoreBackendBundle:Product:view.html.twig',
             array(
-                'id' => $id,
-                'name' => $name
+                'product' => $product
             )
         );
+    }
+
+    public function removeAction($id){
+
+        // recupere le manager de doctrine : le conteneur d'objet
+        $em = $this->getDoctrine()->getManager();
+
+        // Je récupère le produit de ma base de données
+        $product = $em->getRepository('StoreBackendBundle:Product')->find($id); // Nom du Bundle: Nom de l'entité
+
+        $em->remove($product);
+        $em->flush();
+
+        return $this->redirectToRoute('store_backend_product_list');
     }
 
 

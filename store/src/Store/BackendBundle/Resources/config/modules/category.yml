@@ -6,9 +6,13 @@ store_backend_category_list:
 
 # Page Category view
 store_backend_category_view:
-  path: /view/{id}/{name} # chemin vers l'URI
+  path: /view/{id}/{title} # chemin vers l'URI
   defaults: { _controller: StoreBackendBundle:Category:view }
   requirements:
     id: \d+
-    name: "[a-zA-Z0-9-]{3,30}"
     _method: GET
+
+# remove a Category
+store_backend_category_remove:
+  path: /remove/{id}
+  defaults: { _controller: StoreBackendBundle:Category:remove }
