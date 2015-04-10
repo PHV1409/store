@@ -5,5 +5,20 @@
 {% endblock %}
 
 {% block content %}
-    <p>Nom de la cms : {{ cms.title }}</p>
+
+    <p>{{ cms.id }}</p>
+    <p>{{ cms.title }}</p>
+    <p>{{ cms.summary }}</p>
+    <p>{{ cms.description }}</p>
+    <p>{{ cms.image }}</p>
+    <p>{{ cms.video }}</p>
+    <p>{{ cms.state }}</p>
+    <p>{{ cms.active }}</p>
+    <p>{{ cms.view }}</p>
+
+    <span class="badge">{{ cms.product|length }}</span> Produits <br/><br/>
+    {% for product in cms.product %}
+        <span class="badge"> {{ product.title }} </span>
+    {% endfor %}
+
 {% endblock %}

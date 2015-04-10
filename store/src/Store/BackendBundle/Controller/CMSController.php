@@ -21,12 +21,12 @@ class CMSController extends Controller{
         $em = $this->getDoctrine()->getManager();
 
         // Je récupère tous les catégories de ma base de données
-        $cms = $em->getRepository('StoreBackendBundle:Cms')->findAll(); // Nom du Bundle: Nom de l'entité
+        $pages = $em->getRepository('StoreBackendBundle:Cms')->findAll(); // Nom du Bundle: Nom de l'entité
 
         // Requête: SELECT * FROM product
         // Je retourne la vue List contenue dans le dossier Category de mon Bundle StoreBackendBundle
         return $this->render('StoreBackendBundle:CMS:list.html.twig',array(
-            'cms' => $cms
+            'pages' => $pages
         ));
     }
 
@@ -44,12 +44,28 @@ class CMSController extends Controller{
         $cms = $em->getRepository('StoreBackendBundle:Cms')->find($id); // Nom du Bundle: Nom de l'entité
 
         // je retourne ma vue view de Catégorie où je transmet l'id en vue et le name
-        return $this->render('StoreBackendBundle:Category:view.html.twig',
+        return $this->render('StoreBackendBundle:CMS:view.html.twig',
             array(
-                'category' => $category, // le nom de ma clé sera le nom de ma variable en vue
+                'cms' => $cms // le nom de ma clé sera le nom de ma variable en vue
             )
         );
     }
+
+
+    public function removeAction($id){
+
+        // recupere le manager de doctrine : le conteneur d'objet
+        $em = $this->getDoctrine()->getManager();
+
+        // Je récupère le cms de ma base de données
+        $cms = $em->getRepository('StoreBackendBundle:Cms')->find($id); // Nom du Bundle: Nom de l'entité
+
+        $em->remove($cms);
+        $em->flush();
+
+        return $this->redirectToRoute('store_backend_cms_list');
+    }
+
 
 
 }

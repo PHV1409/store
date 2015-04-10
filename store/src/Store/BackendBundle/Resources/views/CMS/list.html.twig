@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block content %}
+
+<div class="panel">
     <div class="table-primary">
         <div class="table-header">
             <div class="table-caption">
@@ -19,27 +21,34 @@
                 <th>Titre</th>
                 <th>Résumé</th>
                 <th>Description</th>
+                <th>Produits</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {# Boucle sur les cms #}
-            {% for cms in cms %} {# for nomdelaclef in nomdutableau #}
+            {% for page in pages %} {# for nomdelaclef in nomdutableau #}
             {# title, active sont les attributs et non pas les champs de la table #}
             <tr>
-                <td>{{ cms.id }}</td>
-                <td><img src="{{ cms.image }}" alt="" style="width:26px;height:26px;" class="rounded"></td>
-                <td>{{ cms.title }}</td>
-                <td>{{ cms.summary }}</td>
-                <td>{{ cms.description }}</td>
+                <td>{{ page.id }}</td>
+                <td><img src="{{ page.image }}" alt="" style="width:26px;height:26px;" class="rounded"></td>
+                <td>{{ page.title }}</td>
+                <td>{{ page.summary }}</td>
+                <td>{{ page.description }}</td>
+                <td>
+                    <span class="badge">{{ page.product|length }}</span> Produits <br/><br/>
+                    {% for product in page.product %}
+                        <span class="badge"> {{ product.title }} </span>
+                    {% endfor %}
+                </td>
                 <td>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Actions <i class="fa fa-caret-down"></i> </button>
                         <ul class="dropdown-menu">
-                            <li> <a href="{{ path('store_backend_cms_view', {'title' : cms.title, 'id' : cms.id } ) }}"><i class="fa fa-eye"></i> Voir </a></li>
+                            <li> <a href="{{ path('store_backend_cms_view', {'title' : page.title, 'id' : page.id } ) }}"><i class="fa fa-eye"></i> Voir </a></li>
                             <li> <a href="#"><i class="fa fa-pencil"></i> Editer </a></li>
                             <li class="divider"></li>
-                            <li> <a href="#"><i class="fa fa-times"></i> Supprimer </a></li>
+                            <li> <a href="{{ path('store_backend_cms_remove', { 'id' : page.id } ) }}"><i class="fa fa-times"></i> Supprimer </a></li>
                         </ul>
                     </div>
                 </td>
@@ -52,4 +61,5 @@
             Footer
         </div>
     </div>
+</div>
 {% endblock %}

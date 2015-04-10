@@ -59,13 +59,13 @@ class CategoryController extends Controller{
         // recupere le manager de doctrine : le conteneur d'objet
         $em = $this->getDoctrine()->getManager();
 
-        // Je récupère le produit de ma base de données
+        // Je récupère la catégorie dans ma base de données
         $category = $em->getRepository('StoreBackendBundle:Category')->find($id); // Nom du Bundle: Nom de l'entité
 
         $em->remove($category);
         $em->flush();
 
-        $this->redirectToRoute('store_backend_category_list');
+        return $this->redirectToRoute('store_backend_category_list');
     }
 
 

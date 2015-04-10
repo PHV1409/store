@@ -722,4 +722,14 @@ class Jeweler
     {
         return $this->dateCreated;
     }
+
+    /**
+     * Converti un objet jeweler en chaine de caractères
+     * @return string
+     */
+    public function __toString(){
+        return $this->title;
+    }
+
+
 }

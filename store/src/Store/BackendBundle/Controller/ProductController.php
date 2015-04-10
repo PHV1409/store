@@ -20,8 +20,8 @@ class ProductController extends Controller{
         // recupere le manager de doctrine : le conteneur d'objet
         $em = $this->getDoctrine()->getManager();
 
-        // Je récupère tous les produits de ma base de données
-        $products = $em->getRepository('StoreBackendBundle:Product')->findAll(); // Nom du Bundle: Nom de l'entité
+        // Je récupère tous les produits de jeweler numéro 1
+        $products = $em->getRepository('StoreBackendBundle:Product')->getProductByUser(1); // Nom du Bundle: Nom de l'entité
 
         // Requête: SELECT * FROM product
         // Je retourne la vue List contenue dans le dossier Product de mon Bundle StoreBackendBundle

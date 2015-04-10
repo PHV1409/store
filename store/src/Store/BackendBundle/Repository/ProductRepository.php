@@ -1,0 +1,43 @@
+<?php
+namespace Store\BackendBundle\Repository;
+use Doctrine\ORM\EntityRepository;
+
+/**
+ * Created by PhpStorm.
+ * User: wac30
+ * Date: 10/04/15
+ * Time: 16:27
+ */
+
+/**
+ * Class ProductRepository
+ * @package store\backendBundle\Repository
+ */
+class ProductRepository extends EntityRepository{
+
+    /**
+     * Get all product of an user
+     * @param null $user
+     * @return array
+     */
+    public function getProductByUser($user = null){
+        /**
+         * nom du bundle : nom de l'entité
+         * alias . nom de l'attribut de l'entité du FROM = : d'une variable nomée
+         *
+         * valeur de la variable nomée : user , valeur du paramètre
+         */
+        $query = $this->getEntityManager()
+            ->createQuery(
+                "SELECT p
+                FROM StoreBackendBundle:Product p
+                WHERE p.jeweler = :user"
+            )
+            ->setParameter('user', $user);
+
+        return $query->getResult();
+
+    }
+
+
+} 
