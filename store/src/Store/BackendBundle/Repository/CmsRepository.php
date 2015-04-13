@@ -13,25 +13,25 @@ use Doctrine\ORM\EntityRepository;
  * Class ProductRepository
  * @package store\backendBundle\Repository
  */
-class ProductRepository extends EntityRepository{
+class CmsRepository extends EntityRepository{
 
     /**
      * Get all product of an user
      * @param null $user
      * @return array
      */
-    public function getProductByUser($user = null){
+    public function getCmsByUser($user = null){
         /**
-         * nom du bundle : nom de l'entité
-         * alias.nom de l'attribut de l'entité du FROM = : d'une variable nomée
+         * Récupère les cms
          *
-         * valeur de la variable nomée : user , valeur du paramètre
          */
         $query = $this->getEntityManager()
             ->createQuery(
-                "SELECT p
-                FROM StoreBackendBundle:Product p
-                WHERE p.jeweler = :user"
+                "SELECT cm
+                FROM StoreBackendBundle:Cms cm
+                JOIN cm.product p
+                WHERE p.jeweler = :user
+                GROUP BY p.jeweler"
             )
             ->setParameter('user', $user);
 
@@ -40,27 +40,25 @@ class ProductRepository extends EntityRepository{
     }
 
     /**
-     * Count all product
-     * @param null $user
+     * @param $user
      * @return mixed
      *
      * SELECT COUNT(id)
-     * FROM `product`
+     * FROM cms
      * WHERE jeweler_id = 1
      */
-    public function getCountByUser($user = null){
-        // compte le nbr de produits pour un bijoutiers
+    public function getCountByUser($user){
         $query = $this->getEntityManager()
             ->createQuery(
-                "SELECT COUNT(p) AS nb
-                FROM StoreBackendBundle:Product p
-                WHERE p.jeweler = :user"
+                "
+                SELECT COUNT(cm) AS nb
+                FROM StoreBackendBundle:Cms cm
+                WHERE cm.jeweler = :user"
             )
-            ->setParameter('user', $user);
+            ->setParameter('user',$user);
 
         // retourne 1 résultat ou null
         return $query->getOneOrNullResult();
     }
-
 
 } 

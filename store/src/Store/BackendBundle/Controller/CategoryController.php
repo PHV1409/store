@@ -21,7 +21,7 @@ class CategoryController extends Controller{
         $em = $this->getDoctrine()->getManager();
 
         // Je récupère tous les catégories de ma base de données
-        $categories = $em->getRepository('StoreBackendBundle:Category')->findAll(); // Nom du Bundle: Nom de l'entité
+        $categories = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser(1); // Nom du Bundle: Nom de l'entité
 
         // Requête: SELECT * FROM product
         // Je retourne la vue List contenue dans le dossier Category de mon Bundle StoreBackendBundle

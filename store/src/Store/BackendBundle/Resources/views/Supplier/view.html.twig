@@ -1,9 +1,15 @@
 {% extends "StoreBackendBundle::layout.html.twig" %}
 
 {% block titlepage %}
-    Page d'un fournisseur : {{ id }}
+    Page d'un fournisseur : {{ supplier.id }}
 {% endblock %}
 
 {% block content %}
-    <p>Nom du fournisseur : {{ name }}</p>
+    <p>Nom du fournisseur : {{ supplier.name }}</p>
+    <p>Description : {{ supplier.description }}</p>
+    <img src="{{ supplier.image }}" class="img-responsive" />
+
+
+
+
 {% endblock %}

@@ -5,7 +5,65 @@
 {% endblock %}
 
 {% block content %}
+    <div class="panel">
+        <div class="table-info">
+            <div class="table-header">
+                <div class="table-caption">
+                    Fournisseurs
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Etat</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# Boucle sur les catégories #}
+                {% for supplier in supplier %} {# for nomdelaclef in nomdutableau #}
+                    {# title, active sont les attributs et non pas les champs de la table #}
+                    <tr>
+                        <td>{{ supplier.id }}</td>
+                        <td><a href="{{ path('store_backend_supplier_view', {'title' : supplier.name, 'id' : supplier.id } ) }}">{{ supplier.name }}</a>
+                        </td>
+                        <td>{{ supplier.description }}</td>
+                        <td>
+                            <img src="{{ supplier.image }}" class="img-responsive" />
+                        </td>
+                        <td>
+                            {% if supplier.active == 0 %}
+                                <i class="fa fa-times"></i>
+                            {% else %}
+                                <i class="fa fa-check success"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="btn-group dropup">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Actions <i class="fa fa-caret-down"></i> </button>
+                                <ul class="dropdown-menu">
+                                    <li> <a href="{{ path('store_backend_supplier_view', {'title' : supplier.name, 'id' : supplier.id } ) }}"><i class="fa fa-eye"></i> Voir </a></li>
+                                    <li> <a href="#"><i class="fa fa-pencil"></i> Editer </a></li>
+                                    <li class="divider"></li>
+                                    <li> <a href="{{ path('store_backend_supplier_remove', { 'id':supplier.id } ) }}"><i class="fa fa-times"></i> Supprimer </a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %} {# si aucune fournisseur #}
+                    <div class="alert alert-dark">Aucun fournisseur</div>
+                {% endfor %}
 
-    <h1>Page liste des fournisseurs</h1>
-
+                </tbody>
+            </table>
+            <div class="table-footer">
+                Footer
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
