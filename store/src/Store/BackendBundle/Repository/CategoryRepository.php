@@ -26,9 +26,9 @@ class CategoryRepository extends EntityRepository{
          */
         $query = $this->getEntityManager()
             ->createQuery(
-                "SELECT s
-                FROM StoreBackendBundle:Supplier s
-                JOIN s.product p
+                "SELECT c
+                FROM StoreBackendBundle:Category c
+                JOIN c.product p
                 WHERE p.jeweler = :user
                 GROUP BY p.jeweler"
             )
@@ -53,10 +53,38 @@ class CategoryRepository extends EntityRepository{
                 FROM StoreBackendBundle:Category c
                 WHERE c.jeweler = :user"
             )
-                ->setParameter('user',$user);
+            ->setParameter('user',$user);
 
         // retourne 1 résultat ou null
         return $query->getOneOrNullResult();
+    }
+    /**
+     * @param $user
+     * @return mixed
+     *
+     * SELECT c.title, COUNT(p.id)
+     * FROM `category` AS c
+     * INNER JOIN product_category AS pc ON c.id= pc.category_id
+     * INNER JOIN product AS p ON pc.product_id = p.id
+     * WHERE p.jeweler_id = 1
+     * GROUP BY c.id
+     */
+    public function getCatPopulaireByUser($user){
+        $query = $this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT c
+                FROM StoreBackendBundle:Category c
+                INNER JOIN c.product p
+                WHERE p.jeweler = :user
+                GROUP BY c.id
+                "
+            )
+            ->setParameter('user',$user);
+        //exit(print_r($query->getSQL()));
+
+        // retourne 1 résultat ou null
+        return $query->getResult();
     }
 
 

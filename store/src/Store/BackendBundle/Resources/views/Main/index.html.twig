@@ -77,97 +77,164 @@
     <div class="col-md-6">
 
 
-    <div class="panel panel-warning" id="dashboard-recent">
-    <div class="panel-heading">
-        <span class="panel-title"><i class="panel-title-icon fa fa-fire text-danger"></i>Commentaires</span>
-        <ul class="nav nav-tabs nav-tabs-xs">
-            <li class="active">
-                <a href="#dashboard-recent-comments" data-toggle="tab">Commentaires actifs</a>
-            </li>
-            <li>
-                <a href="#dashboard-recent-threads" data-toggle="tab">Commentaires en cours</a>
-            </li>
-        </ul>
-    </div> <!-- / .panel-heading -->
-    <div class="tab-content">
+        <div class="panel panel-warning" id="dashboard-recent">
+            <div class="panel-heading">
+                <span class="panel-title"><i class="panel-title-icon fa fa-fire text-danger"></i>Commentaires</span>
+                <ul class="nav nav-tabs nav-tabs-xs">
+                    <li class="active">
+                        <a href="#dashboard-recent-comments" data-toggle="tab">Commentaires actifs</a>
+                    </li>
+                    <li>
+                        <a href="#dashboard-recent-threads" data-toggle="tab">Commentaires en cours</a>
+                    </li>
+                </ul>
+            </div> <!-- / .panel-heading -->
+            <div class="tab-content">
 
-    <!-- Comments widget -->
+                <!-- Comments widget -->
 
-    <!-- Without padding -->
-    <div class="widget-comments panel-body tab-pane no-padding fade active in" id="dashboard-recent-comments">
-        <!-- Panel padding, without vertical padding -->
-        <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
-            {% for commentsactifs in commentsactifs %}
-                <div class="comment">
-                    <img src="http://placekitten.com/200/300" alt="" class="comment-avatar">
-                    <div class="comment-body">
-                        <div class="comment-by">
-                            <a href="#" title="">{{ commentsactifs.user.firstname ~ " " ~ commentsactifs.user.lastname }}</a> commented on <a href="#" title="">{{ commentsactifs.product.title }}</a>
-                        </div>
-                        <div class="comment-text">
-                            {{ commentsactifs.content }}
-                        </div>
-                        <div class="comment-actions">
-                            <a href="#"><i class="fa fa-pencil"></i>Edit</a>
-                            <a href="#"><i class="fa fa-times"></i>Remove</a>
-                            <span class="pull-right">2 hours ago</span>
-                        </div>
-                    </div> <!-- / .comment-body -->
-                </div> <!-- / .comment -->
+                <!-- Without padding -->
+                <div class="widget-comments panel-body tab-pane no-padding fade active in" id="dashboard-recent-comments">
+                    <!-- Panel padding, without vertical padding -->
+                    <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
+                        {% for commentsactifs in commentsactifs %}
+                            <div class="comment">
+                                <img src="#" alt="" class="comment-avatar">
+                                <div class="comment-body">
+                                    <div class="comment-by">
+                                        <a href="#" title="">{{ commentsactifs.user.firstname ~ " " ~ commentsactifs.user.lastname }}</a> a commenté <a href="#" title="">{{ commentsactifs.product.title }}</a>
+                                    </div>
+                                    <div class="comment-text">
+                                        {{ commentsactifs.content }}
+                                    </div>
+                                    <div class="comment-actions">
+                                        <a href="#"><i class="fa fa-pencil"></i>Edit</a>
+                                        <a href="#"><i class="fa fa-times"></i>Remove</a>
+                                        <span class="pull-right">2 hours ago</span>
+                                    </div>
+                                </div> <!-- / .comment-body -->
+                            </div> <!-- / .comment -->
 
-            {% endfor %}
+                        {% endfor %}
 
 
+                    </div>
+                </div>
+
+                <!-- Threads widget -->
+
+                <!-- Without padding -->
+                <div class="widget-threads panel-body tab-pane no-padding fade" id="dashboard-recent-threads">
+                    <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
+                        {% for commentsinactifs in commentsinactifs %}
+                            <div class="comment">
+                                <img src="#" alt="" class="comment-avatar">
+                                <div class="comment-body">
+                                    <div class="comment-by">
+                                        <a href="#" title="">{{ commentsinactifs.user.firstname ~ " " ~ commentsinactifs.user.lastname }}</a> a commenté <a href="#" title="">{{ commentsinactifs.product.title }}</a>
+                                    </div>
+                                    <div class="comment-text">
+                                        {{ commentsinactifs.content }}
+                                    </div>
+                                    <div class="comment-actions">
+                                        <a href="#"><i class="fa fa-pencil"></i>Edit</a>
+                                        <a href="#"><i class="fa fa-times"></i>Remove</a>
+                                        <span class="pull-right">2 hours ago</span>
+                                    </div>
+                                </div> <!-- / .comment-body -->
+                            </div> <!-- / .comment -->
+
+                        {% endfor %}
+
+
+
+                    </div>
+                </div> <!-- / .panel-body -->
             </div>
-        </div>
-
-    <!-- Threads widget -->
-
-    <!-- Without padding -->
-    <div class="widget-threads panel-body tab-pane no-padding fade" id="dashboard-recent-threads">
-        <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
-                <div class="thread">
-                    <img src="assets/demo/avatars/2.jpg" alt="" class="thread-avatar">
-                    <div class="thread-body">
-                        <span class="thread-time">14h</span>
-                        <a href="#" class="thread-title">Lorem ipsum dolor sit amet</a>
-                        <div class="thread-info">started by <a href="#" title="">Robert Jang</a> in <a href="#" title="">Forum name</a></div>
-                    </div> <!-- / .thread-body -->
-                </div> <!-- / .thread -->
-
-
-
-            </div>
-    </div> <!-- / .panel-body -->
-    </div>
-    </div> <!-- / .widget-threads -->
+        </div> <!-- / .widget-threads -->
     </div>
     {# ***********************************************************************************************************************************  #}
     <div class="col-md-6">
         <div class="panel panel-success widget-support-tickets" id="dashboard-support-tickets">
             <div class="panel-heading">
-                <span class="panel-title"><i class="panel-title-icon fa fa-bullhorn"></i>Support Tickets</span>
+                <span class="panel-title"><i class="panel-title-icon fa fa-bullhorn"></i>Les 5 dernières commandes</span>
                 <div class="panel-heading-controls">
-                    <div class="panel-heading-text"><a href="#">15 new tickets</a></div>
+                    <div class="panel-heading-text"><a href="#">{{ nbcde.nb|default('0') }} commandes enregistrées</a></div>
                 </div>
             </div> <!-- / .panel-heading -->
             <div class="panel-body tab-content-padding">
                 <!-- Panel padding, without vertical padding -->
-                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
+                <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
 
+                    {% for fivelastcde in fivelastcde %}
                         <div class="ticket">
-                            <span class="label label-success ticket-label">Completed</span>
-                            <a href="#" title="" class="ticket-title">Server unavaible<span>[#201798]</span></a>
+                            {% if fivelastcde.state == 1 %}
+                                <span class="label label-success ticket-label">Envoyé</span>
+                            {% elseif fivelastcde.state == 0 %}
+                                <span class="label label-info ticket-label">En cours</span>
+                            {% elseif fivelastcde.state == 2 %}
+                                <span class="label label-warning ticket-label">En attente de paiement</span>
+                            {% else %}
+                                <span class="label label-danger ticket-label">Annulé</span>
+                            {% endif %}
+
+                            <a href="#" title="" class="ticket-title">{{ fivelastcde.address }}<span>[#{{ fivelastcde.id }}]</span></a>
 								<span class="ticket-info">
-									Opened by <a href="#" title="">Timothy Owens</a> today
+									Commande par <a href="#" title="">{{ fivelastcde.user.firstname ~ " " ~ fivelastcde.user.lastname }}</a> {{ fivelastcde.date|date("m/d/Y") }}
 								</span>
                         </div> <!-- / .ticket -->
-
-
-
-                    </div></div>
+                    {% endfor %}
+                </div>
             </div> <!-- / .panel-body -->
         </div> <!-- / .panel -->
+    </div>
+    {# ***********************************************************************************************************************************  #}
+    <div class="col-sm-6">
+
+        <!-- 8. $STRIPED_TABLES ============================================================================
+
+                        Striped tables
+        -->
+        <div class="panel">
+            <div class="panel-heading">
+                <span class="panel-title">Les catégories les plus populaires</span>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Nbr de produit</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for catpopulaire in catpopulaire %}
+                    <tr>
+                        <td>{{ catpopulaire.id }}</td>
+                        <td>{{ catpopulaire.title }}</td>
+                        <td><span class="badge">{{ catpopulaire.product|length }}</span></td>
+                        <td>
+                            <div class="btn-group dropup">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Actions <i class="fa fa-caret-down"></i> </button>
+                                <ul class="dropdown-menu">
+                                    <li> <a href="{{ path('store_backend_category_view', {'title' : catpopulaire.title, 'id' : catpopulaire.id } ) }}"><i class="fa fa-eye"></i> Voir </a></li>
+                                    <li> <a href="#"><i class="fa fa-pencil"></i> Editer </a></li>
+                                    <li class="divider"></li>
+                                    <li> <a href="{{ path('store_backend_category_remove', { 'id':catpopulaire.id } ) }}"><i class="fa fa-times"></i> Supprimer </a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /8. $STRIPED_TABLES -->
+
+
     </div>
 
 {% endblock %}

@@ -442,4 +442,15 @@ class Cms
     {
         return $this->product;
     }
+
+    /**
+     * retourne le titre
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+
 }

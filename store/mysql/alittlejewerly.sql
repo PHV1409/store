@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 10 Avril 2015 à 18:08
+-- Généré le: Mar 14 Avril 2015 à 18:32
 -- Version du serveur: 5.5.40-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.4
 
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `active` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `jeweler_id` (`jeweler_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `category`
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 INSERT INTO `category` (`id`, `jeweler_id`, `title`, `description`, `position`, `active`) VALUES
 (1, 1, 'Colliers', 'Tous les colliers', 1, 1),
 (2, 1, 'Sautoirs', 'Tous les sautoirs', NULL, 1),
-(3, NULL, 'Bracelets', 'Tous les bracelets', NULL, 1);
+(3, 1, 'Bracelets', 'Tous les bracelets', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `cms` (
   PRIMARY KEY (`id`),
   KEY `jeweler_id` (`jeweler_id`),
   KEY `jeweler_id_2` (`jeweler_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `cms`
@@ -135,15 +135,19 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`,`user_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
 
 --
 -- Contenu de la table `comment`
 --
 
 INSERT INTO `comment` (`id`, `product_id`, `user_id`, `note`, `content`, `state`, `date_created`) VALUES
-(1, 4, 1, 5, 'Très joli collier!', NULL, NULL),
-(2, 2, 1, 4, 'C''est beauuuu !!', 1, '2015-04-05 00:00:00');
+(1, 4, 1, 5, 'Très joli collier!', 0, NULL),
+(2, 2, 1, 4, 'C''est beauuuu !!', 1, '2015-04-05 00:00:00'),
+(3, 1, 1, 5, 'ùoihsfreoî', 1, '2015-04-14 00:00:00'),
+(4, 1, 1, 5, 'ùoihsfreoîeqrt', 1, '2015-04-14 00:00:00'),
+(5, 1, 1, 5, 'ùoihsfreoîsdfqertg', 1, '2015-04-14 00:00:00'),
+(6, 1, 1, 5, 'ùoihsfreoîsdvgfqsfAD Z', 1, '2015-04-14 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -283,9 +287,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
 
 INSERT INTO `orders` (`id`, `user_id`, `jeweler_id`, `address`, `date`, `total`, `state`, `date_created`) VALUES
 (1, 1, 1, '14 Rue de mandar 75002 Paris', '2015-04-05', 150, 1, '2015-03-16 00:00:00'),
-(3, 2, 1, '14 Rue de la Madeleine', '2015-04-03', 85, 1, '2015-01-06 00:00:00'),
-(4, 1, 1, '26 Rue EMile Decorps Villeurbanne', '2015-03-02', 85.7, 1, '2015-02-10 00:00:00'),
-(5, 1, 1, '26 Rue EMile Decorps Villeurbanne', '2015-02-24', 72.3, 1, '2015-04-05 00:00:00'),
+(3, 2, 1, '14 Rue de la Madeleine', '2015-04-03', 85, 2, '2015-01-06 00:00:00'),
+(4, 1, 1, '26 Rue EMile Decorps Villeurbanne', '2015-03-02', 85.7, 3, '2015-02-10 00:00:00'),
+(5, 1, 1, '26 Rue EMile Decorps Villeurbanne', '2015-02-24', 72.3, 0, '2015-04-05 00:00:00'),
 (6, 1, 1, '26 Rue Emile Decorps Villeurbanne', '2015-04-01', 60, 1, '2014-12-24 00:00:00'),
 (7, 1, 1, '26 Rue Emile Decorps Villeurbanne', '2015-04-16', 102.6, 1, '2015-03-16 00:00:00'),
 (8, 1, 1, '12 Rue Emile Decorps', '2015-04-14', 66.2, 1, '2014-11-10 00:00:00');
@@ -332,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `date_updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `jeweler_id` (`jeweler_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `product`
@@ -343,7 +347,8 @@ INSERT INTO `product` (`id`, `jeweler_id`, `ref`, `title`, `summary`, `descripti
 (2, 1, 'FR02', 'ALYCIA Collier', 'C''est un collier facile à porter qui confère  une allure élégante et sobre.Sobriété, luminosité et chic sont les termes qui le caractérisent le mieux.\r\n', 'Ce bijou est composé d''une jolie chouette strassée blanche mise en valeur par un câble réglable orné de 2 perles nacrées, de  2 perles disco SWAROVSKI  translucides d''un éclat incomparable et de 2 perles tubes plaqué argent. Fidèle à sa politique de création artistique, Ecrin de Bijoux vous garantit de posséder, pour un prix très attractif, un bijou fantaisie fait main, original, unique et de qualité supérieure compte-tenu de la noblesse des composants choisis.', 'SWAROVSKI AB (brillance supérieure) : 2 perles DISCO facettées translucides + 2 perles nacrées bleu nuit 4 mm', 39.4, 20, 7, 1, '2015-04-05 00:00:00', 1, 1, 2, 'alycia-collier', '2015-04-05 00:00:00', '2015-04-05 00:00:00'),
 (3, 1, 'FR03', 'ZOE Collier', 'Fidèle à sa recherche constante de créativité, d''originalité et de qualité, Ecrin de Bijoux vous propose de bijou  raffiné et très gracieux. Beaucoup de poésie, d''originalité et d''éclat se dégagent de cette création qui mettra en valeur toutes les tenues. Ses couleurs délicates raffinées et très lumineuses apportent une touche de fraîcheur et rendent ce collier très attrayant et seyan', 'Vous pouvez acheter ce collier pour un prix très abordable compte tenu de tous ses atouts, il sera idéal pour faire un cadeau en toutes circonstances : Fête des Mères, anniversaires, Saint-Valentin....ou plus simplement pour faire plaisir, c''est un bijou qui durera longtemps et et qui est facile à assortir à toutes les tenues.\r\n\r\nCe collier est composé d''une chaîne jaseron réglable en acier inoxydable joliement embellie d''éléments SWAROVSKI  et d''un charm pieuvre strassée accompagnée de sa rondelle perlée bleue.', 'charm "pieuvre" acier inoxydable avec strass bleus 3 cm hauteur + rondelle 2 cm diamètre acier perles bleues', 44.2, 20, 10, 1, '2015-04-05 00:00:00', 1, 1, 3, 'zoe-collier', '2015-04-05 00:00:00', '2015-04-05 00:00:00'),
 (4, 1, 'FR05', 'OLGA Collier', 'Très romantique, ce collier est extrêmement raffiné. L''association des perles nacrées et disco convient  parfaitement au thème du collier et lui  donnent beaucoup de glamour.\r\nLa noblesse de ses composants ainsi que leur agencement très original font de ce bjou une création unique que vous pouvez acheter pour un prix très raisonnable.', 'Il se compose d''un câble bleu roi réglable accompagné d''une danseuse strassée bleue nuit réhaussée de 2 perles disco SWAROVSKI qui scintillent de mille feux, de 4 perles nacrées. Il possède en breloque un joli petit coeur SWAROVSKI vitrail et un coeur argenté vieilli finement ciselé.\r\n\r\nCe collier au design léger et aérien donne à toutes les tenues et à tous les style une allure chic et très élégant. C''est un cadeau idéal en toutes occasions, il sera très apprécié et durera longtemps, compte tenu de sa qualité.', 'charm danseuse en inox strassée bleue nuit (40 mm) + un petit coeur SWAROVSKI (10 x10 mm) vitrail AB (qualité brillance supérieure) + un coeur en argent vieilli finement gravé (15mmx10mm)', 41.9, 20, 10, 1, '2015-04-05 00:00:00', 1, 1, 4, 'olga-collier', '2015-04-05 00:00:00', '2015-04-05 00:00:00'),
-(7, 2, 'FR06', 'STELLA Collier créatif', 'Fidèle à sa politique de création artistique, Ecrin de Bijoux vous propose, pour un prix très attractif, ce joli bijou artisanal, original, unique et de qualité supérieure compte-tenu de la noblesse des composants choisis. Il ressort de ce bijou beaucoup de créativité et d''originalité grâce à  la combinaison subtile des couleurs et le choix des matériaux (émail et éléments SWAROVSKI).', 'Il s''agit d''un joli charm "tortue" émaillé dans une mosaique de couleurs accompagné d''un câble orné de perles nacrées, de toupies SWAROVSKI bleu pétrole, beige rosé et verte néon et de perles tubes plaqué argent. C''est une excellente idée de cadeau à offrir en toutes occasions.', '6 perles nacrées Swarovski 4 mm + 8 perles verre thèque turquoise métallisé et bleu iris', 48.2, 20, 8, 1, '2015-04-05 00:00:00', 1, 1, 6, 'stella-collier-creatif', '2015-04-05 00:00:00', '2015-04-05 00:00:00');
+(7, 2, 'FR06', 'STELLA Collier créatif', 'Fidèle à sa politique de création artistique, Ecrin de Bijoux vous propose, pour un prix très attractif, ce joli bijou artisanal, original, unique et de qualité supérieure compte-tenu de la noblesse des composants choisis. Il ressort de ce bijou beaucoup de créativité et d''originalité grâce à  la combinaison subtile des couleurs et le choix des matériaux (émail et éléments SWAROVSKI).', 'Il s''agit d''un joli charm "tortue" émaillé dans une mosaique de couleurs accompagné d''un câble orné de perles nacrées, de toupies SWAROVSKI bleu pétrole, beige rosé et verte néon et de perles tubes plaqué argent. C''est une excellente idée de cadeau à offrir en toutes occasions.', '6 perles nacrées Swarovski 4 mm + 8 perles verre thèque turquoise métallisé et bleu iris', 48.2, 20, 8, 1, '2015-04-05 00:00:00', 1, 1, 6, 'stella-collier-creatif', '2015-04-05 00:00:00', '2015-04-05 00:00:00'),
+(8, 1, 'FR06', 'test', 'Fidèle à sa politique de création artistique, Ecrin de Bijoux vous propose, pour un prix très attractif, ce joli bijou artisanal, original, unique et de qualité supérieure compte-tenu de la noblesse des composants choisis. Il ressort de ce bijou beaucoup de créativité et d''originalité grâce à  la combinaison subtile des couleurs et le choix des matériaux (émail et éléments SWAROVSKI).', 'Il s''agit d''un joli charm "tortue" émaillé dans une mosaique de couleurs accompagné d''un câble orné de perles nacrées, de toupies SWAROVSKI bleu pétrole, beige rosé et verte néon et de perles tubes plaqué argent. C''est une excellente idée de cadeau à offrir en toutes occasions.', '6 perles nacrées Swarovski 4 mm + 8 perles verre thèque turquoise métallisé et bleu iris', 48.2, 20, 8, 1, '2015-04-05 00:00:00', 1, 1, 6, 'stella-collier-creatif', '2015-04-05 00:00:00', '2015-04-05 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -387,7 +392,8 @@ INSERT INTO `product_category` (`product_id`, `category_id`) VALUES
 (2, 1),
 (3, 1),
 (4, 1),
-(7, 1);
+(7, 1),
+(8, 2);
 
 -- --------------------------------------------------------
 
@@ -567,7 +573,15 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `word` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `tag`
+--
+
+INSERT INTO `tag` (`id`, `word`) VALUES
+(1, 'Bijoux'),
+(2, 'Elégant');
 
 -- --------------------------------------------------------
 

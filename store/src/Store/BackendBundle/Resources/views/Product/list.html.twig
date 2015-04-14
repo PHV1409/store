@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block content %}
+    <a href="{{ path('store_backend_product_new' ) }}" class="pull-right btn btn-danger btn-lg btn-rounded">
+        <i class="fa fa-plus">Ajouter un produit</i>
+    </a>
+
     {# Boucle sur les produits #}
     {% for product in products %} {# for nomdelaclef in nomdutableau #}
         {# ref, title, price sont les attributs et non pas les champs de la table #}

@@ -29,6 +29,9 @@ class MainController extends Controller{
         $nbcde = $em->getRepository('StoreBackendBundle:Orders')->getCountByUser(1);
         $totalcde = $em->getRepository('StoreBackendBundle:Orders')->getTotalcdeByUser(1);
         $commentsactifs = $em->getRepository('StoreBackendBundle:Comment')->getCommentsActifsByUser(1);
+        $commentsinactifs = $em->getRepository('StoreBackendBundle:Comment')->getCommentsInactifsByUser(1);
+        $fivelastcde = $em->getRepository('StoreBackendBundle:Orders')->getFiveLastCdeByUser(1);
+        $catpopulaire = $em->getRepository('StoreBackendBundle:Category')->getCatPopulaireByUser(1);
 
         // je retourne la vue index de mon dossier Main
         return $this->render('StoreBackendBundle:Main:index.html.twig',
@@ -40,7 +43,10 @@ class MainController extends Controller{
                 'nbsup' => $nbsup,
                 'nbcde' => $nbcde,
                 'totalcde' => $totalcde,
-                'commentsactifs' => $commentsactifs
+                'commentsactifs' => $commentsactifs,
+                'commentsinactifs' => $commentsinactifs,
+                'fivelastcde' => $fivelastcde,
+                'catpopulaire' => $catpopulaire
             )
         );
     }

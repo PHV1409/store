@@ -218,4 +218,16 @@ class Message
     {
         return $this->user;
     }
+
+    /**
+     * retourne le titre
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+
+
 }

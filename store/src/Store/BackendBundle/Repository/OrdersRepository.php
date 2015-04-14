@@ -63,5 +63,29 @@ class OrdersRepository extends EntityRepository{
         return $query->getOneOrNullResult();
     }
 
+    /**
+     * @param $user
+     * @return mixed
+     *
+     * SELECT SUM(o.total) AS total
+     * FROM orders AS o
+     * WHERE o.jeweler_id = 1
+     *
+     */
+    public function getFiveLastCdeByUser($user){
+        $query = $this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT o
+                FROM StoreBackendBundle:Orders o
+                WHERE o.jeweler = :user
+                "
+            )
+            ->setParameter('user',$user);
+
+        // retourne 1 résultat ou null
+        return $query->getResult();
+    }
+
 
 } 

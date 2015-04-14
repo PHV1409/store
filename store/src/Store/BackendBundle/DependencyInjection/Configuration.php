@@ -1,6 +1,6 @@
 <?php
 
-namespace store\backendBundle\DependencyInjection;
+namespace Store\BackendBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

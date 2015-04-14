@@ -357,4 +357,14 @@ class User
     {
         return $this->product;
     }
+
+    /**
+     * retourne les prénom et nom de l'utilisateur
+     * @return int
+     */
+    public function __toString()
+    {
+        return $this->firstname. " ".$this->lastname;
+    }
+
 }

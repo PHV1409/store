@@ -253,10 +253,21 @@ class Business
     /**
      * Get product
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProduct()
     {
         return $this->product;
     }
+
+    /**
+     * retourne le montant
+     * @return float
+     */
+    public function __toString()
+    {
+        return $this->amount;
+    }
+
+
 }

@@ -47,6 +47,7 @@ class CommentRepository extends EntityRepository{
      * FROM comment AS c
      * INNER JOIN product AS p ON c.product_id = p.id
      * WHERE p.jeweler_id = 1
+     * AND c.state = 1
      */
     public function getCommentsActifsByUser($user){
         $query = $this->getEntityManager()
@@ -58,6 +59,33 @@ class CommentRepository extends EntityRepository{
                 WHERE p.jeweler = :user
                 AND c.state = 1"
             )
+            ->setMaxResults(5)
+            ->setParameter('user',$user);
+
+        // retourne 1 résultat ou null
+        return $query->getResult();
+    }
+    /**
+     * @param $user
+     * @return mixed
+     *
+     * SELECT COUNT(c.id)
+     * FROM comment AS c
+     * INNER JOIN product AS p ON c.product_id = p.id
+     * WHERE p.jeweler_id = 1
+     * AND c.state = 0
+     */
+    public function getCommentsInactifsByUser($user){
+        $query = $this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT c
+                FROM StoreBackendBundle:Comment c
+                JOIN c.product AS p
+                WHERE p.jeweler = :user
+                AND c.state = 0"
+            )
+            ->setMaxResults(5)
             ->setParameter('user',$user);
 
         // retourne 1 résultat ou null
