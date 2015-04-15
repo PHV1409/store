@@ -3,6 +3,7 @@
 namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product
@@ -26,12 +27,32 @@ class Product
     /**
      * @var string
      *
+     * // régle de validation coté php
+     * @Assert\Regex(pattern="/[A-Z]{2}[0-9]{2,}/",
+     *      message = "La référence n'est pas valide"
+     * )
+     * @Assert\NotBlank(
+     *      message = "La référence ne doit pas être vide"
+     * )
+     *
      * @ORM\Column(name="ref", type="string", length=30, nullable=true)
      */
     private $ref;
 
     /**
      * @var string
+     * @Assert\Regex(pattern="/[a-zA-Z0-9- ]{1,}/",
+     *      message = "La titre n'est pas valide"
+     * )
+     * @Assert\NotBlank(
+     *      message = "Le titre ne doit pas être vide"
+     * )
+     * @Assert\Length(
+     *      min = "4",
+     *      max = "1000",
+     *      minMessage = "Votre titre doit être au moins de {{ limit }} caractère",
+     *      maxMessage = "Votre titre ne peut être plus long que {{ limit }} caractère",
+     * )
      *
      * @ORM\Column(name="title", type="string", length=150, nullable=true)
      */
@@ -40,12 +61,31 @@ class Product
     /**
      * @var string
      *
+     * vérifie si c'est vide
+     * @Assert\NotBlank(
+     *      message = "Le titre ne doit pas être vide"
+     * )
+     * vérifie à partir d'un caractère
+     * @Assert\Length(
+     *      min = "10",
+     *      max = "500",
+     *      minMessage = "Votre résumé doit être au moins de {{ limit }} caractère",
+     *      maxMessage = "Votre résumé ne doit pas excéder {{ limit }} caractère",
+     * )
+     *
      * @ORM\Column(name="summary", type="text", nullable=true)
      */
     private $summary;
 
     /**
      * @var string
+     * @Assert\NotBlank(
+     *      message = "Le titre ne doit pas être vide"
+     * )
+     * @Assert\Length(
+     *      min = "15",
+     *      minMessage = "Votre description doit être au moins de {{ limit }} caractère",
+     * )
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
@@ -53,6 +93,13 @@ class Product
 
     /**
      * @var string
+     * @Assert\NotBlank(
+     *      message = "Le titre ne doit pas être vide"
+     * )
+     * @Assert\Length(
+     *      min = "5",
+     *      minMessage = "Votre composition doit être au moins de {{ limit }} caractère",
+     * )
      *
      * @ORM\Column(name="composition", type="text", nullable=true)
      */
@@ -60,6 +107,15 @@ class Product
 
     /**
      * @var float
+     * @Assert\NotBlank(
+     *      message = "Le titre ne doit pas être vide"
+     * )
+     * @Assert\Range(
+     *      min = 10,
+     *      max = 5000,
+     *      minMessage = "Votre bijoux doit avoir une valeur de  {{ limit }} € minimum",
+     *      maxMessage = "Votre bijoux doit avoir une valeur de  {{ limit }} € maximum",
+     * )
      *
      * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=true)
      */
@@ -68,12 +124,25 @@ class Product
     /**
      * @var float
      *
+     * @Assert\Choice(choices = {"5.5", "19.6", "20"},
+     *      message ="Choisissez une taxe valide"
+     * )
+     *
      * @ORM\Column(name="taxe", type="float", precision=10, scale=0, nullable=true)
      */
     private $taxe;
 
     /**
      * @var integer
+     * @Assert\NotBlank(
+     *      message = "Le titre ne doit pas être vide"
+     * )
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 200,
+     *      minMessage = "Limité à {{ limit }} bijoux minimum",
+     *      maxMessage = "limité à {{ limit }} bijoux maximum",
+     * )
      *
      * @ORM\Column(name="quantity", type="integer", nullable=true)
      */
@@ -116,6 +185,9 @@ class Product
 
     /**
      * @var string
+     * @Assert\Regex(pattern="/[a-z-]{1,}/",
+     *      message = "Le slug n'est pas valide"
+     * )
      *
      * @ORM\Column(name="slug", type="string", length=300, nullable=true)
      */
@@ -255,6 +327,17 @@ class Product
      */
     public function __construct()
     {
+        $this->active = true;
+        $this->cover = false;
+        $this->dateActive = new \DateTime('now');
+        $this->taxe = 20;
+        $this->shop = true;
+        $this->quantity = 1;
+        $this->price = 0;
+
+        $this->dateCreated = new \DateTime('now');
+        $this->dateUpdated = new \DateTime('now');
+
         $this->user = new \Doctrine\Common\Collections\ArrayCollection();
         $this->order = new \Doctrine\Common\Collections\ArrayCollection();
         $this->business = new \Doctrine\Common\Collections\ArrayCollection();

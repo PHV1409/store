@@ -1,0 +1,68 @@
+{%  extends "StoreBackendBundle::layout.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        init.push(function () {
+            $('textarea').summernote({
+                height: 200,
+                tabsize: 2,
+                codemirror: {
+                    theme: 'monokai'
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block titlepage %}
+    <i class="fa fa-plus"></i> Création du page CMS
+{% endblock %}
+{% block content %}
+
+    {{  form_start(form) }}
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.title) }}
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.summary) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.description) }}
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.image) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.video) }}
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.dateActive) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.state) }}
+        </div>
+    </div>
+    <hr/>
+
+    {{ form_widget(form.envoyer, {'attr': {'class': 'btn btn-lg btn-primary'}}) }}
+
+    {{ form_widget(form._token) }}
+
+
+    {# Créer une balise fermante </form> #}
+    {{  form_end(form, {'render_rest': false}) }}
+
+{% endblock %}

@@ -4,7 +4,10 @@
 namespace Store\BackendBundle\Controller;
 
 // j'inclue la classe controller de symfony pour pouvoir hériter de cette classe
-Use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Store\BackendBundle\Entity\Cms;
+use Store\BackendBundle\Form\CmsType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class CMSController
@@ -66,6 +69,35 @@ class CMSController extends Controller{
         return $this->redirectToRoute('store_backend_cms_list');
     }
 
+
+    public function newAction(Request $request){
+        $cms = new Cms();
+
+        $em = $this->getDoctrine()->getManager();
+        $jeweler = $em->getRepository('StoreBackendBundle:Jeweler')->find(1); // je récupère le jeweler num 1
+        $cms->setJeweler($jeweler); // J'associe mon jeweler à ma catégorie
+        $form = $this->createForm(new CmsType(), $cms, array(
+            'attr' => array(
+                'method' => 'post',
+                //'novalidate' => 'novalidate', // pour virer la validation html5
+                'action' => $this->generateUrl('store_backend_cms_new')
+            )
+        ));
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($cms);
+            $em->flush();
+
+            return $this->redirectToRoute('store_backend_cms_list');
+        }
+
+        return $this->render('StoreBackendBundle:CMS:new.html.twig',
+            array('form' => $form->createView())
+        );
+
+    }
 
 
 }

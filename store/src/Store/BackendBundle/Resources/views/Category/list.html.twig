@@ -5,11 +5,15 @@
 {% endblock %}
 
 {% block content %}
+
     <div class="panel">
-        <div class="table-info">
+        <div class="table-primary">
             <div class="table-header">
                 <div class="table-caption">
                     Catégories
+                    <a href="{{ path('store_backend_category_new' ) }}" class="pull-right btn btn-info btn-sm">
+                        <i class="fa fa-plus"> Ajouter une catégorie</i>
+                    </a>
                 </div>
             </div>
             <table class="table table-bordered">

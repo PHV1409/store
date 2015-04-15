@@ -28,9 +28,8 @@ class CategoryRepository extends EntityRepository{
             ->createQuery(
                 "SELECT c
                 FROM StoreBackendBundle:Category c
-                JOIN c.product p
-                WHERE p.jeweler = :user
-                GROUP BY p.jeweler"
+                WHERE c.jeweler = :user
+                "
             )
             ->setParameter('user', $user);
 

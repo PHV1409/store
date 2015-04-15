@@ -62,17 +62,25 @@ class ProductType extends AbstractType{
             'label' => 'Petit résumé', // label de mon champ
             'attr'  => array(
                 'class' => 'form-control',
-                'required' => true,
                 'placeholder'   => 'Petit résumé du bijoux',
+                'pattern'       => '.{10,}',
             )
         ));
 
         $builder->add('description', null, array(
             'label' => 'description longue', // label de mon champ
-            'required' => true,
             'attr'  => array(
                 'class' => 'form-control',
                 'placeholder'   => 'Description longue du bijoux',
+            )
+        ));
+
+        $builder->add('composition', null, array(
+            'label' => 'description de la composition', // label de mon champ
+            'required' => true,
+            'attr'  => array(
+                'class' => 'form-control',
+                'placeholder'   => 'Description de la composition du bijoux',
             )
         ));
 
@@ -131,6 +139,14 @@ class ProductType extends AbstractType{
             'label' => 'Tag(s) associé(s) au produit',
             'attr'  => array(
                 'class' => 'form-control',
+            )
+        ));
+
+        $builder->add('slug', null, array(
+            'label' => 'url explicite ( sans espace ni caractères spéciaux)',
+            'attr'     => array(
+                'class'   => 'form-control',
+                'pattern' => '[a-z-]{1,}',
             )
         ));
 
