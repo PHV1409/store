@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 15 Avril 2015 à 18:30
+-- Généré le: Jeu 16 Avril 2015 à 18:34
 -- Version du serveur: 5.5.40-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.4
 
@@ -82,7 +82,8 @@ CREATE TABLE IF NOT EXISTS `category` (
 
 INSERT INTO `category` (`id`, `jeweler_id`, `title`, `description`, `position`, `active`) VALUES
 (1, 1, 'Colliers', 'Tous les colliers', 1, 1),
-(2, 1, 'Sautoirs', 'Tous les sautoirs', NULL, 1);
+(2, 1, 'Sautoirs', 'Tous les sautoirs', NULL, 1),
+(5, 1, 'xx', '<p>xx</p>', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -107,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `cms` (
   PRIMARY KEY (`id`),
   KEY `jeweler_id` (`jeweler_id`),
   KEY `jeweler_id_2` (`jeweler_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `cms`

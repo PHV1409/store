@@ -45,27 +45,29 @@ class CmsType extends AbstractType{
         ));
 
 
-        $builder->add('image', null, array(
+        $builder->add('image', 'text', array(
             'label' => 'image', // label de mon champ
             'attr'  => array(
                 'class' => 'form-control',
-                'placeholder'   => 'image',
+                'placeholder'   => 'http://',
             )
         ));
         $builder->add('dateActive', 'date', array(
-            'label' => 'dateActive', // label de mon champ
-            'attr'  => array(
-                'class' => 'form-control',
-                'placeholder'   => 'dateActive',
-            )
+//            'widget' => 'text',
+//            'pattern'  => '{{ day }}--{{ month }}--{{ year }}',
+            'widget' => 'single_text',
+            'format' => 'dd-MM-yy',
+            'attr' => array('class' => 'date'),
         ));
+
         $builder->add('video', null, array(
             'label' => 'video', // label de mon champ
             'attr'  => array(
                 'class' => 'form-control',
-                'placeholder'   => 'video',
+                'placeholder'   => 'Placez votre iframe ici',
             )
         ));
+
         $builder->add('state', null, array(
             'label' => 'state', // label de mon champ
             'attr'  => array(
@@ -73,6 +75,19 @@ class CmsType extends AbstractType{
                 'placeholder'   => 'state',
             )
         ));
+
+    // a effacer après l'avoir utilisé en exemple pour state
+//        $builder->add('taxe', 'choice', array(
+//            'choices' => array('5'=>'5', '19.6' => '19.6', '20' => '20'),
+//            'required'  => true, // liste déroulante obligatoire
+//            'preferred_choices' => array('20'), // champs choisi par défaut
+//            'label' => 'Taxe appliquée', // label de mon champ
+//            'attr'  => array(
+//                'class' => 'form-control',
+//            )
+//        ));
+
+
 
         $builder->add('envoyer', 'submit', array(
             'attr'  => array(

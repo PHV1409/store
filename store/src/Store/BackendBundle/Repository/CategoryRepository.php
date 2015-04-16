@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityRepository;
 class CategoryRepository extends EntityRepository{
 
     /**
-     * Get all product of an user
+     * Get all categories of an user
      * @param null $user
      * @return array
      */
@@ -24,7 +24,8 @@ class CategoryRepository extends EntityRepository{
         /**
          * Récupère les catégories des produits
          */
-        $query = $this->getEntityManager()
+        /*
+         $query = $this->getEntityManager()
             ->createQuery(
                 "SELECT c
                 FROM StoreBackendBundle:Category c
@@ -32,8 +33,33 @@ class CategoryRepository extends EntityRepository{
                 "
             )
             ->setParameter('user', $user);
+        */
+        /**
+         * J'appelle la méthode getCategoryByUserBuilder()
+         * qui me retourne un objet QueryBuilder
+         * Je le transforme ensuite en Objet Query
+         */
+        $query = $this->getCategoryByUserBuilder($user)->getQuery();
 
         return $query->getResult();
+    }
+
+    /**
+     * DQL syntax with Form
+     * @param $user
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getCategoryByUserBuilder($user){
+
+        /**
+         * Le formulaire ProductType attend un objet createQueryBuilder()
+         * ET NON PAS L'objet createQuery()
+         */
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->where('c.jeweler = :user')
+            ->orderBy('c.title', 'ASC')
+            ->setParameter('user', $user);
+        return $queryBuilder;
     }
 
     /**

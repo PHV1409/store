@@ -25,8 +25,10 @@ class CmsRepository extends EntityRepository{
          * Récupère les cms
          *
          */
+        /*
         $query = $this->getEntityManager()
-            ->createQuery(
+
+             ->createQuery(
                 "SELECT cm
                 FROM StoreBackendBundle:Cms cm
                 JOIN cm.product p
@@ -34,9 +36,33 @@ class CmsRepository extends EntityRepository{
                 GROUP BY p.jeweler"
             )
             ->setParameter('user', $user);
+        */
+
+        $query = $this->getCmsByUserBuilder($user)->getQuery();
 
         return $query->getResult();
 
+    }
+
+
+    /**
+     * DQL syntax with Form
+     * @param $user
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getCmsByUserBuilder($user){
+
+        /**
+         * Le formulaire ProductType attend un objet createQueryBuilder()
+         * ET NON PAS L'objet createQuery()
+         *
+         * (cms) est un alias
+         */
+        $queryBuilder = $this->createQueryBuilder('cms')
+            ->where('cms.jeweler = :user')
+            ->orderBy('cms.title', 'ASC')
+            ->setParameter('user', $user);
+        return $queryBuilder;
     }
 
     /**

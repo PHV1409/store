@@ -92,7 +92,7 @@ class ProductController extends Controller{
         // $product->setPrice(0);
 
         // je crée un formulaire de produit$
-        $form = $this->createForm(new ProductType(), $product, array(
+        $form = $this->createForm(new ProductType(1), $product, array(
             'attr' => array(
                 'method' => 'post',
                 'novalidate' => 'novalidate', // pour virer la validation html5

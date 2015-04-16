@@ -79,7 +79,7 @@ class CMSController extends Controller{
         $form = $this->createForm(new CmsType(), $cms, array(
             'attr' => array(
                 'method' => 'post',
-                //'novalidate' => 'novalidate', // pour virer la validation html5
+                'novalidate' => 'novalidate', // pour virer la validation html5
                 'action' => $this->generateUrl('store_backend_cms_new')
             )
         ));

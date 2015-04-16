@@ -15,7 +15,6 @@
     </script>
 {% endblock %}
 
-
 {% block titlepage %}
     <i class="fa fa-plus"></i> Création du page CMS
 {% endblock %}
@@ -60,7 +59,6 @@
     {{ form_widget(form.envoyer, {'attr': {'class': 'btn btn-lg btn-primary'}}) }}
 
     {{ form_widget(form._token) }}
-
 
     {# Créer une balise fermante </form> #}
     {{  form_end(form, {'render_rest': false}) }}

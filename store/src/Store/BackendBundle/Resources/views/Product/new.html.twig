@@ -1,5 +1,8 @@
 {%  extends "StoreBackendBundle::layout.html.twig" %}
 
+{# cette foncrtion form_theme va chercher le thème de formulaire form.html.twig dans Partial #}
+{#{% form_theme form 'StoreBackendBundle:Partial:form.html.twig' %}#}
+
 {% block javascripts %}
     {{ parent() }}
     <script>
@@ -14,7 +17,6 @@
         });
     </script>
 {% endblock %}
-
 
 {% block titlepage %}
     <i class="fa fa-plus"></i> Création de produit
@@ -102,6 +104,12 @@
         </div>
         <div class="col-md-6">
             {{ form_row(form.slug) }}
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.dateActive) }}
         </div>
     </div>
     <hr/>

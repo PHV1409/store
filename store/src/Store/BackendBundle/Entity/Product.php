@@ -4,13 +4,16 @@ namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Store\BackendBundle\Validator\Constraints as StoreAssert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Product
  *
  * @ORM\Table(name="product", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
  * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\ProductRepository")
- *
+ * @UniqueEntity(fields="ref", message="Votre référence de bijoux est déjà utilisée")
+ * @UniqueEntity(fields="title", message="Votre titre de bijoux est déjà utilisé")
  *
  */
 class Product
@@ -49,9 +52,9 @@ class Product
      * )
      * @Assert\Length(
      *      min = "4",
-     *      max = "1000",
-     *      minMessage = "Votre titre doit être au moins de {{ limit }} caractère",
-     *      maxMessage = "Votre titre ne peut être plus long que {{ limit }} caractère",
+     *      max = "100",
+     *      minMessage = "Votre titre doit être au moins de {{ limit }} caractères",
+     *      maxMessage = "Votre titre ne peut être plus long que {{ limit }} caractères",
      * )
      *
      * @ORM\Column(name="title", type="string", length=150, nullable=true)
@@ -61,17 +64,11 @@ class Product
     /**
      * @var string
      *
-     * vérifie si c'est vide
+     *
      * @Assert\NotBlank(
-     *      message = "Le titre ne doit pas être vide"
+     *      message = "Le résumé ne doit pas être vide"
      * )
-     * vérifie à partir d'un caractère
-     * @Assert\Length(
-     *      min = "10",
-     *      max = "500",
-     *      minMessage = "Votre résumé doit être au moins de {{ limit }} caractère",
-     *      maxMessage = "Votre résumé ne doit pas excéder {{ limit }} caractère",
-     * )
+     * @StoreAssert\StripTagLength
      *
      * @ORM\Column(name="summary", type="text", nullable=true)
      */
@@ -79,9 +76,11 @@ class Product
 
     /**
      * @var string
+     * vérifie si c'est vide
      * @Assert\NotBlank(
      *      message = "Le titre ne doit pas être vide"
      * )
+     * vérifie à partir d'un caractère
      * @Assert\Length(
      *      min = "15",
      *      minMessage = "Votre description doit être au moins de {{ limit }} caractère",
@@ -249,6 +248,13 @@ class Product
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     *
+     * @Assert\Count(
+     *      min = "1",
+     *      max = "10",
+     *      minMessage = "Vous devez spécifier au moins une catégorie",
+     *      maxMessage = "Vous ne pouvez pas spécifier plus de {{ limit }} Catégorie"
+     * )
      *
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="product")
      * @ORM\JoinTable(name="product_category",

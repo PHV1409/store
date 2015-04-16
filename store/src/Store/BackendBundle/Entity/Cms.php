@@ -23,6 +23,12 @@ class Cms
 
     /**
      * @var string
+     * @Assert\NotBlank(
+     *      message = "Le titre ne doit pas être vide"
+     * )
+     * @Assert\Regex(pattern="/[a-zA-Z0-9- ]{5,}/",
+     *      message = "Le titre n'est pas valide"
+     * )
      *
      * @ORM\Column(name="title", type="string", length=300, nullable=true)
      */
@@ -30,6 +36,15 @@ class Cms
 
     /**
      * @var string
+     * @Assert\NotBlank(
+     *      message = "Le résumé ne doit pas être vide"
+     * )
+     * @Assert\Length(
+     *      min = "10",
+     *      max = "500",
+     *      minMessage = "Votre résumé doit être au moins de {{ limit }} caractères",
+     *      maxMessage = "Votre résumé ne peut être plus long que {{ limit }} caractères",
+     * )
      *
      * @ORM\Column(name="summary", type="text", nullable=true)
      */
@@ -37,6 +52,15 @@ class Cms
 
     /**
      * @var string
+     * @Assert\NotBlank(
+     *      message = "Le résumé ne doit pas être vide"
+     * )
+     * @Assert\Length(
+     *      min = "15",
+     *      max = "500",
+     *      minMessage = "Votre résumé doit être au moins de {{ limit }} caractères",
+     *      maxMessage = "Votre résumé ne peut être plus long que {{ limit }} caractères",
+     * )
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
@@ -44,6 +68,9 @@ class Cms
 
     /**
      * @var string
+     * @Assert\Url(
+     *      message = "veuillez saisir une url correct"
+     * )
      *
      * @ORM\Column(name="image", type="string", length=300, nullable=true)
      */
@@ -51,6 +78,10 @@ class Cms
 
     /**
      * @var string
+     * @Assert\Regex(
+     *      pattern="/^(<iframe src=){1}.*>$/",
+     *      message = "La vidéo n'est pas valide"
+     * )
      *
      * @ORM\Column(name="video", type="string", length=300, nullable=true)
      */

@@ -81,7 +81,7 @@ class CategoryController extends Controller{
         $form = $this->createForm(new CategoryType(), $category, array(
             'attr' => array(
                 'method' => 'post',
-                //'novalidate' => 'novalidate', // pour virer la validation html5
+                'novalidate' => 'novalidate', // pour virer la validation html5
                 'action' => $this->generateUrl('store_backend_category_new')
             )
         ));

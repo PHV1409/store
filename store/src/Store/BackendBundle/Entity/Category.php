@@ -4,11 +4,13 @@ namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Category
  *
  * @ORM\Table(name="category", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
  * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\CategoryRepository")
+ * @UniqueEntity(fields="title", message="Votre titre de catégorie est déjà utilisé")
  */
 class Category
 {
