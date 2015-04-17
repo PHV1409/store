@@ -90,10 +90,56 @@ class CMSController extends Controller{
             $em->persist($cms);
             $em->flush();
 
+            // je crée un message flash avec pour clef "success"
+            // et un message de confirmation
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'Votre produit a bien été créé.'
+            );
+
             return $this->redirectToRoute('store_backend_cms_list');
         }
 
         return $this->render('StoreBackendBundle:CMS:new.html.twig',
+            array('form' => $form->createView())
+        );
+
+    }
+
+
+    /**
+     * @param Request $request
+     * @param Cms $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction(Request $request,Cms $id){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $cms = $em->getRepository('StoreBackendBundle:Cms')->find($id);
+
+        $form = $this->createForm(new CmsType(1), $id, array(
+            'validation_groups' => 'edit',
+            'attr' => array(
+                'method' => 'post',
+                'novalidate' => 'novalidate', // pour virer la validation html5
+                'action' => $this->generateUrl('store_backend_cms_edit',
+                        array('id' => $id->getId()))
+                // action de formulaire pointe vers cette même action de controller
+            )
+        ));
+
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($id);
+            $em->flush();
+
+            return $this->redirectToRoute('store_backend_cms_list');
+        }
+
+        return $this->render('StoreBackendBundle:CMS:edit.html.twig',
             array('form' => $form->createView())
         );
 

@@ -20,31 +20,5 @@
     <i class="fa fa-plus"></i> Création de produit
 {% endblock %}
 {% block content %}
-
-    {{  form_start(form) }}
-
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_row(form.title) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_row(form.position) }}
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col-md-12">
-            {{ form_row(form.description) }}
-        </div>
-    </div>
-    <hr/>
-
-    {{ form_widget(form.envoyer, {'attr': {'class': 'btn btn-lg btn-primary'}}) }}
-
-    {{ form_widget(form._token) }}
-
-
-    {# Créer une balise fermante </form> #}
-    {{  form_end(form, {'render_rest': false}) }}
-
+    {{  include('StoreBackendBundle:Category:_form.html.twig') }}
 {% endblock %}

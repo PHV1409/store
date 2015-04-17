@@ -13,6 +13,10 @@
     {% for product in products %} {# for nomdelaclef in nomdutableau #}
         {# ref, title, price sont les attributs et non pas les champs de la table #}
 
+        <a href="{{ path('store_backend_product_edit', {'id' : product.id } ) }}">
+            <i class="fa fa-pencil"></i> Editer
+        </a>
+
         <p> <h3><a href="{{ path('store_backend_product_view', {'slug' : product.slug, 'id' : product.id } ) }}" >{{ product.title }}</a> - <i>{{ product.dateCreated|date('d/m/Y') }}</i>
 
             {% if product.active == 0 %}

@@ -166,7 +166,6 @@ class ProductType extends AbstractType{
             },
         ));
 
-
         $builder->add('supplier', null, array(
             'label' => 'Fournisseur(s) associé(s) au produit',
             'attr'  => array(
@@ -190,8 +189,8 @@ class ProductType extends AbstractType{
         ));
 
         $builder->add('dateActive', 'date', array(
-//            'widget' => 'text',
-//            'pattern'  => '{{ day }}--{{ month }}--{{ year }}',
+//          'widget' => 'text',
+//          'pattern'  => '{{ day }}--{{ month }}--{{ year }}',
             'widget' => 'single_text',
             'format' => 'dd-MM-yy',
             'attr' => array('class' => 'date'),

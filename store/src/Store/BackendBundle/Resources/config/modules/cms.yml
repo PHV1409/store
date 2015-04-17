@@ -17,6 +17,11 @@ store_backend_cms_remove:
   path: /remove/{id}
   defaults: { _controller: StoreBackendBundle:CMS:remove } # Nom du bundle : nom du controller : nom de l'action du controller
 
+# Page edit a cms
+store_backend_cms_edit:
+  path: /edit/{id}
+  defaults: { _controller: StoreBackendBundle:CMS:edit }
+
 # Page new a cms
 store_backend_cms_new:
   path: /new

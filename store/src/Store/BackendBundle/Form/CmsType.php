@@ -68,24 +68,16 @@ class CmsType extends AbstractType{
             )
         ));
 
-        $builder->add('state', null, array(
-            'label' => 'state', // label de mon champ
+
+
+        $builder->add('state', 'choice', array(
+            'choices' => array('0'=>'Inactif', '1' => 'En cours de relecture', '2' => 'En ligne'),
+            'required'  => false,
+            'label' => 'Etat', // label de mon champ
             'attr'  => array(
                 'class' => 'form-control',
-                'placeholder'   => 'state',
             )
         ));
-
-    // a effacer après l'avoir utilisé en exemple pour state
-//        $builder->add('taxe', 'choice', array(
-//            'choices' => array('5'=>'5', '19.6' => '19.6', '20' => '20'),
-//            'required'  => true, // liste déroulante obligatoire
-//            'preferred_choices' => array('20'), // champs choisi par défaut
-//            'label' => 'Taxe appliquée', // label de mon champ
-//            'attr'  => array(
-//                'class' => 'form-control',
-//            )
-//        ));
 
 
 

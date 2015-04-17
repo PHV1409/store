@@ -93,6 +93,7 @@ class ProductController extends Controller{
 
         // je crée un formulaire de produit$
         $form = $this->createForm(new ProductType(1), $product, array(
+            'validation_groups' => 'new',
             'attr' => array(
                 'method' => 'post',
                 'novalidate' => 'novalidate', // pour virer la validation html5
@@ -112,6 +113,22 @@ class ProductController extends Controller{
             $em->persist($product); // j'enregistre mon objet product dans doctrine
             $em->flush(); // j'envoie ma requête d'insert à ma table product
 
+            // je crée un message flash avec pour clef "success"
+            // et un message de confirmation
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'Votre produit a bien été créé.'
+            );
+            // je récupère la quantité du produit enregistré
+            $quantity = $product->getQuantity();
+
+            if($quantity == 1 ){
+                $this->get('session')->getFlashBag()->add(
+                    'warning',
+                    'Votre bijoux est un produit unique !'
+                );
+            }
+
             return $this->redirectToRoute('store_backend_product_list'); // redirection selon la route
 
         }
@@ -121,6 +138,47 @@ class ProductController extends Controller{
             array('form' => $form->createView())
         );
     }
+
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction(Request $request, Product $id){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $product = $em->getRepository('StoreBackendBundle:Product')->find($id);
+
+        $form = $this->createForm(new ProductType(1), $id, array(
+            'validation_groups' => 'edit',
+            'attr' => array(
+                'method' => 'post',
+                'novalidate' => 'novalidate',
+                'action' => $this->generateUrl('store_backend_product_edit',
+                        array('id' => $id->getId())
+                )
+            )
+        ));
+
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($id);
+            $em->flush();
+
+            return $this->redirectToRoute('store_backend_product_list');
+
+        }
+
+        return $this->render('StoreBackendBundle:Product:edit.html.twig',
+            array('form' => $form->createView())
+        );
+    }
+
+
 
 }
 

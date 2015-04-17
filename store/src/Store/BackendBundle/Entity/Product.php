@@ -12,8 +12,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="product", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
  * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\ProductRepository")
- * @UniqueEntity(fields="ref", message="Votre référence de bijoux est déjà utilisée")
- * @UniqueEntity(fields="title", message="Votre titre de bijoux est déjà utilisé")
+ * @UniqueEntity(fields="ref", message="Votre référence de bijoux est déjà utilisée", groups={"new"})
+ * @UniqueEntity(fields="title", message="Votre titre de bijoux est déjà utilisé", groups={"new"})
  *
  */
 class Product
@@ -32,10 +32,12 @@ class Product
      *
      * // régle de validation coté php
      * @Assert\Regex(pattern="/[A-Z]{2}[0-9]{2,}/",
-     *      message = "La référence n'est pas valide"
+     *      message = "La référence n'est pas valide",
+     *      groups={"edit", "new"}
      * )
      * @Assert\NotBlank(
-     *      message = "La référence ne doit pas être vide"
+     *      message = "La référence ne doit pas être vide",
+     *      groups={"edit", "new"}
      * )
      *
      * @ORM\Column(name="ref", type="string", length=30, nullable=true)
@@ -45,16 +47,19 @@ class Product
     /**
      * @var string
      * @Assert\Regex(pattern="/[a-zA-Z0-9- ]{1,}/",
-     *      message = "La titre n'est pas valide"
+     *      message = "La titre n'est pas valide",
+     *      groups={"edit", "new"}
      * )
      * @Assert\NotBlank(
-     *      message = "Le titre ne doit pas être vide"
+     *      message = "Le titre ne doit pas être vide",
+     *      groups={"edit", "new"}
      * )
      * @Assert\Length(
      *      min = "4",
      *      max = "100",
      *      minMessage = "Votre titre doit être au moins de {{ limit }} caractères",
      *      maxMessage = "Votre titre ne peut être plus long que {{ limit }} caractères",
+     *      groups={"edit", "new"}
      * )
      *
      * @ORM\Column(name="title", type="string", length=150, nullable=true)
@@ -66,10 +71,12 @@ class Product
      *
      *
      * @Assert\NotBlank(
-     *      message = "Le résumé ne doit pas être vide"
+     *      message = "Le résumé ne doit pas être vide",
+     *      groups={"edit", "new"}
      * )
-     * @StoreAssert\StripTagLength
-     *
+     * @StoreAssert\StripTagLength(
+     *      groups={"edit", "new"}
+     * )
      * @ORM\Column(name="summary", type="text", nullable=true)
      */
     private $summary;
@@ -78,12 +85,17 @@ class Product
      * @var string
      * vérifie si c'est vide
      * @Assert\NotBlank(
-     *      message = "Le titre ne doit pas être vide"
+     *      message = "Le titre ne doit pas être vide",
+     *      groups={"edit", "new"}
      * )
      * vérifie à partir d'un caractère
      * @Assert\Length(
      *      min = "15",
      *      minMessage = "Votre description doit être au moins de {{ limit }} caractère",
+     *      groups={"edit", "new"}
+     * )
+     * @StoreAssert\StripTagLength(
+     *      groups={"edit", "new"}
      * )
      *
      * @ORM\Column(name="description", type="text", nullable=true)
@@ -93,11 +105,16 @@ class Product
     /**
      * @var string
      * @Assert\NotBlank(
-     *      message = "Le titre ne doit pas être vide"
+     *      message = "Le titre ne doit pas être vide",
+     *      groups={"edit", "new"}
      * )
      * @Assert\Length(
      *      min = "5",
      *      minMessage = "Votre composition doit être au moins de {{ limit }} caractère",
+     *      groups={"edit", "new"}
+     * )
+     * @StoreAssert\StripTagLength(
+     *      groups={"edit", "new"}
      * )
      *
      * @ORM\Column(name="composition", type="text", nullable=true)
@@ -107,13 +124,15 @@ class Product
     /**
      * @var float
      * @Assert\NotBlank(
-     *      message = "Le titre ne doit pas être vide"
+     *      message = "Le titre ne doit pas être vide",
+     *      groups={"edit", "new"}
      * )
      * @Assert\Range(
      *      min = 10,
      *      max = 5000,
      *      minMessage = "Votre bijoux doit avoir une valeur de  {{ limit }} € minimum",
      *      maxMessage = "Votre bijoux doit avoir une valeur de  {{ limit }} € maximum",
+     *      groups={"edit", "new"}
      * )
      *
      * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=true)
@@ -123,8 +142,9 @@ class Product
     /**
      * @var float
      *
-     * @Assert\Choice(choices = {"5.5", "19.6", "20"},
-     *      message ="Choisissez une taxe valide"
+     * @Assert\Choice(choices = {"5", "19.6", "20"},
+     *      message ="Choisissez une taxe valide",
+     *      groups={"edit", "new"}
      * )
      *
      * @ORM\Column(name="taxe", type="float", precision=10, scale=0, nullable=true)
@@ -134,13 +154,15 @@ class Product
     /**
      * @var integer
      * @Assert\NotBlank(
-     *      message = "Le titre ne doit pas être vide"
+     *      message = "Le titre ne doit pas être vide",
+     *      groups={"edit", "new"}
      * )
      * @Assert\Range(
      *      min = 1,
      *      max = 200,
      *      minMessage = "Limité à {{ limit }} bijoux minimum",
      *      maxMessage = "limité à {{ limit }} bijoux maximum",
+     *      groups={"edit", "new"}
      * )
      *
      * @ORM\Column(name="quantity", type="integer", nullable=true)
@@ -184,8 +206,13 @@ class Product
 
     /**
      * @var string
-     * @Assert\Regex(pattern="/[a-z-]{1,}/",
-     *      message = "Le slug n'est pas valide"
+     * @Assert\NotBlank(
+     *      message = "Le titre ne doit pas être vide",
+     *      groups={"edit", "new"}
+     * )
+     * @Assert\Regex(pattern="/^[a-z-]{1,}$/",
+     *      message = "Le slug n'est pas valide",
+     *      groups={"edit", "new"}
      * )
      *
      * @ORM\Column(name="slug", type="string", length=300, nullable=true)
@@ -253,7 +280,8 @@ class Product
      *      min = "1",
      *      max = "10",
      *      minMessage = "Vous devez spécifier au moins une catégorie",
-     *      maxMessage = "Vous ne pouvez pas spécifier plus de {{ limit }} Catégorie"
+     *      maxMessage = "Vous ne pouvez pas spécifier plus de {{ limit }} Catégorie",
+     *      groups={"edit", "new"}
      * )
      *
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="product")
@@ -315,7 +343,13 @@ class Product
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     *
+     * @Assert\Count(
+     *      min = "1",
+     *      max = "10",
+     *      minMessage = "Vous devez spécifier au moins un tag associé.",
+     *      maxMessage = "Vous ne pouvez pas spécifier plus de {{ limit }} tags.",
+     *      groups={"edit"}
+     *)
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="product")
      * @ORM\JoinTable(name="product_tag",
      *   joinColumns={

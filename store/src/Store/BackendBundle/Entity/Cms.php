@@ -4,6 +4,7 @@ namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Store\BackendBundle\Validator\Constraints as StoreAssert;
 /**
  * Cms
  *
@@ -45,6 +46,9 @@ class Cms
      *      minMessage = "Votre résumé doit être au moins de {{ limit }} caractères",
      *      maxMessage = "Votre résumé ne peut être plus long que {{ limit }} caractères",
      * )
+     * @StoreAssert\StripTagLength(
+     *      groups={"edit", "new"}
+     * )
      *
      * @ORM\Column(name="summary", type="text", nullable=true)
      */
@@ -60,6 +64,9 @@ class Cms
      *      max = "500",
      *      minMessage = "Votre résumé doit être au moins de {{ limit }} caractères",
      *      maxMessage = "Votre résumé ne peut être plus long que {{ limit }} caractères",
+     * )
+     * @StoreAssert\StripTagLength(
+     *      groups={"edit", "new"}
      * )
      *
      * @ORM\Column(name="description", type="text", nullable=true)

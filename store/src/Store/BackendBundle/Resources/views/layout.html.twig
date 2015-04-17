@@ -24,7 +24,7 @@
         {{ include('StoreBackendBundle:Partial:main_menu.html.twig') }}
 
         <div id="content-wrapper">
-
+            {{  include('StoreBackendBundle:Partial:flashdatas.html.twig') }}
             <div class="page-header">
 
                 <div class="row">
@@ -70,7 +70,14 @@
 
     <script type="text/javascript">
         init.push(function () {
-            $('.date').datepicker({ dateFormat: 'dd-mm-yy' })
+
+            // utilisation du datepicker de jquery
+            $('.date').datepicker({ dateFormat: 'dd-mm-yy' });
+
+            // utilisation du plugin select2
+            $('select').select2();
+
+
         })
         window.PixelAdmin.start(init);
     </script>

@@ -49,7 +49,7 @@
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Actions <i class="fa fa-caret-down"></i> </button>
                         <ul class="dropdown-menu">
                             <li> <a href="{{ path('store_backend_cms_view', {'title' : page.title, 'id' : page.id } ) }}"><i class="fa fa-eye"></i> Voir </a></li>
-                            <li> <a href="#"><i class="fa fa-pencil"></i> Editer </a></li>
+                            <li> <a href="{{ path('store_backend_cms_edit', {'id' : page.id } ) }}"><i class="fa fa-pencil"></i> Editer </a></li>
                             <li class="divider"></li>
                             <li> <a href="{{ path('store_backend_cms_remove', { 'id' : page.id } ) }}"><i class="fa fa-times"></i> Supprimer </a></li>
                         </ul>

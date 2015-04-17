@@ -79,6 +79,7 @@ class CategoryController extends Controller{
         $jeweler = $em->getRepository('StoreBackendBundle:Jeweler')->find(1); // je récupère le jeweler num 1
         $category->setJeweler($jeweler); // J'associe mon jeweler à ma catégorie
         $form = $this->createForm(new CategoryType(), $category, array(
+            'validation_groups' => 'new',
             'attr' => array(
                 'method' => 'post',
                 'novalidate' => 'novalidate', // pour virer la validation html5
@@ -92,10 +93,59 @@ class CategoryController extends Controller{
             $em->persist($category);
             $em->flush();
 
+            // je crée un message flash avec pour clef "success"
+            // et un message de confirmation
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'Votre produit a bien été créé.'
+            );
+
             return $this->redirectToRoute('store_backend_category_list');
         }
 
         return $this->render('StoreBackendBundle:Category:new.html.twig',
+            array('form' => $form->createView())
+        );
+
+    }
+
+    /**
+     * @param Request $request
+     * @param Category $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * Param Converter pour convertir un int en objet Categorie directement
+     * Je récupère l'objet Request qui contient toutes mes données en GET, POST ...
+     *
+     */
+    public function editAction(Request $request,Category $id){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $category = $em->getRepository('StoreBackendBundle:Category')->find($id);
+
+        $form = $this->createForm(new CategoryType(1), $id, array(
+            'validation_groups' => 'edit',
+            'attr' => array(
+                'method' => 'post',
+                'novalidate' => 'novalidate', // pour virer la validation html5
+                'action' => $this->generateUrl('store_backend_category_edit',
+                    array('id' => $id->getId()))
+                // action de formulaire pointe vers cette même action de controller
+            )
+        ));
+
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($id);
+            $em->flush();
+
+            return $this->redirectToRoute('store_backend_category_list');
+        }
+
+        return $this->render('StoreBackendBundle:Category:edit.html.twig',
             array('form' => $form->createView())
         );
 

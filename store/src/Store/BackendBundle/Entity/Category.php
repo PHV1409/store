@@ -4,13 +4,14 @@ namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Store\BackendBundle\Validator\Constraints as StoreAssert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Category
  *
  * @ORM\Table(name="category", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
  * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\CategoryRepository")
- * @UniqueEntity(fields="title", message="Votre titre de catégorie est déjà utilisé")
+ * @UniqueEntity(fields="title", message="Votre titre de catégorie est déjà utilisé", groups={"new"})
  */
 class Category
 {
@@ -25,6 +26,21 @@ class Category
 
     /**
      * @var string
+     * @Assert\Regex(pattern="/[a-zA-Z0-9- ]{1,}/",
+     *      message = "Le titre n'est pas valide",
+     *      groups={"new", "edit"}
+     * )
+     * @Assert\NotBlank(
+     *      message = "Le titre ne doit pas être vide",
+     *      groups={"new", "edit"}
+     * )
+     * @Assert\Length(
+     *      min = "4",
+     *      max = "100",
+     *      minMessage = "Votre titre doit être au moins de {{ limit }} caractères",
+     *      maxMessage = "Votre titre ne peut être plus long que {{ limit }} caractères",
+     *      groups={"new", "edit"}
+     * )
      *
      * @ORM\Column(name="title", type="string", length=300, nullable=true)
      */
