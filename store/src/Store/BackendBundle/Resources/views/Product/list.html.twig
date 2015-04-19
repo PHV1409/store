@@ -5,63 +5,93 @@
 {% endblock %}
 
 {% block content %}
-    <a href="{{ path('store_backend_product_new' ) }}" class="pull-right btn btn-danger btn-lg btn-rounded">
-        <i class="fa fa-plus">Ajouter un produit</i>
-    </a>
 
-    {# Boucle sur les produits #}
-    {% for product in products %} {# for nomdelaclef in nomdutableau #}
-        {# ref, title, price sont les attributs et non pas les champs de la table #}
-
-        <a href="{{ path('store_backend_product_edit', {'id' : product.id } ) }}">
-            <i class="fa fa-pencil"></i> Editer
-        </a>
-
-        <p> <h3><a href="{{ path('store_backend_product_view', {'slug' : product.slug, 'id' : product.id } ) }}" >{{ product.title }}</a> - <i>{{ product.dateCreated|date('d/m/Y') }}</i>
-
-            {% if product.active == 0 %}
-                <i class="fa fa-times"></i>
-            {% else %}
-                <i class="fa fa-check"></i>
-            {% endif %}
-
-        </h3> <sub>{{ product.ref }} </sub>{# Affiche la reference du produit #}
-        </p>
-        <hr />
-        <h3>Catégories</h3>
-            {% for category in product.category %}
-                <span class="badge"> {{ category.title }}</span>
-            {% endfor %}
-
-        <h5> Nom de la boutique de mon produit : {{ product.jeweler.title }}</h5>
-        <a href="{{ path('store_backend_product_remove', { 'id':product.id } ) }}">Supprimer</a>
-        <p> Produit : <strong>  {{ product.price }} € ~ </strong> Taxe : {{ product.taxe }} </p>
-        <p class="jumbotron"> Description : <i>{{ product.description }}</i></p>
-        <p> Quantité : {{ product.quantity }} quantités </p>
-        <p><b> Composition </b> <i> {{ product.composition }} </i></p>
-
-        <p> Description de la boutique de mon produit :  {{ product.jeweler.description }}</p>
-        <img src="{{ product.jeweler.image }}" alt="">
-
-        <div class="alert alert-dark">
-            <h3>Promotions</h3>
-            <ul>
-                {% for business in product.business %}
-                    <li> {{ business.amount }}
-                         {{ business.message }}
-                    </li>
-                {% endfor %}
-            </ul>
+<div class="panel">
+    <div class="table-primary">
+        <div class="table-header">
+            <div class="table-caption">
+                Produit
+                <a href="{{ path('store_backend_product_new' ) }}" class="pull-right btn btn-danger btn-sm">
+                    <i class="fa fa-plus">Ajouter un produit</i>
+                </a>
+            </div>
         </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Titre</th>
+                <th>Actif</th>
+                <th>Ref</th>
+                <th>Catégorie</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Taxe</th>
+                <th>Quantité</th>
+                <th>Boutique</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {# Boucle sur les produits #}
+            {% for product in products %} {# for nomdelaclef in nomdutableau #}
+                {# ref, title, price sont les attributs et non pas les champs de la table #}
 
-        <h3>CMS</h3>
-
-            {% for cms in product.cms %}
-                <span class="badge"> {{ cms.title }}
-                </span>
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>
+                        <a href="{{ path('store_backend_product_view', {'slug' : product.slug, 'id' : product.id } ) }}">
+                            {{ product.title }}
+                        </a>
+                            <sub>
+                                <br/>Créé le
+                                <br/>
+                                <i>{{ product.dateCreated|date('d/m/Y') }}</i>
+                            </sub>
+                    </td>
+                    <td>
+                        {% if product.active == 0 %}
+                            <i class="fa fa-times"></i>
+                        {% else %}
+                            <i class="fa fa-check"></i>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <sub>{{ product.ref }} </sub>
+                    </td>
+                    <td>
+                        {% for category in product.category %}
+                            <span class="badge"> {{ category.title }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.price }} €</td>
+                    <td>{{ product.taxe }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>{{ product.jeweler }}</td>
+                    <td><img src="{{ asset('uploads/product/'~ product.imagepresentation ) }}" class="img-responsive" style="width:30px;height:auto"/></td>
+                    <td>
+                        <div class="btn-group dropup">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Actions <i class="fa fa-caret-down"></i> </button>
+                            <ul class="dropdown-menu">
+                                <li> <a href="{{ path('store_backend_product_view', {'slug' : product.slug, 'id' : product.id } ) }}"><i class="fa fa-eye"></i> Voir </a></li>
+                                <li> <a href="{{ path('store_backend_product_edit', {'id' : product.id } ) }}"><i class="fa fa-pencil"></i> Editer </a></li>
+                                <li class="divider"></li>
+                                <li> <a href="{{ path('store_backend_product_remove', { 'id':product.id } ) }}"><i class="fa fa-times"></i> Supprimer </a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            {% else %} {# si aucune catégorie #}
+                <div class="alert alert-dark">Aucun produit</div>
             {% endfor %}
 
-    {% else %} {# si aucun produit #}
-        <div class="alert alert-dark">Aucun produit</div>
-    {% endfor %}
+            </tbody>
+        </table>
+    <div class="table-footer">
+        Footer
+    </div>
+</div>
+</div>
 {% endblock %}
