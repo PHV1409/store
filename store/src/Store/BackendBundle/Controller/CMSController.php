@@ -145,6 +145,53 @@ class CMSController extends Controller{
 
     }
 
+    /**
+     * Activate a cms
+     * @param Cms $id
+     * @param $action
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function activateAction(Cms $id, $action){
+        // je récupère le manager de doctrine : Le conteneur d'objet de Doctrine
+        $em = $this->getDoctrine()->getManager();
+
+        $id->setActive($action);
+        $em->persist($id);
+        $em->flush();
+
+        // je cré un message flash avec pour clef "success"
+        // et un message de confirmation
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            'Votre PAGE CMS a bien été activé'
+        );
+        return $this->redirectToRoute('store_backend_cms_list'); //redirect
+    }
+
+    /**
+     * State a CMS
+     * @param Cms $id
+     * @param $action
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function stateAction(Cms $id, $action){
+        // je récupère le manager de doctrine : Le conteneur d'objet de Doctrine
+        $em = $this->getDoctrine()->getManager();
+
+        $id->setState($action);
+        $em->persist($id);
+        $em->flush();
+
+        // je cré un message flash avec pour clef "success"
+        // et un message de confirmation
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            'Votre CMS a bien été affiché en première page'
+        );
+        return $this->redirectToRoute('store_backend_cms_list'); //redirect
+    }
+
+
 
 }
 

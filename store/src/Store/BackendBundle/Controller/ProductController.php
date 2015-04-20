@@ -182,6 +182,51 @@ class ProductController extends Controller{
         );
     }
 
+    /**
+     * Activate a product
+     * @param Product $id
+     * @param $action
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function activateAction(Product $id, $action){
+        // je récupère le manager de doctrine : Le conteneur d'objet de Doctrine
+        $em = $this->getDoctrine()->getManager();
+
+        $id->setActive($action);
+        $em->persist($id);
+        $em->flush();
+
+        // je cré un message flash avec pour clef "success"
+        // et un message de confirmation
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            'Votre produit a bien été activé'
+        );
+        return $this->redirectToRoute('store_backend_product_list'); //redirect
+    }
+
+    /**
+     * Cover a product
+     * @param Product $id
+     * @param $action
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function coverAction(Product $id, $action){
+        // je récupère le manager de doctrine : Le conteneur d'objet de Doctrine
+        $em = $this->getDoctrine()->getManager();
+
+        $id->setCover($action);
+        $em->persist($id);
+        $em->flush();
+
+        // je cré un message flash avec pour clef "success"
+        // et un message de confirmation
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            'Votre produit a bien été affiché en première page'
+        );
+        return $this->redirectToRoute('store_backend_product_list'); //redirect
+    }
 
 
 }

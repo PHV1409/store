@@ -66,8 +66,6 @@ class Product
      */
     private $title;
 
-
-
     /**
      * @var string
      *

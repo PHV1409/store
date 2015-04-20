@@ -22,6 +22,7 @@
                 <th>#</th>
                 <th>Titre</th>
                 <th>Actif</th>
+                <th>En couverture</th>
                 <th>Ref</th>
                 <th>Catégorie</th>
                 <th>Description</th>
@@ -51,10 +52,25 @@
                             </sub>
                     </td>
                     <td>
-                        {% if product.active == 0 %}
-                            <i class="fa fa-times"></i>
+                        {% if product.active == 1 %}
+                            <a href="{{ path('store_backend_product_activate', {'id' : product.id, 'action' : 0}) }}">
+                                <i class="fa fa-check"></i>
+                            </a>
                         {% else %}
-                            <i class="fa fa-check"></i>
+                            <a href="{{ path('store_backend_product_activate', {'id' : product.id, 'action' : 1}) }}">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if product.cover == 1 %}
+                            <a href="{{ path('store_backend_product_cover', {'id' : product.id, 'action' : 0}) }}">
+                                <i class="fa fa-star"></i>
+                            </a>
+                        {% else %}
+                            <a href="{{ path('store_backend_product_cover', {'id' : product.id, 'action' : 1}) }}">
+                                <i class="fa fa-star-o"></i>
+                            </a>
                         {% endif %}
                     </td>
                     <td>

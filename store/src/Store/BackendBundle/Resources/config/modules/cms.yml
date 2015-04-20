@@ -26,3 +26,13 @@ store_backend_cms_edit:
 store_backend_cms_new:
   path: /new
   defaults: { _controller: StoreBackendBundle:CMS:new }
+
+# Active a cms
+store_backend_cms_activate:
+  path: /activate/{id}/{action}
+  defaults: { _controller: StoreBackendBundle:CMS:activate }
+
+# State  cms
+store_backend_cms_state:
+  path: /state/{id}/{action}
+  defaults: { _controller: StoreBackendBundle:CMS:state }

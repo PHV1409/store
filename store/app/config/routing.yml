@@ -1,7 +1,27 @@
-storebackend:
+store_backend:
     resource: "@StoreBackendBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /administration
 
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+#app:
+#    resource: "@AppBundle/Controller/"
+#    type:     annotation
+
+
+###
+# Authentification par Backend et Frontend
+###
+
+#Login Backend
+store_backend_security_login:
+  path: /login
+  defaults: { _controller: StoreBackendBundle:Security:login }
+
+#Login Backend Check Action de mon formulaire
+store_backend_security_login_check:
+  path: /administration/login_check
+  defaults: { _controller: StoreBackendBundle:Security:login }
+
+
+#Logout Backend
+store_backend_security_logout:
+  path: /administration/logout

@@ -77,6 +77,11 @@
             // utilisation du plugin select2
             $('select').select2();
 
+            // pour enlever les messages d'alert info au bout de 3 secondes
+            $('div.alert-info').delay(3000).slideUp('fast');
+            // pour enlever les messages d'alert success au bout de 3 secondes
+            $('div.alert-success').delay(3000).slideUp('fast');
+
 
         })
         window.PixelAdmin.start(init);
