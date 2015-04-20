@@ -108,6 +108,10 @@ class ProductController extends Controller{
 
         // si la totalité du formulaire est valide
         if($form->isValid()){
+
+            // j'upload mon fichier en faisant appel à la méthode upload si mon formulaire est valide
+            $product->upload();
+
             //exit('YES ! Mon formulaire est valide :)');
             $em = $this->getDoctrine()->getManager(); // je récupère le manager de Doctrine
             $em->persist($product); // j'enregistre mon objet product dans doctrine

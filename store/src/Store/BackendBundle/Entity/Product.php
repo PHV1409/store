@@ -66,6 +66,34 @@ class Product
      */
     private $title;
 
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imagepresentation", type="string", nullable=true)
+     */
+    private $imagepresentation;
+
+    /**
+     * @var file
+     *
+     * Attribut qui représentera mon fichier uploadé
+     *
+     * @Assert\Image(
+     *      minWidth = 100,
+     *      maxWidth = 3000,
+     *      minHeight = 100,
+     *      maxHeight = 2500,
+     *      minWidthMessage = "La largeur de l'image est trop petite",
+     *      maxWidthMessage = "La largeur de l'image est trop grande",
+     *      minHeightMessage = "La hauteur de l'image est trop petite",
+     *      maxHeightMessage = "La hauteur de l'image est trop grande",
+     *      groups={"edit", "new"}
+     * )
+     */
+    protected $file;
+
     /**
      * @var string
      *
@@ -1056,6 +1084,110 @@ class Product
 
 
     /**
+     * Set imagepresentation
+     *
+     * @param string $imagepresentation
+     * @return Product
+     */
+    public function setImagepresentation($imagepresentation)
+    {
+        $this->imagepresentation = $imagepresentation;
+
+        return $this;
+    }
+
+    /**
+     * Get imagepresentation
+     *
+     * @return string
+     */
+    public function getImagepresentation()
+    {
+        return $this->imagepresentation;
+    }
+
+
+    /**
+     * Retourne le chemin absolu de mon image
+     * @return null|string
+     */
+    public function getAbsolutePath()
+    {
+        return null === $this->imagepresentation ? null : $this->getUploadRootDir().'/'.$this->imagepresentation;
+    }
+
+    /**
+     * Retourne le chemin de l'image depuis le dossier web
+     * @return null|string
+     */
+    public function getWebPath()
+    {
+        return null === $this->imagepresentation ? null : $this->getUploadDir().'/'.$this->imagepresentation;
+    }
+
+    /**
+     * Retourne le chemin de l'image depuis l'entité
+     * @return string
+     */
+    protected function getUploadRootDir()
+    {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
+        // le document/image dans la vue.
+        return 'uploads/product';
+    }
+
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        // la propriété "file" peut être vide si le champ n'est pas requis
+        if (null === $this->file) {
+            return;
+        }
+
+        // utilisez le nom de fichier original ici mais
+        // vous devriez "l'assainir" pour au moins éviter
+        // quelconques problèmes de sécurité
+
+        // On déplace le fichier uploadé dans le bon répertoire uploads/product
+        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
+
+        // Je stocke le nom du fichier uploadé
+        $this->imagepresentation = $this->file->getClientOriginalName();
+
+        // " nettoie " la propriété " file " comme vous n'en aurez plus besoin
+        unset($this->file);
+    }
+
+
+
+    /**
+     * @return file
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param file $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+
+    /**
      * retourne le titre
      * @return string
      */
@@ -1063,6 +1195,7 @@ class Product
     {
         return $this->title;
     }
+
 
 
 }

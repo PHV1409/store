@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 16 Avril 2015 à 18:34
+-- Généré le: Ven 17 Avril 2015 à 15:38
 -- Version du serveur: 5.5.40-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.4
 
@@ -108,14 +108,14 @@ CREATE TABLE IF NOT EXISTS `cms` (
   PRIMARY KEY (`id`),
   KEY `jeweler_id` (`jeweler_id`),
   KEY `jeweler_id_2` (`jeweler_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `cms`
 --
 
 INSERT INTO `cms` (`id`, `jeweler_id`, `title`, `summary`, `description`, `image`, `video`, `state`, `active`, `view`, `date_active`, `date_updated`, `date_created`) VALUES
-(1, 1, 'Pages sur nos colliers design', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tempus pellentesque tincidunt. Aliquam nibh neque, tempor id nibh ac, ultrices porttitor orci. Nam nec dolor ligula. Vivamus bibendum ornare porttitor. Duis dignissim vel metus ornare varius. Phasellus ornare risus velit, a porta ipsum placerat a. Ut at scelerisque est. Duis et arcu turpis.\r\n', 'Sed ut euismod sem. Integer blandit, diam a tincidunt finibus, lectus leo mattis ante, nec facilisis purus purus at elit. Suspendisse hendrerit quis magna et vestibulum. Duis velit neque, pretium vestibulum vehicula ut, fermentum eu lectus. Aliquam erat volutpat. Aliquam facilisis nisl sed leo fringilla, nec vulputate dolor ullamcorper. Duis ac ultricies arcu, at sodales ligula. Donec lacinia lacus lectus, eu aliquet mauris luctus sit amet. Suspendisse vitae tellus id enim auctor fermentum vel in neque. Donec efficitur odio sit amet ipsum dapibus, ac elementum orci finibus. Donec non sodales diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\r\n', NULL, NULL, 1, 1, NULL, '2015-04-05 00:00:00', '2015-04-05 00:00:00', '2015-04-05 00:00:00'),
+(1, 1, 'Pages sur nos colliers design', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tempus pellentesque tincidunt. Aliquam nibh neque, tempor id nibh ac, ultrices porttitor orci. Nam nec dolor ligula. Vivamus bibendum ornare porttitor. Duis dignissim vel metus ornare varius. Phasellus ornare risus velit, a porta ipsum placerat a. Ut at scelerisque est. Duis et arcu turpis. fghfrhdyh', 'Sed ut euismod sem. Integer blandit, diam a tincidunt finibus, lectus leo mattis ante, nec facilisis purus purus at elit. Suspendisse hendrerit quis magna et vestibulum. Duis velit neque, pretium vestibulum vehicula ut, fermentum eu lectus. Aliquam erat volutpat. Aliquam facilisis nisl sed leo fringilla, nec vulputate dolor ullamcorper. Duis ac ultricies arcu, at sodales ligula. Donec lacinia lacus lectus, eu aliquet mauris luctus sit amet. Suspendisse vitae tellus id enim auctor fermentum vel in neque. Donec efficitur odio sit amet ipsum dapibus, ac elementum orci finibus. Donec non sodales diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', NULL, NULL, 1, 1, NULL, '2015-04-05 00:00:00', '2015-04-05 00:00:00', '2015-04-05 00:00:00'),
 (2, 1, 'Pages sur nos bracelets Glamours', 'Maecenas eu hendrerit ipsum. Aliquam maximus orci id sapien laoreet, eget elementum ipsum maximus. Morbi efficitur augue ut consequat euismod. Quisque a felis in eros congue cursus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean non leo eu ex imperdiet vulputate. Vivamus varius placerat placerat. Sed ligula mauris, sagittis et ipsum eu, sodales finibus mi. Vivamus nec tortor eu ante vulputate viverra id ac quam. Nullam purus felis, efficitur accumsan vehicula at, efficitur viverra elit.\r\n', 'Aliquam erat volutpat. Quisque viverra rutrum tellus. Proin feugiat iaculis risus, ut faucibus tortor tempor quis. Praesent consequat porttitor augue, ut volutpat nulla tincidunt non. Cras lacus sapien, commodo eget nulla a, tincidunt lacinia mi. Cras et magna sit amet orci interdum ullamcorper. Ut scelerisque lobortis enim sed congue. Etiam lacinia suscipit quam, quis euismod est. Maecenas vulputate molestie magna, et pellentesque magna fermentum ac. Etiam pellentesque at lacus eu mattis. Sed sed pellentesque mauris. Aenean et luctus mi, vel aliquet nisl.\r\n', NULL, NULL, 1, 1, NULL, '2015-04-05 00:00:00', '2015-04-05 00:00:00', '2015-04-05 00:00:00');
 
 -- --------------------------------------------------------
@@ -336,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `date_updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `jeweler_id` (`jeweler_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18 ;
 
 --
 -- Contenu de la table `product`
@@ -344,7 +344,7 @@ CREATE TABLE IF NOT EXISTS `product` (
 
 INSERT INTO `product` (`id`, `jeweler_id`, `ref`, `title`, `summary`, `description`, `composition`, `price`, `taxe`, `quantity`, `active`, `date_active`, `cover`, `shop`, `position`, `slug`, `date_created`, `date_updated`) VALUES
 (1, 1, 'FR01', 'LAURA Collier élégant', 'Ce bijou est composé d''un jolie danseuse strassée bleue réhaussée d''une goutte translucide facettée  et d''un anneau bleu bermude SWAROVSKI . Il est accompagné d''une chaîne jaseron en acier inoxydable réglable de grande qualité.', 'Ecrin de bijoux vous propose ce collier très élégant qui donnera une touche de romantisme à tous les styles. A toutes les occasions décontractées ou plus chic, c''est un bijou qui s''adapte à tous les looks.\r\n\r\nRien n''est laissé au hasard pour une  recherche constante de qualité, vous remarquerez la noblesse des composants : cristal SWAROVSKI aux reflets incomparables, beauté aérienne du charm "ballerine" avec ses multiples strasse turquoise, qualité de la chaîne jaseron et des différents apprêts.\r\n\r\nIl est parfait pour ajouter une note élégante et raffinée. Son design aérien créé par l''agencement original et artistique  de ses composants en font une création unique. Pour un cadeau, quelle qu''en soit l''occasion, ce n''est pas un bijou cher compte tenu tenu de tous ses atouts. Vous pouvez l''acheter "les yeux fermés".', 'un anneau évidé bleu bermude SWAROVSKI AB (brillance qualité supérieure) 14 mm, une danseuse en inox strassée bleue 30 mm, une goutte facettée SWAROVSKI translucide12 mm', 40.8, 20, 5, 1, '2015-04-05 00:00:00', 1, 1, NULL, 'laura-collier-elegant', '2015-04-05 00:00:00', NULL),
-(2, 1, 'FR02', 'ALYCIA Collier', 'C''est un collier facile à porter qui confère  une allure élégante et sobre.Sobriété, luminosité et chic sont les termes qui le caractérisent le mieux.\r\n', 'Ce bijou est composé d''une jolie chouette strassée blanche mise en valeur par un câble réglable orné de 2 perles nacrées, de  2 perles disco SWAROVSKI  translucides d''un éclat incomparable et de 2 perles tubes plaqué argent. Fidèle à sa politique de création artistique, Ecrin de Bijoux vous garantit de posséder, pour un prix très attractif, un bijou fantaisie fait main, original, unique et de qualité supérieure compte-tenu de la noblesse des composants choisis.', 'SWAROVSKI AB (brillance supérieure) : 2 perles DISCO facettées translucides + 2 perles nacrées bleu nuit 4 mm', 39.4, 20, 7, 1, '2015-04-05 00:00:00', 1, 1, 2, 'alycia-collier', '2015-04-05 00:00:00', '2015-04-05 00:00:00'),
+(2, 1, 'FR02', 'ALYCIA Collier', 'C''est un collier facile à porter qui confère  une allure élégante et sobre.Sobriété, luminosité et chic sont les termes qui le caractérisent le mieux.', 'Ce bijou est composé d''une jolie chouette strassée blanche mise en valeur par un câble réglable orné de 2 perles nacrées, de  2 perles disco SWAROVSKI  translucides d''un éclat incomparable et de 2 perles tubes plaqué argent. Fidèle à sa politique de création artistique, Ecrin de Bijoux vous garantit de posséder, pour un prix très attractif, un bijou fantaisie fait main, original, unique et de qualité supérieure compte-tenu de la noblesse des composants choisis.', 'SWAROVSKI AB (brillance supérieure) : 2 perles DISCO facettées translucides + 2 perles nacrées bleu nuit 4 mm', 39.4, 5, 7, 1, '2015-04-05 00:00:00', 1, 1, 2, 'alycia-collier', '2015-04-05 00:00:00', '2015-04-05 00:00:00'),
 (3, 1, 'FR03', 'ZOE Collier', 'Fidèle à sa recherche constante de créativité, d''originalité et de qualité, Ecrin de Bijoux vous propose de bijou  raffiné et très gracieux. Beaucoup de poésie, d''originalité et d''éclat se dégagent de cette création qui mettra en valeur toutes les tenues. Ses couleurs délicates raffinées et très lumineuses apportent une touche de fraîcheur et rendent ce collier très attrayant et seyan', 'Vous pouvez acheter ce collier pour un prix très abordable compte tenu de tous ses atouts, il sera idéal pour faire un cadeau en toutes circonstances : Fête des Mères, anniversaires, Saint-Valentin....ou plus simplement pour faire plaisir, c''est un bijou qui durera longtemps et et qui est facile à assortir à toutes les tenues.\r\n\r\nCe collier est composé d''une chaîne jaseron réglable en acier inoxydable joliement embellie d''éléments SWAROVSKI  et d''un charm pieuvre strassée accompagnée de sa rondelle perlée bleue.', 'charm "pieuvre" acier inoxydable avec strass bleus 3 cm hauteur + rondelle 2 cm diamètre acier perles bleues', 44.2, 20, 10, 1, '2015-04-05 00:00:00', 1, 1, 3, 'zoe-collier', '2015-04-05 00:00:00', '2015-04-05 00:00:00'),
 (4, 1, 'FR05', 'OLGA Collier', 'Très romantique, ce collier est extrêmement raffiné. L''association des perles nacrées et disco convient  parfaitement au thème du collier et lui  donnent beaucoup de glamour.\r\nLa noblesse de ses composants ainsi que leur agencement très original font de ce bjou une création unique que vous pouvez acheter pour un prix très raisonnable.', 'Il se compose d''un câble bleu roi réglable accompagné d''une danseuse strassée bleue nuit réhaussée de 2 perles disco SWAROVSKI qui scintillent de mille feux, de 4 perles nacrées. Il possède en breloque un joli petit coeur SWAROVSKI vitrail et un coeur argenté vieilli finement ciselé.\r\n\r\nCe collier au design léger et aérien donne à toutes les tenues et à tous les style une allure chic et très élégant. C''est un cadeau idéal en toutes occasions, il sera très apprécié et durera longtemps, compte tenu de sa qualité.', 'charm danseuse en inox strassée bleue nuit (40 mm) + un petit coeur SWAROVSKI (10 x10 mm) vitrail AB (qualité brillance supérieure) + un coeur en argent vieilli finement gravé (15mmx10mm)', 41.9, 20, 10, 1, '2015-04-05 00:00:00', 1, 1, 4, 'olga-collier', '2015-04-05 00:00:00', '2015-04-05 00:00:00'),
 (7, 2, 'FR06', 'STELLA Collier créatif', 'Fidèle à sa politique de création artistique, Ecrin de Bijoux vous propose, pour un prix très attractif, ce joli bijou artisanal, original, unique et de qualité supérieure compte-tenu de la noblesse des composants choisis. Il ressort de ce bijou beaucoup de créativité et d''originalité grâce à  la combinaison subtile des couleurs et le choix des matériaux (émail et éléments SWAROVSKI).', 'Il s''agit d''un joli charm "tortue" émaillé dans une mosaique de couleurs accompagné d''un câble orné de perles nacrées, de toupies SWAROVSKI bleu pétrole, beige rosé et verte néon et de perles tubes plaqué argent. C''est une excellente idée de cadeau à offrir en toutes occasions.', '6 perles nacrées Swarovski 4 mm + 8 perles verre thèque turquoise métallisé et bleu iris', 48.2, 20, 8, 1, '2015-04-05 00:00:00', 1, 1, 6, 'stella-collier-creatif', '2015-04-05 00:00:00', '2015-04-05 00:00:00'),
@@ -352,7 +352,12 @@ INSERT INTO `product` (`id`, `jeweler_id`, `ref`, `title`, `summary`, `descripti
 (9, 1, 'FR12', 'khgikgi', 'lkjolkghkhjolio', 'khgjuyfdyrst', NULL, 0, 20, 1, 1, '2015-04-15 14:42:53', 0, 1, NULL, 'swdfsqf', '2015-04-15 14:42:53', '2015-04-15 14:42:53'),
 (10, 1, 'FR12', 'khgikgi', 'lkjolkghkhjolio', 'khgjuyfdyrst', NULL, 0, 20, 1, 1, '2015-04-15 14:43:48', 0, 1, NULL, 'xfvgdgqe', '2015-04-15 14:43:48', '2015-04-15 14:43:48'),
 (11, 1, 'AA11', 'kjhnkjkjgkjgkjhgk', 'lkjnhlkkhlkhnmlklkhjnol', 'ljknkjbkhjbvkjhvjc', 'dgfhrdfthjdrthdtyjh', 0, 20, 1, 1, '2015-04-15 15:22:56', 0, 1, NULL, 'szretgezrtgz', '2015-04-15 15:22:56', '2015-04-15 15:22:56'),
-(12, 1, 'AA11', 'kjhnkjkjgkjgkjhgk', 'lkjnhlkkhlkhnmlklkhjnol', 'ljknkjbkhjbvkjhvjc', 'dgfhrdfthjdrthdtyjh', 0, 20, 1, 1, '2015-04-15 15:28:47', 0, 1, NULL, 'szretgezrtgz', '2015-04-15 15:28:47', '2015-04-15 15:28:47');
+(12, 1, 'AA11', 'kjhnkjkjgkjgkjhgk', 'lkjnhlkkhlkhnmlklkhjnol', 'ljknkjbkhjbvkjhvjc', 'dgfhrdfthjdrthdtyjh', 0, 20, 1, 1, '2015-04-15 15:28:47', 0, 1, NULL, 'szretgezrtgz', '2015-04-15 15:28:47', '2015-04-15 15:28:47'),
+(13, 1, 'ZZ44', 'qdfgdqfgqgh', '<p>sdgqrgqeg</p>', '<p>qdrefgqdeh</p>', '<p><br></p>', 15, 20, 1, 1, '2015-04-17 00:00:00', 0, 1, NULL, 'dfrgqse', '2015-04-17 15:17:06', '2015-04-17 15:17:06'),
+(14, 1, 'ZZ45', 'qdfgdqfgqghq', '<p>sdgqrgqeg</p>', '<p>qdrefgqdeh</p>', '<p><br></p>', 15, 20, 1, 1, '2015-04-17 00:00:00', 0, 1, NULL, 'wdxcfgwdsqgfq', '2015-04-17 15:17:39', '2015-04-17 15:17:39'),
+(15, 1, 'ZZ46', 'qdfgdqfgqghqq', '<p>sdgqrgqeg</p>', '<p>qdrefgqdeh</p>', '<p><br></p>', 15, 20, 1, 1, '2015-04-17 00:00:00', 0, 1, NULL, 'wdxcfgw-dsqgfq', '2015-04-17 15:18:09', '2015-04-17 15:18:09'),
+(16, 1, 'TT77', 'rtyhrtyr', '<p>dsfgdsrgegt</p>', '<p>drfhgedhderh</p>', '<p><br></p>', 14, 20, 1, 1, '2015-04-17 00:00:00', 0, 1, NULL, 'fdbgdgh', '2015-04-17 15:21:08', '2015-04-17 15:21:08'),
+(17, 1, 'YY22', 'mjzhfZF', '<p>ZDEFAZF</p>', '<p>AREQGFEARGAEGR</p>', '<p>zfezfg</p>', 18, 20, 1, 1, '2015-04-17 00:00:00', 0, 1, NULL, 'lkhkfu-kljbnhk', '2015-04-17 15:35:00', '2015-04-17 15:35:00');
 
 -- --------------------------------------------------------
 
@@ -401,7 +406,12 @@ INSERT INTO `product_category` (`product_id`, `category_id`) VALUES
 (10, 1),
 (8, 2),
 (11, 2),
-(12, 2);
+(12, 2),
+(17, 2),
+(13, 5),
+(14, 5),
+(15, 5),
+(16, 5);
 
 -- --------------------------------------------------------
 
@@ -541,10 +551,12 @@ CREATE TABLE IF NOT EXISTS `product_tag` (
 --
 
 INSERT INTO `product_tag` (`product_id`, `tag_id`) VALUES
+(2, 1),
 (9, 1),
 (10, 1),
 (11, 2),
-(12, 2);
+(12, 2),
+(16, 2);
 
 -- --------------------------------------------------------
 

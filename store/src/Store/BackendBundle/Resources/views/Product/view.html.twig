@@ -6,11 +6,26 @@
 
 {% block content %}
     <p>Nom du produit : {{ product.title }}</p>
+    Référence : {{ product.ref }} <br/>
+    <i>Date de création : {{ product.dateCreated|date('d/m/Y') }}</i>
+    <p>Etat :  {% if product.active == 0 %}
+                <i class="fa fa-times"></i>
+            {% else %}
+                <i class="fa fa-check"></i>
+            {% endif %}
+    </p>
     <p>Résumé : {{ product.summary }}</p>
-    <p>Description : {{ product.description }}</p>
-    <p>Quantité : {{ product.quantity }}</p>
-    <p>Prix : {{ product.price }}</p>
 
+    <p>Quantité : {{ product.quantity }}</p>
+    <h5> Nom de la boutique de mon produit : {{ product.jeweler.title }}</h5>
+        <a href="{{ path('store_backend_product_remove', { 'id':product.id } ) }}">Supprimer</a>
+        <p> Produit : <strong>  {{ product.price }} € ~ </strong> Taxe : {{ product.taxe }} </p>
+    <p class="jumbotron"> Description : <i>{{ product.description }}</i></p>
+            <p> Quantité : {{ product.quantity }} quantités </p>
+            <p><b> Composition </b> <i> {{ product.composition }} </i></p>
+
+            <p> Description de la boutique de mon produit :  {{ product.jeweler.description }}</p>
+            <img src="{{ product.jeweler.image }}" alt="">
     <h3>Catégories associés :</h3>
     <ul>
         {%  for category in product.category %}
@@ -25,7 +40,29 @@
         {% endfor %}
     </ul>
 
+    <div class="alert alert-dark">
+            <h3>Promotions</h3>
+            <ul>
+                {% for business in product.business %}
+                    <li> {{ business.amount }}
+                        {{ business.message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
 
+        <h3>CMS</h3>
+
+            {% for cms in product.cms %}
+                <span class="badge"> {{ cms.title }}</span>
+            {% endfor %}
 
 
 {% endblock %}
+
+
+
+
+
+
+

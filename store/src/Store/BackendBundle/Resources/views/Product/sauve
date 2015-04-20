@@ -1,0 +1,28 @@
+
+        <h5> Nom de la boutique de mon produit : {{ product.jeweler.title }}</h5>
+
+
+
+
+        <p><b> Composition </b> <i> {{ product.composition }} </i></p>
+
+        <p> Description de la boutique de mon produit :  {{ product.jeweler.description }}</p>
+        <img src="{{ product.jeweler.image }}" alt="">
+
+        <div class="alert alert-dark">
+            <h3>Promotions</h3>
+            <ul>
+                {% for business in product.business %}
+                    <li> {{ business.amount }}
+                         {{ business.message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <h3>CMS</h3>
+
+            {% for cms in product.cms %}
+                <span class="badge"> {{ cms.title }}
+                </span>
+            {% endfor %}

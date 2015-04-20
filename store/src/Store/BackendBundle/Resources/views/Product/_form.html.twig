@@ -25,11 +25,17 @@
 </div>
 <br/>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
         {{ form_row(form.summary) }}
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3">
         {{ form_row(form.description) }}
+    </div>
+    <div class="col-md-3">
+        {{ form_row(form.composition) }}
+    </div>
+    <div class="col-md-3">
+        {{ form_row(form.file) }}
     </div>
 </div>
 <br/>
@@ -76,14 +82,8 @@
 <br/>
 <div class="row">
     <div class="col-md-6">
-        {{ form_row(form.composition) }}
-    </div>
-    <div class="col-md-6">
         {{ form_row(form.slug) }}
     </div>
-</div>
-<br/>
-<div class="row">
     <div class="col-md-6">
         {{ form_row(form.dateActive) }}
     </div>
