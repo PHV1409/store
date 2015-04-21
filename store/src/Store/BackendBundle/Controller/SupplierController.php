@@ -20,8 +20,10 @@ class SupplierController extends Controller{
         // recupère le manager de doctrine : le conteneur d'objet
         $em = $this->getDoctrine()->getManager();
 
+        $user = $this->getUser();
+
         // Je récupère le Repository de mon entité Supplier
-        $supplier = $em->getRepository('StoreBackendBundle:Supplier')->getSupplierByUser(1); // Nom du Bundle: Nom de l'entité
+        $supplier = $em->getRepository('StoreBackendBundle:Supplier')->getSupplierByUser($user); // Nom du Bundle: Nom de l'entité
 
         // Requête: SELECT * FROM product
         // Je retourne la vue List contenue dans le dossier Supplier de mon Bundle StoreBackendBundle

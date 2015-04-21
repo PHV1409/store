@@ -1,0 +1,67 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: wac30
+ * Date: 21/04/15
+ * Time: 15:00
+ */
+
+namespace Store\BackendBundle\Entity;
+
+
+use Symfony\Component\Security\Core\Role\RoleInterface;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class Groups
+ * @package Store\BackendBundle\Entity
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="groups")
+ */
+class Groups implements RoleInterface{
+
+    /**
+     * @var
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id()
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+
+    /**
+     * @var
+     *
+     * @ORM\Column(name="name", type="string", length=30)
+     */
+    private $name;
+
+
+    /**
+     * @var
+     *
+     * @ORM\Column(name="role", type="string", length=20, unique=true)
+     */
+    private $role;
+
+    /**
+     * @var
+     *
+     * @ORM\ManyToMany(targetEntity="Jeweler", mappedBy="groups")
+     */
+    private $jeweler;
+
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+
+
+} 

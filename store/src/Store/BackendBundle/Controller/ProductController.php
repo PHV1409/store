@@ -23,8 +23,11 @@ class ProductController extends Controller{
         // recupere le manager de doctrine : le conteneur d'objet
         $em = $this->getDoctrine()->getManager();
 
+        // récupérer l'utilisateur courant connecté
+        $user = $this->getUser();
+
         // Je récupère tous les produits de jeweler numéro 1
-        $products = $em->getRepository('StoreBackendBundle:Product')->getProductByUser(1); // Nom du Bundle: Nom de l'entité
+        $products = $em->getRepository('StoreBackendBundle:Product')->getProductByUser($user); // Nom du Bundle: Nom de l'entité
 
         // Requête: SELECT * FROM product
         // Je retourne la vue List contenue dans le dossier Product de mon Bundle StoreBackendBundle
@@ -82,9 +85,9 @@ class ProductController extends Controller{
         // a chaque fois que je crée un objet d'une class, je dois user la classe
         $product = new Product();
 
-        $em = $this->getDoctrine()->getManager(); // Je récupère le manager de Doctrine
-        $jeweler = $em->getRepository('StoreBackendBundle:Jeweler')->find(1); // je récupère le jeweler num 1
-        $product->setJeweler($jeweler); // J'associe mon jeweler à mon produit
+        $user = $this->getUser();
+
+        $product->setJeweler($user); // J'associe mon jeweler à mon produit
 
         // j'initialise la quantité et le prix de mon produit
         // sauf si déjà initialisé dans mon constructeur de l'Entity

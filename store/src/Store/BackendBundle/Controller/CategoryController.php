@@ -23,8 +23,10 @@ class CategoryController extends Controller{
         // recupère le manager de doctrine : le conteneur d'objet
         $em = $this->getDoctrine()->getManager();
 
+        $user = $this->getUser();
+
         // Je récupère tous les catégories de ma base de données
-        $categories = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser(1); // Nom du Bundle: Nom de l'entité
+        $categories = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser($user); // Nom du Bundle: Nom de l'entité
 
         // Requête: SELECT * FROM product
         // Je retourne la vue List contenue dans le dossier Category de mon Bundle StoreBackendBundle
@@ -75,9 +77,10 @@ class CategoryController extends Controller{
     public function newAction(Request $request){
         $category = new Category();
 
-        $em = $this->getDoctrine()->getManager();
-        $jeweler = $em->getRepository('StoreBackendBundle:Jeweler')->find(1); // je récupère le jeweler num 1
-        $category->setJeweler($jeweler); // J'associe mon jeweler à ma catégorie
+        $user = $this->getUser();
+
+        $category->setJeweler($user); // J'associe mon jeweler à ma catégorie
+
         $form = $this->createForm(new CategoryType(), $category, array(
             'validation_groups' => 'new',
             'attr' => array(

@@ -112,14 +112,6 @@ class ProductType extends AbstractType{
             )
         ));
 
-        $builder->add('description', null, array(
-            'label' => 'description longue', // label de mon champ
-            'attr'  => array(
-                'class' => 'form-control',
-                'placeholder'   => 'Description longue du bijoux',
-            )
-        ));
-
         $builder->add('composition', null, array(
             'label' => 'description de la composition', // label de mon champ
             'required' => true,

@@ -8,6 +8,15 @@ store_backend:
 
 
 ###
+# Inscription en Frontend
+###
+
+#Subscribe Jeweler Backend
+store_backend_security_subscribe:
+  path: /subscribe
+  defaults: { _controller: StoreBackendBundle:Security:subscribe }
+
+###
 # Authentification par Backend et Frontend
 ###
 

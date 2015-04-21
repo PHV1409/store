@@ -18,20 +18,22 @@ class MainController extends Controller{
          // Récupère Doctrine Manager
         $em = $this->getDoctrine()->getManager();
 
+        $user = $this->getUser();
+
         // Je récupère le nombre de produits de mon bijoutier numéro 1
         // Je fais appel à mon Repository ProductRepository
         // et à la fonction getCountByUser(1);
-        $nbprod = $em->getRepository('StoreBackendBundle:Product')->getCountByUser(1);
-        $nbcat = $em->getRepository('StoreBackendBundle:Category')->getCountByUser(1);
-        $nbcms = $em->getRepository('StoreBackendBundle:Cms')->getCountByUser(1);
-        $nbcom = $em->getRepository('StoreBackendBundle:Comment')->getCountByUser(1);
-        $nbsup = $em->getRepository('StoreBackendBundle:Supplier')->getCountByUser(1);
-        $nbcde = $em->getRepository('StoreBackendBundle:Orders')->getCountByUser(1);
-        $totalcde = $em->getRepository('StoreBackendBundle:Orders')->getTotalcdeByUser(1);
-        $commentsactifs = $em->getRepository('StoreBackendBundle:Comment')->getCommentsActifsByUser(1);
-        $commentsinactifs = $em->getRepository('StoreBackendBundle:Comment')->getCommentsInactifsByUser(1);
-        $fivelastcde = $em->getRepository('StoreBackendBundle:Orders')->getFiveLastCdeByUser(1);
-        $catpopulaire = $em->getRepository('StoreBackendBundle:Category')->getCatPopulaireByUser(1);
+        $nbprod = $em->getRepository('StoreBackendBundle:Product')->getCountByUser($user);
+        $nbcat = $em->getRepository('StoreBackendBundle:Category')->getCountByUser($user);
+        $nbcms = $em->getRepository('StoreBackendBundle:Cms')->getCountByUser($user);
+        $nbcom = $em->getRepository('StoreBackendBundle:Comment')->getCountByUser($user);
+        $nbsup = $em->getRepository('StoreBackendBundle:Supplier')->getCountByUser($user);
+        $nbcde = $em->getRepository('StoreBackendBundle:Orders')->getCountByUser($user);
+        $totalcde = $em->getRepository('StoreBackendBundle:Orders')->getTotalcdeByUser($user);
+        $commentsactifs = $em->getRepository('StoreBackendBundle:Comment')->getCommentsActifsByUser($user);
+        $commentsinactifs = $em->getRepository('StoreBackendBundle:Comment')->getCommentsInactifsByUser($user);
+        $fivelastcde = $em->getRepository('StoreBackendBundle:Orders')->getFiveLastCdeByUser($user);
+        $catpopulaire = $em->getRepository('StoreBackendBundle:Category')->getCatPopulaireByUser($user);
 
         // je retourne la vue index de mon dossier Main
         return $this->render('StoreBackendBundle:Main:index.html.twig',

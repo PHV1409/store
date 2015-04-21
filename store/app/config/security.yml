@@ -7,16 +7,16 @@ security:
     ###
     # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
     encoders:
-       Symfony\Component\Security\Core\User\User:
-          algorithm:   sha1
-          iterations: 1
-          encode_as_base64: false
+#       Symfony\Component\Security\Core\User\User:
+#          algorithm:   sha1
+#          iterations: 1
+#          encode_as_base64: false
 
         # encodage se fera au niveau de l'entité Jeweler
-#        Store\BackendBundle\Entity\Jeweler:
-#            algorithm: sha512
-#            iterations: 14 # Nb de fois l'algorithme tourne pour encoder
-#            encode_as_base64: true
+        Store\BackendBundle\Entity\Jeweler:
+            algorithm: sha512
+            iterations: 10 # Nb de fois l'algorithme tourne pour encoder
+            encode_as_base64: true
 
     ###
     # Role des utilisateurs qui vont se connecter avec l'authentification
@@ -24,6 +24,8 @@ security:
     ###
     role_hierarchy:
         ROLE_JEWELER: ROLE_JEWELER # Role des bijoutiers quand ils se connectent
+        ROLE_USER: [ROLE_USER, ROLE_JEWELER] # Role des utilisateurs quand ils se connectent
+        ROLE_ADMIN: [ROLE_ADMIN, ROLE_USER] # Role des ADMIN, hérite de USER et JEWELER
 
     ###
     # Fournisseur d'authentification
@@ -32,15 +34,15 @@ security:
     # et le mot de passe adminpass et le role ROLE_JEWELER
     ###
     providers:
-          in_memory:
-                memory:
-                    users:
-                        admin: { password: 74913f5cd5f61ec0bcfdb775414c2fb3d161b620, roles: [ 'ROLE_JEWELER' ] }
-                        # role des bijoutiers quand ils se connecteront
-                        member1: { password: member1, roles:['ROLE_MEMBER'] }
+#          in_memory:
+#                memory:
+#                    users:
+#                        admin: { password: 74913f5cd5f61ec0bcfdb775414c2fb3d161b620, roles: [ 'ROLE_JEWELER' ] }
+#                        # role des bijoutiers quand ils se connecteront
+#                        member1: { password: member1, roles:['ROLE_MEMBER'] }
 
-#        store_bakend:
-#                entity: { class: StoreBackendBundle:Jeweler }
+        store_bakend:
+                entity: { class: StoreBackendBundle:Jeweler }
 #                    admin: { password: 74913f5cd5f61ec0bcfdb775414c2fb3d161b620, roles: [ 'ROLE_JEWELER' ] }
 #                    user1: { password: b3daa77b4c04a9551b8781d03191fe098f325e67, roles: [ 'ROLE_USER' ] }
 
@@ -52,6 +54,7 @@ security:
         ###
         # 1er parfeu d'authentification
         # 1ere zone sécurisée pour notre back-office
+        # store_backend namespace suivi du nom du bundle
         ###
         store_backend:
             pattern:    ^/administration
@@ -75,4 +78,4 @@ security:
     # le role JEWELER sera lié à notre firewall store_backend
     ###
     access_control:
-        - { path: ^/administration, roles: [ROLE_JEWELER, ROLE_USER] }
+        - { path: ^/administration, roles: ROLE_JEWELER }

@@ -73,9 +73,9 @@ class CMSController extends Controller{
     public function newAction(Request $request){
         $cms = new Cms();
 
-        $em = $this->getDoctrine()->getManager();
-        $jeweler = $em->getRepository('StoreBackendBundle:Jeweler')->find(1); // je récupère le jeweler num 1
-        $cms->setJeweler($jeweler); // J'associe mon jeweler à ma catégorie
+        $user = $this->getUser();
+
+        $cms->setJeweler($user); // J'associe mon jeweler à ma catégorie
         $form = $this->createForm(new CmsType(), $cms, array(
             'attr' => array(
                 'method' => 'post',
