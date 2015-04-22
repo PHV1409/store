@@ -1,0 +1,17 @@
+{% extends "StoreBackendBundle::layout.html.twig" %}
+
+{% block titlepage %}
+    Page d'un diaporama : {{ sliders.id }}
+{% endblock %}
+
+{% block content %}
+    <p>Nom du diaporama : {{ sliders.caption }}</p>
+
+    <span class="badge">{{ sliders.product|length }}</span> Produits <br/><br/>
+    {% for product in sliders.product %}
+        <span class="badge"> {{ product.title }} </span>
+    {% endfor %}
+
+    <img src="{{ sliders.image }}" alt="" class="img-responsive" style="width:50%;">
+
+{% endblock %}

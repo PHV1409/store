@@ -1,5 +1,4 @@
 <?php
-
 // l'endroit ou je déclare ma classe StaticsController
 namespace Store\BackendBundle\Controller;
 
@@ -81,7 +80,7 @@ class CategoryController extends Controller{
 
         $category->setJeweler($user); // J'associe mon jeweler à ma catégorie
 
-        $form = $this->createForm(new CategoryType(), $category, array(
+        $form = $this->createForm(new CategoryType($user), $category, array(
             'validation_groups' => 'new',
             'attr' => array(
                 'method' => 'post',

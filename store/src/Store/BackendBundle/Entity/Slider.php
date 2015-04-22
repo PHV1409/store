@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Slider
  *
  * @ORM\Table(name="slider", indexes={@ORM\Index(name="product_id", columns={"product_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\SliderRepository")
  */
 class Slider
 {
@@ -178,7 +178,6 @@ class Slider
 
     /**
      * Get product
-     *
      * @return \Store\BackendBundle\Entity\Product 
      */
     public function getProduct()

@@ -32,18 +32,32 @@
         <li class="{% if app.request.attributes.get('_route') == "store_backend_index" %} active {% endif %}">
             <a href="{{ path('store_backend_index') }}">Accueil</a>
         </li>
+        {% if is_granted('ROLE_COMMERCIAL') %}
         <li class="{% if app.request.attributes.get('_route') == "store_backend_product_list" %} active {% endif %}">
             <a href="{{ path('store_backend_product_list') }}">Produits</a>
         </li>
+        {% endif %}
+        {% if is_granted('ROLE_COMMERCIAL') %}
+        {#{% if is_granted(['ROLE_COMMERCIAL', 'ROLE_EDITOR']) %}#}
         <li class="{% if app.request.attributes.get('_route') == "store_backend_category_list" %} active {% endif %}">
             <a href="{{ path('store_backend_category_list') }}">Catégories</a>
         </li>
+        {% endif %}
+        {% if is_granted('ROLE_EDITOR') %}
         <li class="{% if app.request.attributes.get('_route') == "store_backend_cms_list" %} active {% endif %}">
             <a href="{{ path('store_backend_cms_list') }}">CMS</a>
         </li>
+        {% endif %}
+        {% if is_granted('ROLE_COMMERCIAL') %}
         <li class="{% if app.request.attributes.get('_route') == "store_backend_supplier_list" %} active {% endif %}">
             <a href="{{ path('store_backend_supplier_list') }}">Fournisseurs</a>
         </li>
+        {% endif %}
+        {% if is_granted('ROLE_COMMERCIAL') %}
+        <li class="{% if app.request.attributes.get('_route') == "store_backend_slider_list" %} active {% endif %}">
+            <a href="{{ path('store_backend_slider_list') }}">Diaporama</a>
+        </li>
+        {% endif %}
     </ul>
     <!-- / .navbar-nav -->
 
@@ -291,8 +305,8 @@
 
     <li class="dropdown">
         <a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
-            <img src="assets/demo/avatars/1.jpg" alt="">
-            <span>John Doe</span>
+            <img src="{{ app.user.image }}" alt="">
+            <span>{{ app.user.username }}</span>
         </a>
         <ul class="dropdown-menu">
             <li><a href="#"><span class="label label-warning pull-right">New</span>Profile</a></li>

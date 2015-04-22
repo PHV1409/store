@@ -8,17 +8,36 @@ use Store\BackendBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Store\BackendBundle\Form\ProductType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+// pour restreindre l'accès à la page pour le role ROLE_COMMERCIAL
 
 /**
+ *
+ * Nous pouvons utiliser la méthode 2 à ce niveau pour l'ensemble de la class
+ * mais il est préférable de le gérer (pour toute la class) dans security.yml
+ *
  * Class ProductController
  * @package Store\BackendBundle\Controller
  */
 class ProductController extends Controller{
 
     /**
+     * Méthode numéro 2
+     * a le role commercial
+     * @Security("has_role('ROLE_COMMERCIAL')")
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function listAction(){
+
+        // Méthode numéro 1 : restreindre l'accès au niveau de mon action de controller
+        // restreindre l'accès au niveau de ma méthode de controller
+//        if(false === $this->get('security.conext')->isGranted('ROLE_COMMERCIAL')){
+//            throw new AccessDeniedException("Accès interdit pour ce type de contenu");
+//        }
 
         // recupere le manager de doctrine : le conteneur d'objet
         $em = $this->getDoctrine()->getManager();
@@ -95,7 +114,7 @@ class ProductController extends Controller{
         // $product->setPrice(0);
 
         // je crée un formulaire de produit$
-        $form = $this->createForm(new ProductType(1), $product, array(
+        $form = $this->createForm(new ProductType($user), $product, array(
             'validation_groups' => 'new',
             'attr' => array(
                 'method' => 'post',
@@ -156,9 +175,11 @@ class ProductController extends Controller{
 
         $em = $this->getDoctrine()->getManager();
 
+        $user = $this->getUser();
+
         $product = $em->getRepository('StoreBackendBundle:Product')->find($id);
 
-        $form = $this->createForm(new ProductType(1), $id, array(
+        $form = $this->createForm(new ProductType($user), $id, array(
             'validation_groups' => 'edit',
             'attr' => array(
                 'method' => 'post',

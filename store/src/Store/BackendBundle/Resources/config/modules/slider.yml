@@ -1,0 +1,32 @@
+# Page Slider list
+store_backend_slider_list:
+  path: /list # chemin vers l'URI
+  defaults: { _controller: StoreBackendBundle:Slider:list }
+
+# Page Slider view
+store_backend_slider_view:
+  path: /view/{id} # chemin vers l'URI
+  defaults: { _controller: StoreBackendBundle:Slider:view }
+  requirements:
+    id: \d+
+    _method: GET
+
+# remove a Slider
+store_backend_slider_remove:
+  path: /remove/{id}
+  defaults: { _controller: StoreBackendBundle:Slider:remove } # Nom du bundle : nom du controller : nom de l'action du controller
+
+# Page edit a Slider
+store_backend_slider_edit:
+  path: /edit/{id}
+  defaults: { _controller: StoreBackendBundle:Slider:edit }
+
+# Page new a Slider
+store_backend_slider_new:
+  path: /new
+  defaults: { _controller: StoreBackendBundle:Slider:new }
+
+# Active a Slider
+store_backend_slider_activate:
+  path: /activate/{id}/{action}
+  defaults: { _controller: StoreBackendBundle:Slider:activate }

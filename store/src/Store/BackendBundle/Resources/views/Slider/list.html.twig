@@ -1,0 +1,79 @@
+{% extends "StoreBackendBundle::layout.html.twig" %}
+
+{% block titlepage %}
+    Diaporama
+{% endblock %}
+
+{% block content %}
+
+    <div class="panel">
+        <div class="table-primary">
+            <div class="table-header">
+                <div class="table-caption">
+                    Diaporama
+                    <a href="{{ path('store_backend_slider_new' ) }}" class="pull-right btn btn-info btn-sm">
+                        <i class="fa fa-plus"> Ajouter un diaporama</i>
+                    </a>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Légende</th>
+                    <th>Position</th>
+                    <th>Active</th>
+                    <th>Produit</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# Boucle sur les cms #}
+                {% for slider in sliders %} {# for nomdelaclef in nomdutableau #}
+                    {# title, active sont les attributs et non pas les champs de la table #}
+                    <tr>
+                        <td>{{ slider.id }}</td>
+                        <td><img src="{{ slider.image }}" alt="" style="width:26px;height:26px;"></td>
+                        <td>{{ slider.caption }}</td>
+                        <td>{{ slider.position }}</td>
+                        <td>
+                            {% if slider.active == 1 %}
+                                <a href="{{ path('store_backend_slider_activate', {'id' : slider.id, 'action' : 0}) }}">
+                                    <i class="fa fa-check"></i>
+                                </a>
+                            {% else %}
+                                <a href="{{ path('store_backend_slider_activate', {'id' : slider.id, 'action' : 1}) }}">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td>
+
+                                <span class="badge"> {{ slider.product.title }} </span>
+
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Actions <i class="fa fa-caret-down"></i> </button>
+                                <ul class="dropdown-menu">
+                                    <li> <a href="{{ path('store_backend_slider_view', {'id' : slider.id } ) }}"><i class="fa fa-eye"></i> Voir </a></li>
+                                    <li> <a href="{{ path('store_backend_slider_edit', {'id' : slider.id } ) }}"><i class="fa fa-pencil"></i> Editer </a></li>
+                                    <li class="divider"></li>
+                                    <li> <a href="{{ path('store_backend_slider_remove', { 'id' : slider.id } ) }}"><i class="fa fa-times"></i> Supprimer </a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="table-footer">
+                Footer
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

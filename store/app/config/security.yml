@@ -23,7 +23,9 @@ security:
     # Les utilisateurs seront de rôle "ROLE_JEWELER"
     ###
     role_hierarchy:
-        ROLE_JEWELER: ROLE_JEWELER # Role des bijoutiers quand ils se connectent
+        ROLE_EDITOR: ROLE_EDITOR
+        ROLE_COMMERCIAL: ROLE_COMMERCIAL
+        ROLE_JEWELER: [ROLE_JEWELER, ROLE_COMMERCIAL, ROLE_EDITOR] # Role des bijoutiers quand ils se connectent
         ROLE_USER: [ROLE_USER, ROLE_JEWELER] # Role des utilisateurs quand ils se connectent
         ROLE_ADMIN: [ROLE_ADMIN, ROLE_USER] # Role des ADMIN, hérite de USER et JEWELER
 
@@ -78,4 +80,5 @@ security:
     # le role JEWELER sera lié à notre firewall store_backend
     ###
     access_control:
-        - { path: ^/administration, roles: ROLE_JEWELER }
+        - { path: ^/administration/product, roles: ROLE_COMMERCIAL }
+        - { path: ^/administration, roles: [ROLE_JEWELER, ROLE_COMMERCIAL, ROLE_EDITOR] }
