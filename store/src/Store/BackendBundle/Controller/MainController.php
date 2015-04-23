@@ -35,6 +35,17 @@ class MainController extends Controller{
         $fivelastcde = $em->getRepository('StoreBackendBundle:Orders')->getFiveLastCdeByUser($user);
         $catpopulaire = $em->getRepository('StoreBackendBundle:Category')->getCatPopulaireByUser($user);
 
+        // chart in last 6 months
+        $statorder[] = $em->getRepository('StoreBackendBundle:Orders')->getOrderGraphByUser($user, new \DateTime('now'));
+        $statorder[] = $em->getRepository('StoreBackendBundle:Orders')->getOrderGraphByUser($user, new \DateTime('-1 MONTH'));
+        $statorder[] = $em->getRepository('StoreBackendBundle:Orders')->getOrderGraphByUser($user, new \DateTime('-2 MONTH'));
+        $statorder[] = $em->getRepository('StoreBackendBundle:Orders')->getOrderGraphByUser($user, new \DateTime('-3 MONTH'));
+        $statorder[] = $em->getRepository('StoreBackendBundle:Orders')->getOrderGraphByUser($user, new \DateTime('-4 MONTH'));
+        $statorder[] = $em->getRepository('StoreBackendBundle:Orders')->getOrderGraphByUser($user, new \DateTime('-5 MONTH'));
+
+
+
+
         // je retourne la vue index de mon dossier Main
         return $this->render('StoreBackendBundle:Main:index.html.twig',
             array(
@@ -48,7 +59,8 @@ class MainController extends Controller{
                 'commentsactifs' => $commentsactifs,
                 'commentsinactifs' => $commentsinactifs,
                 'fivelastcde' => $fivelastcde,
-                'catpopulaire' => $catpopulaire
+                'catpopulaire' => $catpopulaire,
+                'statorder' => $statorder
             )
         );
     }

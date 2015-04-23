@@ -53,9 +53,8 @@ class SliderType extends AbstractType{
             )
         ));
 
-
         $builder->add('file','file',array(
-            'label'     => 'Image',
+            'label'     => 'Image de présentation',
             'required'  => false,
             'attr'      => array(
                 'class' => 'form-control',

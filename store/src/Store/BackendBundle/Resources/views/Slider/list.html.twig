@@ -34,7 +34,7 @@
                     {# title, active sont les attributs et non pas les champs de la table #}
                     <tr>
                         <td>{{ slider.id }}</td>
-                        <td><img src="{{ slider.image }}" alt="" style="width:26px;height:26px;"></td>
+                        <td><img src="{{ asset('uploads/slider/'~ slider.image ) }}" alt="" style="width:26px;height:26px;"></td>
                         <td>{{ slider.caption }}</td>
                         <td>{{ slider.position }}</td>
                         <td>

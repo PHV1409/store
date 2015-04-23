@@ -1,20 +1,34 @@
-
 {{  form_start(form) }}
 
 <div class="row">
     <div class="col-md-6">
-        {{ form_row(form.title) }}
+        {{ form_row(form.caption) }}
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3">
         {{ form_row(form.position) }}
+    </div>
+    <div class="col-md-3">
+        {{ form_row(form.file) }}
     </div>
 </div>
 <br/>
 <div class="row">
-    <div class="col-md-12">
-        {{ form_row(form.description) }}
+    <div class="col-md-6">
+        {% if slider.image is not empty %}
+            <img src="{{ asset("uploads/slider/" ~ slider.image) }}" alt="" style="width:100%;">
+        {% endif %}
+    </div>
+    <div class="col-md-3">
+        {{ form_row(form.product) }}
+    </div>
+    <div class="col-md-3">
+        {% if slider.product.jeweler.username is not empty %}
+        <label for="s2id_autogen1">Bijoutier</label>
+        {{ slider.product.jeweler.username }}
+        {% endif %}
     </div>
 </div>
+
 <hr/>
 
 {{ form_widget(form.envoyer, {'attr': {'class': 'btn btn-lg btn-primary'}}) }}

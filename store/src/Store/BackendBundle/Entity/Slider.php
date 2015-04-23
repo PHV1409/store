@@ -3,6 +3,7 @@
 namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Slider
@@ -34,6 +35,25 @@ class Slider
      * @ORM\Column(name="image", type="string", length=300, nullable=true)
      */
     private $image;
+
+
+    /**
+     * @var file
+     *
+     * Attribut qui représentera mon fichier uploadé
+     *
+     * @Assert\Image(
+     *      minWidth = 100,
+     *      maxWidth = 3000,
+     *      minHeight = 100,
+     *      maxHeight = 2500,
+     *      minWidthMessage = "La largeur de l'image est trop petite",
+     *      maxWidthMessage = "La largeur de l'image est trop grande",
+     *      minHeightMessage = "La hauteur de l'image est trop petite",
+     *      maxHeightMessage = "La hauteur de l'image est trop grande",
+     * )
+     */
+    protected $file;
 
     /**
      * @var integer
@@ -183,6 +203,70 @@ class Slider
     public function getProduct()
     {
         return $this->product;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->image ? null : $this->getUploadRootDir().'/'.$this->image;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->image ? null : $this->getUploadDir().'/'.$this->image;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
+        // le document/image dans la vue.
+        return 'uploads/slider';
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        // la propriété "file" peut être vide si le champ n'est pas requis
+        if (null === $this->file) {
+            return;
+        }
+
+        // utilisez le nom de fichier original ici mais
+        // vous devriez "l'assainir" pour au moins éviter
+        // quelconques problèmes de sécurité
+
+        // On déplace le fichier uploadé dans le bon répertoire uploads/product
+        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
+
+        // Je stocke le nom du fichier uploadé
+        $this->image = $this->file->getClientOriginalName();
+
+        // " nettoie " la propriété " file " comme vous n'en aurez plus besoin
+        unset($this->file);
+    }
+
+    /**
+     * @param \Store\BackendBundle\Entity\file $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * @return \Store\BackendBundle\Entity\file
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 
     /**

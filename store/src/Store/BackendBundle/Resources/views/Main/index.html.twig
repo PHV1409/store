@@ -5,7 +5,31 @@
     <script>
         init.push(function () {
             $('#dashboard-recent .panel-body > div').slimScroll({ height: 300, alwaysVisible: true, color: '#888',allowPageScroll: true });
-        })
+
+            // Pour alimenter le hero-graph
+            var uploads_data = [
+                {%  for stat in statorder %}
+                        { period: '{{ stat.d }}', v: {{ stat.nb|default(0) }} },
+                {% endfor %}
+            ];
+            Morris.Line({
+                element: 'hero-graph',
+                data: uploads_data,
+                xkey: 'period',
+                ykeys: ['v'],
+                labels: ['Nombre de commandes'],
+                lineColors: ['#fff'],
+                lineWidth: 2,
+                pointSize: 3,
+                gridLineColor: 'rgba(255,255,255,.8)',
+                resize: true,
+                gridTextColor: '#fff',
+                xLabels: "period"
+            });
+            // FIN de hero-graph
+
+        });
+
     </script>
 {% endblock %}
 
@@ -15,7 +39,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-3">
             <div class="stat-panel">
                 <div class="stat-row">
                     <!-- Small horizontal padding, bordered, without right border, top aligned text -->
@@ -54,7 +78,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="stat-cell bg-primary padding-sm valign-middle">
+            <div id="hero-graph" class="graph" style="height: 230px;">
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-3">
             <div class="stat-panel">
                 <!-- Danger background, vertically centered text -->
                 <div class="stat-cell bg-danger valign-middle">
@@ -168,16 +197,17 @@
 
                     {% for fivelastcde in fivelastcde %}
                         <div class="ticket">
-                            {% if fivelastcde.state == 1 %}
-                                <span class="label label-success ticket-label">Envoyé</span>
-                            {% elseif fivelastcde.state == 0 %}
-                                <span class="label label-info ticket-label">En cours</span>
-                            {% elseif fivelastcde.state == 2 %}
-                                <span class="label label-warning ticket-label">En attente de paiement</span>
-                            {% else %}
-                                <span class="label label-danger ticket-label">Annulé</span>
-                            {% endif %}
+                            {#{% if fivelastcde.state == 1 %}#}
+                                {#<span class="label label-success ticket-label">Envoyé</span>#}
+                            {#{% elseif fivelastcde.state == 0 %}#}
+                                {#<span class="label label-info ticket-label">En cours</span>#}
+                            {#{% elseif fivelastcde.state == 2 %}#}
+                                {#<span class="label label-warning ticket-label">En attente de paiement</span>#}
+                            {#{% else %}#}
+                                {#<span class="label label-danger ticket-label">Annulé</span>#}
+                            {#{% endif %}#}
 
+                            <span class="pull-right">{{ fivelastcde.state|state|raw }}</span>
                             <a href="#" title="" class="ticket-title">{{ fivelastcde.address }}<span>[#{{ fivelastcde.id }}]</span></a>
 								<span class="ticket-info">
 									Commande par <a href="#" title="">{{ fivelastcde.user.firstname ~ " " ~ fivelastcde.user.lastname }}</a> {{ fivelastcde.date|date("m/d/Y") }}

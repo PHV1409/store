@@ -112,6 +112,15 @@ class ProductType extends AbstractType{
             )
         ));
 
+        $builder->add('description', null, array(
+            'label' => 'description', // label de mon champ
+            'attr'  => array(
+                'class' => 'form-control',
+                'placeholder'   => 'Description du bijoux',
+                'pattern'       => '.{15,}',
+            )
+        ));
+
         $builder->add('composition', null, array(
             'label' => 'description de la composition', // label de mon champ
             'required' => true,

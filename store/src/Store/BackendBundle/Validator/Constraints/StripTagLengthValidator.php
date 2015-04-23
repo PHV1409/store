@@ -15,7 +15,7 @@ class StripTagLengthValidator extends ConstraintValidator{
     public function validate($value, Constraint $constraint){
         // si la longueur de ma chaine avec suppression des tag HTML
         // est > à 500 caractères
-        if(500 < strlen(strip_tags($value))){
+        if(900 < strlen(strip_tags($value))){
             $this->context->addViolation(
                 $constraint->message, array('%string%' => $value));
         }

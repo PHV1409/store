@@ -63,6 +63,7 @@ class SliderController extends Controller{
         $form->handleRequest($request);
 
         if($form->isValid()){
+            $slider->upload();
             $em = $this->getDoctrine()->getManager();
             $em->persist($slider);
             $em->flush();
@@ -76,7 +77,10 @@ class SliderController extends Controller{
         }
 
         return $this->render('StoreBackendBundle:Slider:new.html.twig',
-            array('form' => $form->createView())
+            array(
+                'form' => $form->createView(),
+                'slider' =>$slider,
+            )
         );
 
     }
@@ -102,6 +106,7 @@ class SliderController extends Controller{
         $form->handleRequest($request);
 
         if($form->isValid()){
+            $slider->upload();
             $em = $this->getDoctrine()->getManager();
             $em->persist($id);
             $em->flush();
@@ -110,8 +115,12 @@ class SliderController extends Controller{
         }
 
         return $this->render('StoreBackendBundle:Slider:edit.html.twig',
-            array('form' => $form->createView())
+            array(
+                'form' => $form->createView(),
+                'slider' => $slider,
+            )
         );
+
 
     }
 

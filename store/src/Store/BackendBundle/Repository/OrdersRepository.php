@@ -59,7 +59,7 @@ class OrdersRepository extends EntityRepository{
             )
             ->setParameter('user',$user);
 
-        // retourne 1 résultat ou null
+        // retourne 1 résultat ou null (correspond à row dans codeIgniter)
         return $query->getOneOrNullResult();
     }
 
@@ -83,8 +83,36 @@ class OrdersRepository extends EntityRepository{
             )
             ->setParameter('user',$user);
 
-        // retourne 1 résultat ou null
+        // retourne 1 tableau
         return $query->getResult();
+    }
+
+    /**
+     * Requête pour obtenir les commandes des 6 derniers mois du jeweler en nombre par mois
+     */
+    public function getOrderGraphByUser($user, $dateBegin){
+
+        // compter le nombre de commandes pour un jeweler précis
+        // et pour une année et un mois précis
+        $query = $this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT COUNT(o) AS nb, DATE_FORMAT(:dateBegin, '%Y-%m') AS d
+                FROM StoreBackendBundle:Orders o
+                WHERE o.jeweler = :user
+                AND MONTH(o.dateCreated) = :month
+                AND YEAR(o.dateCreated) = :year
+                "
+            )
+            ->setParameters(array(
+                'user' => $user,
+                'dateBegin' => $dateBegin->format('Y-m-d'),
+                'month' => $dateBegin->format('m'),
+                'year' => $dateBegin->format('Y')
+            ));
+        // Retourne un seul résultat
+        return $query->getSingleResult();
+
     }
 
 
