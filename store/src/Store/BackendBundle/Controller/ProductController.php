@@ -148,6 +148,15 @@ class ProductController extends Controller{
             // je récupère la quantité du produit enregistré
             $quantity = $product->getQuantity();
 
+
+            // si ma quantité de produit est inférieur à 5
+            if($quantity < 5){
+                // $this->get() => accède au conteneur du service
+                // la methode notify sera exécuté avec un message
+                $this->get('store.backend.notification')->notify('Attention votre produit '.$product->getTitle().' est bientôt épuisé', 'danger');
+
+            }
+
             if($quantity == 1 ){
                 $this->get('session')->getFlashBag()->add(
                     'warning',
@@ -177,8 +186,6 @@ class ProductController extends Controller{
 
         $user = $this->getUser();
 
-        $product = $em->getRepository('StoreBackendBundle:Product')->find($id);
-
         $form = $this->createForm(new ProductType($user), $id, array(
             'validation_groups' => 'edit',
             'attr' => array(
@@ -193,10 +200,18 @@ class ProductController extends Controller{
         $form->handleRequest($request);
 
         if($form->isValid()){
-            $product->upload();
+            $id->upload();
             $em = $this->getDoctrine()->getManager();
             $em->persist($id);
             $em->flush();
+
+            // si ma quantité de produit est inférieur à 5
+            if($id->getQuantity() < 5){
+                // $this->get() => accède au conteneur du service
+                // la methode notify sera exécuté avec un message
+                $this->get('store.backend.notification')->notify('Attention votre produit '.$id->getTitle().' est bientôt épuisé', 'danger');
+
+            }
 
             return $this->redirectToRoute('store_backend_product_list');
 

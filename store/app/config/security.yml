@@ -60,6 +60,10 @@ security:
         ###
         store_backend:
             pattern:    ^/administration
+            remember_me:
+                key:      "%secret%"
+                lifetime: 31536000 # 365 jours en secondes
+                path:     /
             form_login:
                 # le chemin vers la vérification du login
                 check_path: store_backend_security_login_check

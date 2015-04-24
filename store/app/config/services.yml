@@ -11,3 +11,5 @@ services:
         class: Store\BackendBundle\Twig\Extensions\StoreBackendExtension
         tags:
             - { name: twig.extension }
+
+

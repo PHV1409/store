@@ -2,3 +2,25 @@ services:
 #    storebackend.example:
 #        class: store\backendBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    store.backend.listener.authentification: # Nom du service
+
+        # Nom de ma classe avec nom du namespace
+        class: Store\BackendBundle\Listener\AuthentificationListener
+
+        # Injection des dépendances
+        # Nom des services injectés en constructeur de ma classe
+        arguments: ["@doctrine.orm.entity_manager", "@security.context"]
+
+        # Etendre le mécanisme de sécurity au niveau de l'interaction login
+        # avec un mécanisme d'écouteur
+        tags:
+          - { name: kernel.event_listener, event: security.interactive_login, method: onAuthentificationSuccess }
+
+    store.backend.email: # Nom du service (nom arbitraire - nom du bundle complet.nom de la classe)
+        class: Store\BackendBundle\Email\Email # Class du service
+        arguments: ["@mailer", "@twig"] # Service Swiftmailer , Service Twig = injectés dans ma classe Email
+
+    store.backend.notification:
+        class: Store\BackendBundle\Notification\Notification
+        arguments: ["@session"] # Service session injecté dans ma classe Notification

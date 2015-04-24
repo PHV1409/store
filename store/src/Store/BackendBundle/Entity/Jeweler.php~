@@ -2,16 +2,22 @@
 
 namespace Store\BackendBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Jeweler
- *
+ * Use AdvancedUserInterface
  * @ORM\Table(name="jeweler", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
  * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\JewelerRepository")
+ * @UniqueEntity(fields="username", message="Votre nom d'utilisateur est déjà utilisé", groups={"subscribe"})
+ * @UniqueEntity(fields="email", message="Cet email est déjà utilisé", groups={"subscribe"})
  */
 class Jeweler implements AdvancedUserInterface, \Serializable
 {
@@ -26,6 +32,17 @@ class Jeweler implements AdvancedUserInterface, \Serializable
 
     /**
      * @var string
+     * @Assert\NotBlank(
+     *      message = "L'email ne doit pas être vide",
+     *      groups={"subscribe"}
+     * )
+     * @Assert\Length(
+     *      min = "3",
+     *      max = "50",
+     *      minMessage = "Votre login(identifiant) doit être au moins de {{ limit }} caractères",
+     *      maxMessage = "Votre login(identifiant) ne peut être plus long que {{ limit }} caractères",
+     *      groups={"subscribe"}
+     * )
      *
      * @ORM\Column(name="username", type="string", length=300, nullable=true)
      */
@@ -33,6 +50,15 @@ class Jeweler implements AdvancedUserInterface, \Serializable
 
     /**
      * @var string
+     * @Assert\NotBlank(
+     *      message = "L'email ne doit pas être vide",
+     *      groups={"subscribe"}
+     * )
+     * @Assert\Email(
+     *      message = "'{{ value }}' n'est pas un email valide.",
+     *      checkMX = true,
+     *      groups={"subscribe"}
+     * )
      *
      * @ORM\Column(name="email", type="string", length=150, nullable=true)
      */
@@ -184,6 +210,13 @@ class Jeweler implements AdvancedUserInterface, \Serializable
      * @ORM\Column(name="date_created", type="datetime", nullable=true)
      */
     private $dateCreated;
+
+    /**
+     * @var \DateTime
+     * 
+     * @ORM\Column(name="date_auth", type="datetime", nullable=true)
+     */
+    protected $dateAuth;
 
     /**
      * @var
@@ -844,7 +877,10 @@ class Jeweler implements AdvancedUserInterface, \Serializable
      */
     public function getRoles()
     {
-        return array('ROLE_JEWELER');
+        //return array('ROLE_JEWELER');
+        // je retourne mon attribut groups en tableau :
+        // ArrayCollection = > Array
+        return $this->groups->toArray();
     }
 
 
@@ -854,6 +890,81 @@ class Jeweler implements AdvancedUserInterface, \Serializable
      */
     public function __toString(){
         return $this->title;
+    }
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dateCreated = new \DateTime('now');
+        $this->type = 1;
+        $this->enabled = 1;
+        $this->accountnonexpired = 1;
+        $this->accountnonlocked = 1;
+        $this->credentialsExpired = 1;
+        $this->locked = 0;
+        $this->expired = 0;
+        $this->salt = md5(uniqid(null, true));
+        $this->groups = new ArrayCollection();
+    }
+
+    /**
+     * Add groups
+     *
+     * @param \Store\BackendBundle\Entity\Groups $groups
+     * @return Jeweler
+     */
+    public function addGroup(\Store\BackendBundle\Entity\Groups $groups)
+    {
+        $this->groups[] = $groups;
+
+        return $this;
+    }
+
+    /**
+     * Remove groups
+     *
+     * @param \Store\BackendBundle\Entity\Groups $groups
+     */
+    public function removeGroup(\Store\BackendBundle\Entity\Groups $groups)
+    {
+        $this->groups->removeElement($groups);
+    }
+
+    /**
+     * Get groups
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @Assert\Callback(groups={"subscribe"})
+     * use Symfony\Component\Validator\Context\ExecutionContextInterface;
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context){
+        if(($this->getUsername() == $this->getPassword())){
+            $context->addViolationAt(
+                'username',
+                'Votrre login ne doit pas être identique à votre mot de passe',
+                array(),
+                null
+            );
+        }
+        if(($this->getUsername() == $this->getEmail())){
+            $context->addViolationAt(
+                'email',
+                'Votrre email ne doit pas être identique à votre login',
+                array(),
+                null
+            );
+        }
     }
 
 

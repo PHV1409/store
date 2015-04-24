@@ -15,7 +15,17 @@ class MainController extends Controller{
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(){
-         // Récupère Doctrine Manager
+
+        // $this->get() => accède au conteneur de service
+        // et récupère le service store.backend.email
+//        $mail = $this->get('store.backend.email');
+//        $mail->send(); // appel de ma méthode pour envoyer un email
+
+        // $this->get() => accède au conteneur du service
+        // la methode notify sera exécuté avec un message de bienvenue
+        $this->get('store.backend.notification')->notify('Bienvenue sur la plateforme');
+
+        // Récupère Doctrine Manager
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->getUser();
