@@ -82,5 +82,5 @@ swiftmailer:
     auth_mode: login
     host:      smtp.gmail.com
     username:  phv147@gmail.com
-    password:  "jR_741bv_hps"
+    password:  "xxxxxxxxx"
     spool:     { type: memory }

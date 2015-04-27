@@ -22,29 +22,6 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `business`
---
-
-CREATE TABLE IF NOT EXISTS `business` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` int(11) DEFAULT NULL,
-  `amount` float DEFAULT NULL,
-  `message` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `date_expired` datetime DEFAULT NULL,
-  `date_created` datetime DEFAULT NULL,
-  `active` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
-
---
--- Contenu de la table `business`
---
-
-INSERT INTO `business` (`id`, `type`, `amount`, `message`, `date_expired`, `date_created`, `active`) VALUES
-(1, 1, 10, 'promo du jour', '2015-04-09 00:00:00', NULL, 1);
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `cart`
