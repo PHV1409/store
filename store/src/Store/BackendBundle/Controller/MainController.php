@@ -23,7 +23,7 @@ class MainController extends Controller{
 
         // $this->get() => accède au conteneur du service
         // la methode notify sera exécuté avec un message de bienvenue
-        $this->get('store.backend.notification')->notify('Bienvenue sur la plateforme');
+        //$this->get('store.backend.notification')->notify('Bienvenue sur la plateforme');
 
         // Récupère Doctrine Manager
         $em = $this->getDoctrine()->getManager();

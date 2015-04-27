@@ -1,0 +1,198 @@
+{% extends "StoreBackendBundle::layout.html.twig" %}
+
+{% block titlepage %}
+    Page de profil
+{% endblock %}
+
+{% block content %}
+
+
+    <!-- 5. $PROFILE ===================================================================================
+
+            Profile
+    -->
+    <div class="profile-full-name">
+        <span class="text-semibold">Denise Steiner</span>'s profile
+    </div>
+    <div class="profile-row">
+    <div class="left-col">
+        <div class="profile-block">
+            <div class="panel profile-photo">
+                <img src="assets/demo/avatars/5.jpg" alt="">
+            </div><br>
+            <a href="#" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;&nbsp;Following</a>&nbsp;&nbsp;
+            <a href="#" class="btn"><i class="fa fa-comment"></i></a>
+        </div>
+
+        <div class="panel panel-transparent">
+            <div class="panel-heading">
+                <span class="panel-title">About me</span>
+            </div>
+            <div class="panel-body">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et <a href="#">dolore magna</a> aliqua.
+            </div>
+        </div>
+
+        <div class="panel panel-transparent">
+            <div class="panel-heading">
+                <span class="panel-title">Statistics</span>
+            </div>
+            <div class="list-group">
+                <a href="#" class="list-group-item"><strong>126</strong> Likes</a>
+                <a href="#" class="list-group-item"><strong>579</strong> Followers</a>
+                <a href="#" class="list-group-item"><strong>100</strong> Following</a>
+            </div>
+        </div>
+
+        <div class="panel panel-transparent profile-skills">
+            <div class="panel-heading">
+                <span class="panel-title">Skills</span>
+            </div>
+            <div class="panel-body">
+                <span class="label label-primary">UI/UX</span>
+                <span class="label label-primary">Web design</span>
+                <span class="label label-primary">Photoshop</span>
+                <span class="label label-primary">HTML</span>
+                <span class="label label-primary">CSS</span>
+            </div>
+        </div>
+
+        <div class="panel panel-transparent">
+            <div class="panel-heading">
+                <span class="panel-title">Social</span>
+            </div>
+            <div class="list-group">
+                <a href="#" class="list-group-item"><i class="profile-list-icon fa fa-twitter" style="color: #4ab6d5"></i> @dsteiner</a>
+                <a href="#" class="list-group-item"><i class="profile-list-icon fa fa-facebook-square" style="color: #1a7ab9"></i> Denise Steiner</a>
+                <a href="#" class="list-group-item"><i class="profile-list-icon fa fa-envelope" style="color: #888"></i> dsteiner@example.com</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="right-col">
+
+    <hr class="profile-content-hr no-grid-gutter-h">
+
+    <div class="profile-content">
+
+    <ul id="profile-tabs" class="nav nav-tabs"><li class="dropdown pull-right tabdrop hide"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-bars"></i> <b class="caret"></b></a><ul class="dropdown-menu"></ul></li>
+        <li class="active">
+            <a href="#profile-tabs-board" data-toggle="tab">Board</a>
+        </li>
+        <li class="">
+            <a href="#profile-tabs-activity" data-toggle="tab">Timeline</a>
+        </li>
+        <li class="">
+            <a href="#profile-tabs-followers" data-toggle="tab">Followers</a>
+        </li>
+        <li class="">
+            <a href="#profile-tabs-following" data-toggle="tab">Following</a>
+        </li>
+    </ul>
+
+    <div class="tab-content tab-content-bordered panel-padding">
+    <div class="widget-article-comments tab-pane panel no-padding no-border fade active in" id="profile-tabs-board">
+
+        <div class="comment">
+            <img src="assets/demo/avatars/1.jpg" alt="" class="comment-avatar">
+            <div class="comment-body">
+                <form action="" id="leave-comment-form" class="comment-text no-padding no-border expanding-input">
+                    <textarea class="form-control expanding-input-target" rows="1"></textarea>
+                    <div class="expanding-input-hidden expanding-input-content" style="margin-top: 10px;">
+                        <label class="checkbox-inline pull-left">
+                            <input type="checkbox" class="px">
+                            <span class="lbl">Private message</span>
+                        </label>
+                        <button class="btn btn-primary pull-right">Leave Message</button>
+                    </div>
+                    <div class="expanding-input-overlay"><div class="expanding-input-placeholder">Write message</div></div></form>
+            </div> <!-- / .comment-body -->
+        </div>
+
+        <hr class="no-panel-padding-h panel-wide">
+
+        <div class="comment">
+            <img src="assets/demo/avatars/2.jpg" alt="" class="comment-avatar">
+            <div class="comment-body">
+                <div class="comment-text">
+                    <div class="comment-heading">
+                        <a href="#" title="">Robert Jang</a><span>14 hours ago</span>
+                    </div>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.
+                </div>
+                <div class="comment-footer">
+                    <a href="#"><i class="fa fa-thumbs-o-up"></i></a>&nbsp;&nbsp;
+                    <a href="#"><i class="fa fa-thumbs-o-down"></i></a>
+                    &nbsp;&nbsp;·&nbsp;&nbsp;
+                    <a href="#">Reply</a>
+                </div>
+            </div> <!-- / .comment-body -->
+
+
+    </div> <!-- / .tab-pane -->
+    <div class="tab-pane fade" id="profile-tabs-activity">
+        <div class="timeline">
+            <!-- Timeline header -->
+            <div class="tl-header now">Now</div>
+
+            <div class="tl-entry">
+                <div class="tl-time">
+                    1h ago
+                </div>
+                <div class="tl-icon bg-warning"><i class="fa fa-envelope"></i></div>
+                <div class="panel tl-body">
+                    <h4 class="text-warning">Lorem ipsum dolor sit amet</h4>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div> <!-- / .tl-body -->
+            </div> <!-- / .tl-entry -->
+
+            <div class="tl-entry left">
+                <div class="tl-time">
+                    2h ago
+                </div>
+                <div class="tl-icon bg-success"><i class="fa fa-picture-o"></i></div>
+                <div class="panel tl-body">
+                    <a href="#">Denise Steiner</a> shared an image on <a href="#">The Gallery</a>
+                    <div class="tl-wide text-center" style="padding: 10px;margin-top:15px;margin-bottom: 15px;background: #f1f1f1">
+                        <img src="assets/demo/signin-bg-5.jpg" alt="" style="max-height: 150px;max-width: 100%;">
+                    </div>
+                    <i class="text-muted text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</i>
+                </div> <!-- / .tl-body -->
+            </div> <!-- / .tl-entry -->
+
+
+        </div> <!-- / .timeline -->
+    </div> <!-- / .tab-pane -->
+    <div class="tab-pane fade widget-followers" id="profile-tabs-followers">
+        <div class="follower">
+            <img src="assets/demo/avatars/1.jpg" alt="" class="follower-avatar">
+            <div class="body">
+                <div class="follower-controls">
+                    <a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>&nbsp;&nbsp;Following</span></a>
+                </div>
+                <a href="#" class="follower-name">John Doe</a><br>
+                <a href="#" class="follower-username">@jdoe</a>
+            </div>
+        </div>
+    </div> <!-- / .tab-pane -->
+    <div class="tab-pane fade widget-followers" id="profile-tabs-following">
+        <div class="follower">
+            <img src="assets/demo/avatars/1.jpg" alt="" class="follower-avatar">
+            <div class="body">
+                <div class="follower-controls">
+                    <a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>&nbsp;&nbsp;Following</span></a>
+                </div>
+                <a href="#" class="follower-name">John Doe</a><br>
+                <a href="#" class="follower-username">@jdoe</a>
+            </div>
+        </div>
+    </div> <!-- / .tab-pane -->
+    </div> <!-- / .tab-content -->
+    </div>
+    </div>
+    </div>
+
+
+
+
+{% endblock %}

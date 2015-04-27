@@ -10,7 +10,7 @@ services:
 
         # Injection des dépendances
         # Nom des services injectés en constructeur de ma classe
-        arguments: ["@doctrine.orm.entity_manager", "@security.context"]
+        arguments: ["@doctrine.orm.entity_manager", "@security.context", "@store.backend.notification"]
 
         # Etendre le mécanisme de sécurity au niveau de l'interaction login
         # avec un mécanisme d'écouteur
@@ -24,3 +24,42 @@ services:
     store.backend.notification:
         class: Store\BackendBundle\Notification\Notification
         arguments: ["@session"] # Service session injecté dans ma classe Notification
+
+    # Nom du service
+    store.backend.listener.product.persist:
+
+        # Nom de la classe
+        class: Store\BackendBundle\Listener\ProductListener
+
+        # Argument du constructeur
+        # service de notification que l'on a créé juste au dessus
+        # ATTENTION: l'injection de dépendances se fait si mon service n'est pas déjà injecté
+        # notemment par le tag qui est associé à mon service
+        # arguments: ["@store.backend.notification", "@doctrine.orm.entity_manager"]
+        arguments: ["@store.backend.notification"]
+
+        # ma classe utilisera le mécanisme d'écouteur de Symfony
+        tags:
+            # name:  correspondant au mécanisme ou ma classe sera affectée
+            # et plus particulièrement au mécanisme d'écouteur de Doctrine
+
+            # event: sera l'évènement déclencheur de mon service
+            # et plus particulièrement à la modification d'un objet
+
+            # method: la méthode qui sera appelé après déclenchement de mon event
+            # et plus particulièrement la méthode appelée dans mon service: postUpdate()
+            # Evènement à Doctrine: (Lifecycle)
+            # Doctrine a une liste exhaustive d'évènements appelés "LifesCycle"
+            # Cycle de vie d'un objet en Doctrine
+            # + preRemove
+            # + postRemove
+            # + prePersist
+            # + postPersist
+            # + preUpdate
+            # + postUpdate
+            # + postLoad
+            # + loadClassMetadata
+            # postUpdate: appelé
+            - { name: doctrine.event_listener, event: postUpdate, method: postUpdate }
+            - { name: doctrine.event_listener, event: postPersist, method: postPersist }
+            - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }

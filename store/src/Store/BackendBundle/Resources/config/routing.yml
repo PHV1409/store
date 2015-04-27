@@ -38,3 +38,9 @@ store_backend_supplier:
 store_backend_slider:
     resource: "@StoreBackendBundle/Resources/config/modules/slider.yml"
     prefix:   /slider
+
+
+# Pages jeweler
+store_backend_jeweler:
+    resource: "@StoreBackendBundle/Resources/config/modules/jeweler.yml"
+    prefix:   /jeweler

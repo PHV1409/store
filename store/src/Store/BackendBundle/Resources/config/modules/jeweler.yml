@@ -1,4 +1,4 @@
 # Page Jeweler account
 store_backend_jeweler_myaccount:
   path: /myaccount # chemin vers l'URI
-  defaults: { _controller: StoreBackendBundle:Jeweler:list }
+  defaults: { _controller: StoreBackendBundle:Jeweler:myaccount }

@@ -149,13 +149,30 @@ class ProductController extends Controller{
             $quantity = $product->getQuantity();
 
 
-            // si ma quantité de produit est inférieur à 5
-            if($quantity < 5){
-                // $this->get() => accède au conteneur du service
-                // la methode notify sera exécuté avec un message
-                $this->get('store.backend.notification')->notify('Attention votre produit '.$product->getTitle().' est bientôt épuisé', 'danger');
-
-            }
+//            // si ma quantité de produit est inférieur à 5
+//            if($quantity < 5){
+//                // $this->get() => accède au conteneur du service
+//                // la methode notify sera exécuté avec un message
+//                $this->get('store.backend.notification')
+//                    ->notify($product->getId(),
+//                        "La quantité du produit ".$product->getTitle()." est faible",
+//                        "product",
+//                        "warning"
+//                    );
+//
+//            }
+//
+//            // si ma quantité de produit est inférieur à 5
+//            if($id->getQuantity() == 1){
+//                // $this->get() => accède au conteneur du service
+//                // la methode notify sera exécuté avec un message
+//                $this->get('store.backend.notification')
+//                    ->notify($id->getId(),
+//                        "Encore une vente et votre produit ".$id->getTitle()." est épuisé.",
+//                        "product",
+//                        "danger"
+//                    );
+//            }
 
             if($quantity == 1 ){
                 $this->get('session')->getFlashBag()->add(
@@ -205,12 +222,34 @@ class ProductController extends Controller{
             $em->persist($id);
             $em->flush();
 
-            // si ma quantité de produit est inférieur à 5
-            if($id->getQuantity() < 5){
-                // $this->get() => accède au conteneur du service
-                // la methode notify sera exécuté avec un message
-                $this->get('store.backend.notification')->notify('Attention votre produit '.$id->getTitle().' est bientôt épuisé', 'danger');
+//            // si ma quantité de produit est inférieur à 5
+//            if($id->getQuantity() == 1){
+//                // $this->get() => accède au conteneur du service
+//                // la methode notify sera exécuté avec un message
+//                $this->get('store.backend.notification')
+//                    ->notify($id->getId(),
+//                        "Encore une vente et votre produit ".$id->getTitle()." est épuisé.",
+//                        "product",
+//                        "danger"
+//                    );
+//            }
+//            // si ma quantité de produit est inférieur à 5
+//            elseif($id->getQuantity() < 5){
+//                // $this->get() => accède au conteneur du service
+//                // la methode notify sera exécuté avec un message
+//                $this->get('store.backend.notification')
+//                    ->notify($id->getId(),
+//                        "Attention, votre produit ".$id->getTitle()." est bientôt épuisée.",
+//                        "product",
+//                        "warning"
+//                    );
+//            }
 
+            if($id->getQuantity() == 1 ){
+                $this->get('session')->getFlashBag()->add(
+                    'warning',
+                    'Votre bijoux '.$id->getTitle().' est un produit unique !'
+                );
             }
 
             return $this->redirectToRoute('store_backend_product_list');

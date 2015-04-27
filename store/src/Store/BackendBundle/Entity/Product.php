@@ -402,7 +402,7 @@ class Product
         $this->price = 0;
 
         $this->dateCreated = new \DateTime('now');
-        $this->dateUpdated = new \DateTime('now');
+        $this->dateUpdated = NULL;
 
         $this->user = new \Doctrine\Common\Collections\ArrayCollection();
         $this->order = new \Doctrine\Common\Collections\ArrayCollection();
