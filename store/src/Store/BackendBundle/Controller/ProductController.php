@@ -196,6 +196,11 @@ class ProductController extends Controller{
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * is_granted
+     * 1er argument: attribut à vide
+     * 2eme argument Objet: Produit
+     * @Security("is_granted('',id)")
      */
     public function editAction(Request $request, Product $id){
 

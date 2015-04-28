@@ -1,0 +1,38 @@
+<li class="nav-icon-btn nav-icon-btn-warning dropdown">
+    <a href="#orders" class="dropdown-toggle" data-toggle="dropdown">
+        <span class="label">{{ orders|length }}</span>
+        <i class="nav-icon fa fa-shopping-cart"></i>
+        <span class="small-screen-text">Commandes reçus</span>
+    </a>
+
+    <!-- MESSAGES -->
+
+    <!-- Javascript -->
+    <script>
+        init.push(function () {
+            $('#main-navbar-orders').slimScroll({ height: 250 });
+        });
+    </script>
+    <!-- / Javascript -->
+
+    <div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
+        <div class="messages-list" id="main-navbar-orders">
+
+        {% for order in orders %}
+            <div class="message">
+                <a href="#" class="message-subject">{{ order.address }}</a>
+                <div class="message-description">
+                    de <a href="#">{{ order.user.email }}</a>
+                    &nbsp;&nbsp;·&nbsp;&nbsp;
+                    {{ order.date|date('d/m/Y') }}
+                </div>
+            </div>
+        {% endfor %}
+            <!-- / .message -->
+
+        </div>
+        <!-- / .messages-list -->
+        <a href="#" class="messages-link">Plus de commandes</a>
+    </div>
+    <!-- / .dropdown-menu -->
+</li>

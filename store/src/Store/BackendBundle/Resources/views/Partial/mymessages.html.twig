@@ -1,0 +1,38 @@
+<li class="nav-icon-btn nav-icon-btn-success dropdown">
+    <a href="#messages" class="dropdown-toggle" data-toggle="dropdown">
+        <span class="label">{{ messages|length }}</span>
+        <i class="nav-icon fa fa-envelope"></i>
+        <span class="small-screen-text">Messages reçus</span>
+    </a>
+
+    <!-- MESSAGES -->
+
+    <!-- Javascript -->
+    <script>
+        init.push(function () {
+            $('#main-navbar-messages').slimScroll({ height: 250 });
+        });
+    </script>
+    <!-- / Javascript -->
+
+    <div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
+        <div class="messages-list" id="main-navbar-messages">
+
+        {% for message in messages %}
+            <div class="message">
+                <a href="#" class="message-subject">{{ message.content }}</a>
+                <div class="message-description">
+                    de <a href="#">{{ message.user.email }}</a>
+                    &nbsp;&nbsp;·&nbsp;&nbsp;
+                    {{ message.dateCreated|date('d/m/Y') }}
+                </div>
+            </div>
+        {% endfor %}
+            <!-- / .message -->
+
+        </div>
+        <!-- / .messages-list -->
+        <a href="#" class="messages-link">Plus de messages</a>
+    </div>
+    <!-- / .dropdown-menu -->
+</li>

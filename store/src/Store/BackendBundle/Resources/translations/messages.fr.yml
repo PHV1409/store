@@ -1,0 +1,15 @@
+# je vais pouvoir traduire mes textes de vues et mes textes de controllers
+cms:
+  list:
+    title: Pages CMS pour produit
+    nb: 'Il y a %count% page trouvé | Il y a %count% pages trouvées'
+    table:
+      th:
+        img: Image
+        title: Titre
+        summary: Résumé
+        description: Description
+        product: Produit
+        state: Etat
+        active: Active
+        actions: Actions

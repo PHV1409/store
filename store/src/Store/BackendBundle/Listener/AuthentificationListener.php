@@ -2,6 +2,7 @@
 namespace Store\BackendBundle\Listener;
 
 use Doctrine\ORM\EntityManager;
+use Store\BackendBundle\Notification\Notification;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
@@ -57,7 +58,7 @@ class AuthentificationListener {
 
         // récupère tous les produits  de l'utilisateur via le repository ProductRepository et
         // qui va récupéré les produits de l'utilisateur dont la quantité < 5
-        $products = $this->getRepository('StoreBackendBundle:Product')->getProductQuantityIsLower($user);
+        $products = $this->em->getRepository('StoreBackendBundle:Product')->getProductQuantityIsLower($user);
 
         // je déclare une notification dans mes produits
         // pour chaque produit
@@ -65,13 +66,13 @@ class AuthentificationListener {
             // si la quantité du produit est égale à 1
             if($product->getQuantity() == 1){
                 $this->notification->notify($product->getId(),
-                    'Il ne vous reste plus qu\'un seul exemplaire de votre produit' .$entitygetTitle().'.',
+                    'Il ne vous reste plus qu\'un seul exemplaire de votre produit' .$product->getTitle().'.',
                     'product',
                     'danger'
                 );
             }else{
                 $this->notification->notify($product->getId(),
-                    'Attention, votre produit ' .$entitygetTitle().' est bientôt épuisé.',
+                    'Attention, votre produit ' .$product->getTitle().' est bientôt épuisé.',
                     'product',
                     'warning'
                 );

@@ -116,4 +116,26 @@ class OrdersRepository extends EntityRepository{
     }
 
 
+    /**
+     * récupère les commandes de l'utilisateur
+     * @param $user
+     * @param int $limit
+     * @return mixed
+     */
+    public function getLastOrdersByUser($user, $limit = null){
+        $query = $this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT o
+                FROM StoreBackendBundle:Orders o
+                WHERE o.jeweler = :user
+                ORDER BY o.id DESC
+                "
+            )
+            ->setParameter('user', $user)
+            ->setMaxResults($limit);
+        return $query->getResult();
+    }
+
+
 } 

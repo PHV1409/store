@@ -115,45 +115,19 @@
         </div>
         <!-- / .dropdown-menu -->
     </li>
-    <li class="nav-icon-btn nav-icon-btn-success dropdown">
-        <a href="#messages" class="dropdown-toggle" data-toggle="dropdown">
-            <span class="label">10</span>
-            <i class="nav-icon fa fa-envelope"></i>
-            <span class="small-screen-text">Income messages</span>
-        </a>
 
-        <!-- MESSAGES -->
+    {# Inclure mes messages depuis le controller #}
+    {# render() va appeler le controller Layout et son action messages #}
+    {# A la différence de Include qui va inclure une vue statique,
+       render() va appeler dynamiquement un controller et une action de controller
+    #}
+        {{ render(controller('StoreBackendBundle:Layout:mymessages')) }}
 
-        <!-- Javascript -->
-        <script>
-            init.push(function () {
-                $('#main-navbar-messages').slimScroll({ height: 250 });
-            });
-        </script>
-        <!-- / Javascript -->
 
-        <div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
-            <div class="messages-list" id="main-navbar-messages">
+        {{ render(controller('StoreBackendBundle:Layout:myorders')) }}
 
-                <div class="message">
-                    <img src="assets/demo/avatars/2.jpg" alt="" class="message-avatar">
-                    <a href="#" class="message-subject">Lorem ipsum dolor sit amet.</a>
-
-                    <div class="message-description">
-                        from <a href="#">Robert Jang</a>
-                        &nbsp;&nbsp;·&nbsp;&nbsp;
-                        2h ago
-                    </div>
-                </div>
-                <!-- / .message -->
-
-            </div>
-            <!-- / .messages-list -->
-            <a href="#" class="messages-link">MORE MESSAGES</a>
-        </div>
-        <!-- / .dropdown-menu -->
-    </li>
     <!-- /3. $END_NAVBAR_ICON_BUTTONS -->
+
     <li>
         <form class="navbar-form pull-left">
             <input type="text" class="form-control" placeholder="Search">

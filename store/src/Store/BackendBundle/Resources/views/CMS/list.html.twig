@@ -1,10 +1,21 @@
 {% extends "StoreBackendBundle::layout.html.twig" %}
 
 {% block titlepage %}
-    CMS
+    {# le filtre trans de Twig va me chercher la traduction pour le texte Page CMS #}
+    <i class="menu-icon fa fa-pencil"></i> {{  "cms.list.title"|trans }}
 {% endblock %}
 
 {% block content %}
+
+    <div class="row">
+        <div class="pull-right">
+            {# la variable locale que j'envoi en paramètre dans ma route sera la langue affectée à mon utilisateur #}
+            <a href="{{  path('store_backend_cms_list', {'_locale': 'en'}) }}"
+               class="btn btn-primary btn-outline {% if app.request.get('_locale') == 'en' %} active {% endif %}"> Anglais </a>
+            <a href="{{  path('store_backend_cms_list', {'_locale': 'fr'}) }}"
+               class="btn btn-primary btn-outline {% if app.request.get('_locale') == 'fr' %} active {% endif %}"> Français </a>
+        </div>
+    </div>
 
 <div class="panel">
     <div class="table-primary">
@@ -16,18 +27,22 @@
                 </a>
             </div>
         </div>
+        <div class="alert alert-info alert-dark">
+            {# Filtre: transchoice permet de choisir la traduction en fonction du nombre que je lui donne #}
+            {{ "cms.list.nb"|transchoice(pages|length) }}
+        </div>
         <table class="table table-bordered">
             <thead>
             <tr>
                 <th>#</th>
-                <th>img</th>
-                <th>Titre</th>
-                <th>Résumé</th>
-                <th>Description</th>
-                <th>Produits</th>
-                <th>Etat</th>
-                <th>Actif</th>
-                <th>Actions</th>
+                <th>{{ "cms.list.table.th.img"|trans }}</th>
+                <th>{{ "cms.list.table.th.title"|trans }}</th>
+                <th>{{ "cms.list.table.th.summary"|trans }}</th>
+                <th>{{ "cms.list.table.th.description"|trans }}</th>
+                <th>{{ "cms.list.table.th.product"|trans }}</th>
+                <th>{{ "cms.list.table.th.state"|trans }}</th>
+                <th>{{ "cms.list.table.th.active"|trans }}</th>
+                <th>{{ "cms.list.table.th.actions"|trans }}</th>
             </tr>
             </thead>
             <tbody>

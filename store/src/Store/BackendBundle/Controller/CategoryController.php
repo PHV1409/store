@@ -8,6 +8,8 @@ use Store\BackendBundle\Form\CategoryType;
 Use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 /**
  * Class CategoryController
  * @package Store\BackendBundle\Controller
@@ -119,6 +121,10 @@ class CategoryController extends Controller{
      * Param Converter pour convertir un int en objet Categorie directement
      * Je récupère l'objet Request qui contient toutes mes données en GET, POST ...
      *
+     * is_granted
+     * 1er argument: attribut à vide
+     * 2eme argument Objet: Produit
+     * @Security("is_granted('',id)")
      */
     public function editAction(Request $request,Category $id){
 

@@ -66,10 +66,10 @@ class ProductRepository extends EntityRepository{
             ->createQuery(
                 "SELECT p
                 FROM StoreBackendBundle:Product p
-                WHERE p.jeweler = : jeweler
+                WHERE p.jeweler = :jeweler
                 AND p.quantity < 5"
             )
-            ->setParameters('jeweler', $user);
+            ->setParameter('jeweler', $user);
 
         return $query->getResult();
     }
