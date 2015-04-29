@@ -46,7 +46,6 @@ class LayoutController extends Controller{
      */
     public function myordersAction(){
 
-
         // je récupère l'entity manager
         $em = $this->getDoctrine()->getManager();
 

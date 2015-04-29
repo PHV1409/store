@@ -1,0 +1,18 @@
+cms:
+  form:
+    validation:
+      title:
+        notblank: Your title must not be empty
+        length:
+          min: Your headline must be at least {{ limit }} characters
+          max: Your title should contain no more than {{ limit }} characters
+      summary:
+        notblank: Your summary must not be empty
+        length:
+          min: Your summary must be at least {{ limit }} characters
+          max: Your summary should contain no more than {{ limit }} characters
+      description:
+        notblank: Your description must not be empty
+        length:
+          min: Your description must be at least {{ limit }} characters
+          max: Your description should contain no more than {{ limit }} characters

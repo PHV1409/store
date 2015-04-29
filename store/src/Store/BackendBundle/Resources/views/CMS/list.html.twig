@@ -1,14 +1,20 @@
 {% extends "StoreBackendBundle::layout.html.twig" %}
 
+{% trans_default_domain "cms" %}
+
 {% block titlepage %}
     {# le filtre trans de Twig va me chercher la traduction pour le texte Page CMS #}
-    <i class="menu-icon fa fa-pencil"></i> {{  "cms.list.title"|trans }}
+    <i class="menu-icon fa fa-pencil"></i> {{ "cms.list.title"|trans }}
 {% endblock %}
 
 {% block content %}
 
+    <div class="alert alert-info alert-dark">
+        {{ pages.getTotalItemCount }} pages trouvés
+    </div>
     <div class="row">
         <div class="pull-right">
+            <p>{{ "list.choice"|trans({'%username%': app.user.username}, "messages") }}</p>
             {# la variable locale que j'envoi en paramètre dans ma route sera la langue affectée à mon utilisateur #}
             <a href="{{  path('store_backend_cms_list', {'_locale': 'en'}) }}"
                class="btn btn-primary btn-outline {% if app.request.get('_locale') == 'en' %} active {% endif %}"> Anglais </a>
@@ -29,7 +35,7 @@
         </div>
         <div class="alert alert-info alert-dark">
             {# Filtre: transchoice permet de choisir la traduction en fonction du nombre que je lui donne #}
-            {{ "cms.list.nb"|transchoice(pages|length) }}
+            {{ "list.nb"|transchoice(pages|length, {},"messages") }}
         </div>
         <table class="table table-bordered">
             <thead>
@@ -63,17 +69,17 @@
                 </td>
                 <td>
                     {% if page.state == 2 %}
-                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 2}) }}" class="btn btn-success disabled" >Lu</a>
-                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 1}) }}" class="btn btn-default">En cours de lecture</a>
-                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 0}) }}" class="btn btn-default">Non lu</a>
+                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 2}) }}" class="btn btn-success disabled" >{{  "list.table.td.read"|trans({},"messages") }}</a>
+                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 1}) }}" class="btn btn-default">{{  "list.table.td.inwaiting"|trans({},"messages") }}</a>
+                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 0}) }}" class="btn btn-default">{{  "list.table.td.unread"|trans({},"messages") }}</a>
                     {% elseif page.state == 1 %}
-                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 2}) }}" class="btn btn-default" >Lu</a>
-                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 1}) }}" class="btn btn-info disabled">En cours de lecture</a>
-                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 0}) }}" class="btn btn-default">Non lu</a>
+                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 2}) }}" class="btn btn-default" >{{  "list.table.td.read"|trans({},"messages") }}</a>
+                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 1}) }}" class="btn btn-info disabled">{{  "list.table.td.inwaiting"|trans({},"messages") }}</a>
+                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 0}) }}" class="btn btn-default">{{  "list.table.td.unread"|trans({},"messages") }}</a>
                     {% else %}
-                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 2}) }}" class="btn btn-default" >Lu</a>
-                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 1}) }}" class="btn btn-default">En cours de lecture</a>
-                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 0}) }}" class="btn btn-danger disabled">Non lu</a>
+                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 2}) }}" class="btn btn-default" >{{  "list.table.td.read"|trans({},"messages") }}</a>
+                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 1}) }}" class="btn btn-default">{{  "list.table.td.inwaiting"|trans({},"messages") }}</a>
+                        <a href="{{ path('store_backend_cms_state', {'id' : page.id, 'action' : 0}) }}" class="btn btn-danger disabled">{{  "list.table.td.unread"|trans({},"messages") }}</a>
                     {% endif %}
                 </td>
                 <td>
@@ -91,10 +97,10 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Actions <i class="fa fa-caret-down"></i> </button>
                         <ul class="dropdown-menu">
-                            <li> <a href="{{ path('store_backend_cms_view', {'title' : page.title, 'id' : page.id } ) }}"><i class="fa fa-eye"></i> Voir </a></li>
-                            <li> <a href="{{ path('store_backend_cms_edit', {'id' : page.id } ) }}"><i class="fa fa-pencil"></i> Editer </a></li>
+                            <li> <a href="{{ path('store_backend_cms_view', {'title' : page.title, 'id' : page.id } ) }}"><i class="fa fa-eye"></i> {{  "list.table.td.see"|trans({},"messages") }}</a></li>
+                            <li> <a href="{{ path('store_backend_cms_edit', {'id' : page.id } ) }}"><i class="fa fa-pencil"></i> {{  "list.table.td.edit"|trans({},"messages") }}</a></li>
                             <li class="divider"></li>
-                            <li> <a href="{{ path('store_backend_cms_remove', { 'id' : page.id } ) }}"><i class="fa fa-times"></i> Supprimer </a></li>
+                            <li> <a href="{{ path('store_backend_cms_remove', { 'id' : page.id } ) }}"><i class="fa fa-times"></i> {{  "list.table.td.remove"|trans({},"messages") }}</a></li>
                         </ul>
                     </div>
                 </td>
@@ -104,7 +110,9 @@
             </tbody>
         </table>
         <div class="table-footer">
-            Footer
+            <div class="navigation">
+                {{ knp_pagination_render(pages) }}
+            </div>
         </div>
     </div>
 </div>

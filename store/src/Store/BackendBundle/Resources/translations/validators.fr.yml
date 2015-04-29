@@ -1,0 +1,18 @@
+cms:
+  form:
+    validation:
+      title:
+        notblank: Votre titre ne doit pas être vide
+        length:
+          min: Votre titre doit comporter au moins {{ limit }} caractères
+          max: Votre titre doit comporter au plus {{ limit }} caractères
+      summary:
+        notblank: Votre résumé ne doit pas être vide
+        length:
+          min: Votre résumé doit comporter au moins {{ limit }} caractères
+          max: Votre résumé doit comporter au plus {{ limit }} caractères
+      description:
+        notblank: Votre description ne doit pas être vide
+        length:
+          min: Votre description doit comporter au moins {{ limit }} caractères
+          max: Votre description doit comporter au plus {{ limit }} caractères

@@ -6,6 +6,10 @@
 
 {% block content %}
 
+    <div class="alert alert-info alert-dark">
+        {{ products.getTotalItemCount }} produits trouvés
+    </div>
+
 <div class="panel">
     <div class="table-primary">
         <div class="table-header">
@@ -19,16 +23,19 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>#</th>
-                <th>Titre</th>
-                <th>Actif</th>
-                <th>En couverture</th>
-                <th>Ref</th>
-                <th>Catégorie</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Taxe</th>
-                <th>Quantité</th>
+                {# 1er argument, le tableau de produits,
+                le 2eme argument le label de la colonne,
+                le 3eme argument la colonne sur laquelle  le tri va s'effectuer #}
+                <th>{{ knp_pagination_sortable(products, 'Id', 'p.id' )|raw }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Title', 'p.title' )|raw }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Actif', 'p.active' )|raw }}</th>
+                <th>{{ knp_pagination_sortable(products, 'En couverture', 'p.cover' )|raw }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Ref', 'p.ref' )|raw }}</th>
+                <th>Catégories</th>
+                <th>{{ knp_pagination_sortable(products, 'Description', 'p.description' )|raw }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Prix', 'p.price' )|raw }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Taxe', 'p.taxe' )|raw }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Quantité', 'p.quantity' )|raw }}</th>
                 <th>Boutique</th>
                 <th>Image</th>
                 <th>Actions</th>
@@ -106,7 +113,10 @@
             </tbody>
         </table>
     <div class="table-footer">
-        Footer
+
+        <div class="navigation">
+            {{ knp_pagination_render(products) }}
+        </div>
     </div>
 </div>
 </div>

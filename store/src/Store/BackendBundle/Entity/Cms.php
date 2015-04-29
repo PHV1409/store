@@ -25,10 +25,13 @@ class Cms
     /**
      * @var string
      * @Assert\NotBlank(
-     *      message = "Le titre ne doit pas être vide"
+     *      message = "cms.form.validation.title.notblank"
      * )
-     * @Assert\Regex(pattern="/[a-zA-Z0-9- ]{5,}/",
-     *      message = "Le titre n'est pas valide"
+     * @Assert\Length(
+     *      min = "10",
+     *      max = "500",
+     *      minMessage = "cms.form.validation.title.length.min",
+     *      maxMessage = "cms.form.validation.title.length.max"
      * )
      *
      * @ORM\Column(name="title", type="string", length=300, nullable=true)
@@ -38,13 +41,13 @@ class Cms
     /**
      * @var string
      * @Assert\NotBlank(
-     *      message = "Le résumé ne doit pas être vide"
+     *      message = "cms.form.validation.summary.notblank"
      * )
      * @Assert\Length(
      *      min = "10",
      *      max = "500",
-     *      minMessage = "Votre résumé doit être au moins de {{ limit }} caractères",
-     *      maxMessage = "Votre résumé ne peut être plus long que {{ limit }} caractères",
+     *      minMessage = "cms.form.validation.summary.length.min",
+     *      maxMessage = "cms.form.validation.summary.length.max"
      * )
      * @StoreAssert\StripTagLength(
      *      groups={"edit", "new"}
@@ -57,13 +60,13 @@ class Cms
     /**
      * @var string
      * @Assert\NotBlank(
-     *      message = "Le résumé ne doit pas être vide"
+     *      message = "cms.form.validation.description.notblank"
      * )
      * @Assert\Length(
      *      min = "15",
      *      max = "500",
-     *      minMessage = "Votre résumé doit être au moins de {{ limit }} caractères",
-     *      maxMessage = "Votre résumé ne peut être plus long que {{ limit }} caractères",
+     *      minMessage = "cms.form.validation.description.length.min",
+     *      maxMessage = "cms.form.validation.description.length.max"
      * )
      * @StoreAssert\StripTagLength(
      *      groups={"edit", "new"}

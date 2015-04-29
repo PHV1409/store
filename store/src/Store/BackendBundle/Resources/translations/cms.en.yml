@@ -1,0 +1,26 @@
+# je vais pouvoir traduire mes textes de vues et mes textes de controllers
+cms:
+  form:
+    placeholder:
+      title : Write a neat title
+    title: Title of my CMS page
+    summary: descriptive summary
+    description: long description
+    image: image
+    video: video
+    activedate: active date
+    state: state
+  flashdatas:
+    activate: Your CMS has been activeted
+  list:
+    title: Pages CMS for my products
+    table:
+      th:
+        img: Image
+        title: Title
+        summary: Summary
+        description: Description
+        product: Products
+        state: State
+        active: Activate
+        actions: Actions

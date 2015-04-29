@@ -28,10 +28,10 @@ class ProductController extends Controller{
      * a le role commercial
      * @Security("has_role('ROLE_COMMERCIAL')")
      *
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
-    public function listAction(){
+    public function listAction(Request $request){
 
         // Méthode numéro 1 : restreindre l'accès au niveau de mon action de controller
         // restreindre l'accès au niveau de ma méthode de controller
@@ -48,10 +48,23 @@ class ProductController extends Controller{
         // Je récupère tous les produits de jeweler numéro 1
         $products = $em->getRepository('StoreBackendBundle:Product')->getProductByUser($user); // Nom du Bundle: Nom de l'entité
 
+        //Paginer mes produits
+        // Je récupère le service knp paginator qui me sert a paginer
+        $paginator = $this->get('knp_paginator');
+
+        // j'utilise la méthode paginate() du service knp paginator
+        $pagination = $paginator->paginate(
+            $products,  // je lui envoie mon tableau de produits
+            $request->query->get('page', 1),
+        // récupérer le numéro de page sur lequel
+        // je me trouve, par defaut il prendra la page numéro 1
+        5 // je limite à 5 mes résultats de produits (5par page)
+        );
+
         // Requête: SELECT * FROM product
         // Je retourne la vue List contenue dans le dossier Product de mon Bundle StoreBackendBundle
         return $this->render('StoreBackendBundle:Product:list.html.twig',array(
-            'products' => $products
+            'products' => $pagination
         ));
 
     }

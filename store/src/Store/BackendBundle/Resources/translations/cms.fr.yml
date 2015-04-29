@@ -1,0 +1,26 @@
+# je vais pouvoir traduire mes textes de vues et mes textes de controllers
+cms:
+  form:
+    placeholder:
+      title : Ecrire un titre soignée
+    title: Nom de la page CMS
+    summary: descriptif résumé
+    description: description longue
+    image: image
+    video: video
+    activedate: date active
+    state: état
+  flashdatas:
+    activate: Votre CMS a bien été activé
+  list:
+    title: Pages CMS pour produit
+    table:
+      th:
+        img: Image
+        title: Titre
+        summary: Résumé
+        description: Description
+        product: Produit
+        state: Etat
+        active: Active
+        actions: Actions

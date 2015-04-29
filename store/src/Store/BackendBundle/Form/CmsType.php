@@ -15,21 +15,20 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CmsType extends AbstractType{
 
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', null, array(
-            'label' => 'Nom de la page CMS',
+            'label' => 'cms.form.title',
             'required' => true,
             'attr'  => array(
                 'class'         => 'form-control',
-                'placeholder'   => 'Mettre un titre soigné',
+                'placeholder'   => 'cms.form.placeholder.title',
                 'pattern'       => '[a-zA-Z0-9- ]{5,}',
             )
         ));
 
         $builder->add('summary', null, array(
-            'label' => 'descriptif résumé', // label de mon champ
+            'label' => 'cms.form.summary', // label de mon champ
             'attr'  => array(
                 'class' => 'form-control',
                 'placeholder'   => 'Description résumée de la page CMS',
@@ -37,7 +36,7 @@ class CmsType extends AbstractType{
         ));
 
         $builder->add('description', null, array(
-            'label' => 'description longue', // label de mon champ
+            'label' => 'cms.form.description', // label de mon champ
             'attr'  => array(
                 'class' => 'form-control',
                 'placeholder'   => 'Description longue de la catégorie',
@@ -46,13 +45,14 @@ class CmsType extends AbstractType{
 
 
         $builder->add('image', 'text', array(
-            'label' => 'image', // label de mon champ
+            'label' => 'cms.form.image', // label de mon champ
             'attr'  => array(
                 'class' => 'form-control',
                 'placeholder'   => 'http://',
             )
         ));
         $builder->add('dateActive', 'date', array(
+            'label' => 'cms.form.activedate',
 //            'widget' => 'text',
 //            'pattern'  => '{{ day }}--{{ month }}--{{ year }}',
             'widget' => 'single_text',
@@ -61,7 +61,7 @@ class CmsType extends AbstractType{
         ));
 
         $builder->add('video', null, array(
-            'label' => 'video', // label de mon champ
+            'label' => 'cms.form.video', // label de mon champ
             'attr'  => array(
                 'class' => 'form-control',
                 'placeholder'   => 'Placez votre iframe ici',
@@ -73,7 +73,7 @@ class CmsType extends AbstractType{
         $builder->add('state', 'choice', array(
             'choices' => array('0'=>'Inactif', '1' => 'En cours de relecture', '2' => 'En ligne'),
             'required'  => false,
-            'label' => 'Etat', // label de mon champ
+            'label' => 'cms.form.state', // label de mon champ
             'attr'  => array(
                 'class' => 'form-control',
             )
@@ -123,6 +123,7 @@ class CmsType extends AbstractType{
     {
         $resolver->setDefaults(array(
             'data_class' => 'Store\BackendBundle\Entity\Cms',
+            'translation_domain' => 'cms'
         ));
     }
 

@@ -16,20 +16,36 @@ use Symfony\Component\HttpFoundation\Request;
 class CMSController extends Controller{
 
     /**
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction(){
+    public function listAction(Request $request){
 
         // recupère le manager de doctrine : le conteneur d'objet
         $em = $this->getDoctrine()->getManager();
 
+        $user = $this->getUser();
+
         // Je récupère tous les catégories de ma base de données
-        $pages = $em->getRepository('StoreBackendBundle:Cms')->findAll(); // Nom du Bundle: Nom de l'entité
+        $pages = $em->getRepository('StoreBackendBundle:Cms')->getCmsByUser($user); // Nom du Bundle: Nom de l'entité
+
+        //Paginer mes produits
+        // Je récupère le service knp paginator qui me sert a paginer
+        $paginator = $this->get('knp_paginator');
+
+        // j'utilise la méthode paginate() du service knp paginator
+        $pagination = $paginator->paginate(
+            $pages,  // je lui envoie mon tableau de produits
+            $request->query->get('page', 1),
+            // récupérer le numéro de page sur lequel
+            // je me trouve, par defaut il prendra la page numéro 1
+            5 // je limite à 5 mes résultats de produits (5par page)
+        );
 
         // Requête: SELECT * FROM product
         // Je retourne la vue List contenue dans le dossier Category de mon Bundle StoreBackendBundle
         return $this->render('StoreBackendBundle:CMS:list.html.twig',array(
-            'pages' => $pages
+            'pages' => $pagination
         ));
     }
 
@@ -53,7 +69,6 @@ class CMSController extends Controller{
             )
         );
     }
-
 
     public function removeAction($id){
 
@@ -161,9 +176,10 @@ class CMSController extends Controller{
 
         // je cré un message flash avec pour clef "success"
         // et un message de confirmation
+        // message en dure : 'Votre PAGE CMS a bien été activé'
         $this->get('session')->getFlashBag()->add(
             'success',
-            'Votre PAGE CMS a bien été activé'
+            $this->get('translator')->trans('cms.flashdatas.activate', array(),'cms')
         );
         return $this->redirectToRoute('store_backend_cms_list'); //redirect
     }
