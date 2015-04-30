@@ -23,12 +23,10 @@ class LoadCategoryData implements FixtureInterface{
         $categorie->setTitle('Colliers magnifiques');
         $categorie->setDescription('Jolie description de vos magnifiques colliers');
 
-
         // ma 2eme catégorie
         $categorie2 = new Category();
         $categorie2->setTitle('Colliers magnifiques');
         $categorie2->setDescription('Jolie description complète de vos bracelets glamours');
-
 
         // mon 1ere produit
         $product = new Product();
